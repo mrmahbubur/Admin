@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --bg-page: #fafafa;
+  --bg-card: #ffffff;
+  --bg-subtle: #f4f4f5;
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+  --border-color: #e4e4e7;
+  --border-subtle: #f4f4f5;
+  --accent: #d97706;
+  --accent-light: #fef3c7;
+  --focus-ring: #d97706;
+  --primary: #09090b;
+  --primary-light: #27272a;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg-page: #050505;
+  --bg-card: #0f0f11;
+  --bg-subtle: #18181b;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --border-color: #27272a;
+  --border-subtle: #18181b;
+  --primary: #ffffff;
+  --primary-light: #e4e4e7;
+  --accent: #f59e0b;
+  --accent-light: #451a03;
+  --focus-ring: #f59e0b;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.dark body {
+  letter-spacing: 0.005em;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

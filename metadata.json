@@ -1,0 +1,8 @@
+{
+  "name": "MRS ADMIN – M R S Multiverse",
+  "description": "Welcome to M R S Multiverse. Certified IT support, virtual administrative operations, student earning guidance, CV creation, and web solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

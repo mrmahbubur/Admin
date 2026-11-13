@@ -1,0 +1,242 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#141414" />
+      <stop offset="70%" stop-color="#0a0a0a" />
+      <stop offset="100%" stop-color="#040404" />
+    </radialGradient>
+
+    <!-- Outer Gold Ring Gradient -->
+    <linearGradient id="goldRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fceda4" />
+      <stop offset="25%" stop-color="#d9a334" />
+      <stop offset="50%" stop-color="#946517" />
+      <stop offset="75%" stop-color="#fdf0b0" />
+      <stop offset="100%" stop-color="#b67f1c" />
+    </linearGradient>
+
+    <!-- Inner Gold Accent Gradient -->
+    <linearGradient id="goldLight" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d49b29" />
+      <stop offset="50%" stop-color="#ffec99" />
+      <stop offset="100%" stop-color="#996813" />
+    </linearGradient>
+
+    <!-- Silver Chrome M Gradients -->
+    <linearGradient id="silverLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="40%" stop-color="#e8ecf1" />
+      <stop offset="70%" stop-color="#c1c7d0" />
+      <stop offset="100%" stop-color="#9aa0ab" />
+    </linearGradient>
+    <linearGradient id="silverDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#888f9c" />
+      <stop offset="50%" stop-color="#5a606c" />
+      <stop offset="100%" stop-color="#343840" />
+    </linearGradient>
+
+    <!-- Gold 3D R Gradients -->
+    <linearGradient id="goldMRLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff5b8" />
+      <stop offset="35%" stop-color="#e8b63a" />
+      <stop offset="70%" stop-color="#c78e1b" />
+      <stop offset="100%" stop-color="#8c5d0a" />
+    </linearGradient>
+    <linearGradient id="goldMRDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a47214" />
+      <stop offset="50%" stop-color="#6d4605" />
+      <stop offset="100%" stop-color="#422901" />
+    </linearGradient>
+
+    <!-- Swoosh Gradient -->
+    <linearGradient id="swooshGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fdf3b6" />
+      <stop offset="30%" stop-color="#dfa832" />
+      <stop offset="70%" stop-color="#bc851c" />
+      <stop offset="100%" stop-color="#ffea94" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Circle & Dark Texture -->
+  <circle cx="500" cy="500" r="490" fill="url(#bgGrad)" />
+
+  <!-- Outer Metallic Gold Rings -->
+  <circle cx="500" cy="500" r="478" fill="none" stroke="url(#goldRing)" stroke-width="17" filter="url(#glow)" />
+  <circle cx="500" cy="500" r="464" fill="none" stroke="url(#goldLight)" stroke-width="2.5" opacity="0.75" />
+
+  <!-- ================= 1. ROYAL GOLD CROWN ================= -->
+  <g transform="translate(0, -10)">
+    <!-- Crown Base Circlet -->
+    <path d="M 410,225 C 450,233 550,233 590,225 L 594,236 C 550,245 450,245 406,236 Z" fill="url(#goldRing)" />
+    <!-- Crown Jewels on Base -->
+    <polygon points="450,231 454,235 450,239 446,235" fill="#ffffff" />
+    <polygon points="500,232 505,237 500,242 495,237" fill="#ffffff" />
+    <polygon points="550,231 554,235 550,239 546,235" fill="#ffffff" />
+
+    <!-- Crown Peaks (5 points) -->
+    <!-- Center tall spear -->
+    <path d="M 490,226 L 493,138 L 500,120 L 507,138 L 510,226 Z" fill="url(#goldMRLight)" />
+    <circle cx="500" cy="116" r="6" fill="url(#goldLight)" />
+    <!-- Left Mid Peak -->
+    <path d="M 452,227 L 438,162 L 448,150 L 468,227 Z" fill="url(#goldMRLight)" />
+    <circle cx="448" cy="146" r="4.5" fill="url(#goldLight)" />
+    <!-- Right Mid Peak -->
+    <path d="M 548,227 L 562,162 L 552,150 L 532,227 Z" fill="url(#goldMRLight)" />
+    <circle cx="552" cy="146" r="4.5" fill="url(#goldLight)" />
+    <!-- Left Outer Wing -->
+    <path d="M 412,225 C 405,195 408,172 418,160 C 424,175 428,205 432,227 Z" fill="url(#goldRing)" />
+    <circle cx="418" cy="156" r="4" fill="url(#goldLight)" />
+    <!-- Right Outer Wing -->
+    <path d="M 588,225 C 595,195 592,172 582,160 C 576,175 572,205 568,227 Z" fill="url(#goldRing)" />
+    <circle cx="582" cy="156" r="4" fill="url(#goldLight)" />
+  </g>
+
+  <!-- ================= 2. INTERSECTING "MR" MONOGRAM ================= -->
+  <!-- "M" in Platinum Silver -->
+  <g id="letter-M">
+    <!-- Left vertical stem -->
+    <polygon points="252,252 292,252 292,500 252,500" fill="url(#silverLight)" />
+    <polygon points="272,252 292,252 292,500 272,500" fill="url(#silverDark)" opacity="0.4" />
+    <!-- Left stem serifs -->
+    <polygon points="240,252 304,252 292,264 252,264" fill="url(#silverLight)" />
+    <polygon points="240,500 304,500 292,488 252,488" fill="url(#silverLight)" />
+
+    <!-- Left diagonal going down -->
+    <polygon points="292,252 322,252 422,460 392,460" fill="url(#silverLight)" />
+    <polygon points="307,252 322,252 422,460 407,460" fill="url(#silverDark)" opacity="0.5" />
+
+    <!-- Right diagonal going up -->
+    <polygon points="392,460 422,460 522,252 492,252" fill="url(#silverDark)" opacity="0.3" />
+    <polygon points="407,460 422,460 522,252 507,252" fill="url(#silverLight)" />
+
+    <!-- Middle vertical stem connecting with R -->
+    <polygon points="496,252 542,252 542,500 496,500" fill="url(#silverLight)" />
+    <polygon points="519,252 542,252 542,500 519,500" fill="url(#silverDark)" opacity="0.4" />
+    <!-- Serifs on M center -->
+    <polygon points="484,252 554,252 542,264 496,264" fill="url(#silverLight)" />
+    <polygon points="484,500 554,500 542,488 496,488" fill="url(#silverLight)" />
+  </g>
+
+  <!-- "R" in Rich 3D Gold -->
+  <g id="letter-R">
+    <!-- Vertical stem / joint with M -->
+    <polygon points="500,252 544,252 544,500 500,500" fill="url(#goldMRLight)" />
+    <polygon points="522,252 544,252 544,500 522,500" fill="url(#goldMRDark)" opacity="0.45" />
+
+    <!-- Upper Loop of R -->
+    <!-- Outer curve of loop -->
+    <path d="M 544,252 C 670,252 740,290 740,365 C 740,430 680,470 544,470 L 544,425 C 640,425 685,400 685,365 C 685,320 635,295 544,295 Z" fill="url(#goldMRLight)" />
+    <!-- Inner bevel shading for loop -->
+    <path d="M 544,252 C 607,252 740,290 740,365 C 740,400 705,445 614,460 L 584,460 C 670,440 685,390 685,365 C 685,320 635,295 544,295 Z" fill="url(#goldMRDark)" opacity="0.4" />
+
+    <!-- Sweeping Leg of R -->
+    <!-- Diagonal flare leg -->
+    <path d="M 570,440 C 600,440 630,460 670,515 C 700,555 745,585 780,528 C 760,545 730,535 710,500 C 670,430 630,410 570,410 Z" fill="url(#goldMRLight)" />
+    <path d="M 570,425 C 600,425 630,450 670,505 C 700,545 745,565 770,528 C 750,540 730,530 710,500 C 670,430 630,425 570,425 Z" fill="url(#goldMRDark)" opacity="0.35" />
+  </g>
+
+  <!-- Dynamic Golden Swoosh across M and behind R -->
+  <path d="M 215,508 C 280,522 360,490 440,452 C 550,400 670,320 786,346 C 755,365 650,425 530,475 C 430,518 310,550 215,508 Z" fill="url(#swooshGrad)" filter="url(#glow)" />
+
+  <!-- ================= 3. DOMAIN ICON CAPSULES & DIVIDER ================= -->
+  <!-- Horizontal Thin Gold Divider Line -->
+  <line x1="150" y1="640" x2="850" y2="640" stroke="url(#goldRing)" stroke-width="1.8" opacity="0.75" />
+
+  <!-- 5 Vertical Tick Separators -->
+  <line x1="295" y1="570" x2="295" y2="635" stroke="url(#goldLight)" stroke-width="1.2" opacity="0.5" />
+  <line x1="430" y1="570" x2="430" y2="635" stroke="url(#goldLight)" stroke-width="1.2" opacity="0.5" />
+  <line x1="570" y1="570" x2="570" y2="635" stroke="url(#goldLight)" stroke-width="1.2" opacity="0.5" />
+  <line x1="712" y1="570" x2="712" y2="635" stroke="url(#goldLight)" stroke-width="1.2" opacity="0.5" />
+
+  <!-- 1. DEVELOPMENT </ > (cx=225) -->
+  <g transform="translate(225, 595)">
+    <rect x="-35" y="-22" width="70" height="42" rx="4" fill="none" stroke="url(#goldRing)" stroke-width="2" />
+    <path d="M -16,-5 L -24,0 L -16,5 M 16,-5 L 24,0 L 16,5 M 6,-10 L -6,10" fill="none" stroke="url(#goldLight)" stroke-width="2.5" stroke-linecap="round" />
+    <text x="0" y="38" text-anchor="middle" fill="#d9a334" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">DEVELOPMENT</text>
+  </g>
+
+  <!-- 2. AI & TECH (cx=362) -->
+  <g transform="translate(362, 595)">
+    <!-- Stylized Circuit Brain -->
+    <circle cx="0" cy="-2" r="15" fill="none" stroke="url(#goldRing)" stroke-width="2" />
+    <path d="M -6,-10 C -12,-5 -12,2 -6,7 M 6,-10 C 12,-5 12,2 6,7 M -6,-2 L 6,-2 M 0,-15 L 0,11" fill="none" stroke="url(#goldLight)" stroke-width="1.8" />
+    <circle cx="-4" cy="-5" r="2" fill="#ffec99" />
+    <circle cx="4" cy="-5" r="2" fill="#ffec99" />
+    <circle cx="0" cy="5" r="2" fill="#ffec99" />
+    <text x="0" y="38" text-anchor="middle" fill="#d9a334" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">AI &amp; TECH</text>
+  </g>
+
+  <!-- 3. TRADING (cx=500) -->
+  <g transform="translate(500, 595)">
+    <!-- Rising Chart with Upward Arrow -->
+    <rect x="-18" y="2" width="6" height="12" fill="url(#goldLight)" />
+    <rect x="-7" y="-4" width="6" height="18" fill="url(#goldLight)" />
+    <rect x="4" y="-12" width="6" height="26" fill="url(#goldLight)" />
+    <path d="M -22,4 L -5,-6 L 10,-18 M 10,-18 L 1,-18 M 10,-18 L 10,-9" fill="none" stroke="url(#goldRing)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="0" y="38" text-anchor="middle" fill="#d9a334" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">TRADING</text>
+  </g>
+
+  <!-- 4. DIGITAL SOLUTIONS (cx=641) -->
+  <g transform="translate(641, 595)">
+    <!-- Cloud with Database Server -->
+    <path d="M -16,4 C -22,4 -24,-2 -19,-7 C -18,-15 -7,-18 -2,-13 C 2,-18 14,-17 18,-10 C 24,-8 23,4 17,4 Z" fill="none" stroke="url(#goldRing)" stroke-width="2" />
+    <line x1="-10" y1="-2" x2="10" y2="-2" stroke="url(#goldLight)" stroke-width="2" />
+    <line x1="-10" y1="2" x2="10" y2="2" stroke="url(#goldLight)" stroke-width="2" />
+    <text x="0" y="38" text-anchor="middle" fill="#d9a334" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.2">DIGITAL SOLUTIONS</text>
+  </g>
+
+  <!-- 5. SELF IMPROVEMENT (cx=781) -->
+  <g transform="translate(781, 595)">
+    <!-- Bullseye Target with Arrow -->
+    <circle cx="0" cy="-2" r="16" fill="none" stroke="url(#goldRing)" stroke-width="2" />
+    <circle cx="0" cy="-2" r="9" fill="none" stroke="url(#goldLight)" stroke-width="1.8" />
+    <circle cx="0" cy="-2" r="3" fill="#ffec99" />
+    <path d="M 12,-14 L -1,-1 M 12,-14 L 6,-14 M 12,-14 L 12,-8" fill="none" stroke="url(#goldRing)" stroke-width="2" stroke-linecap="round" />
+    <text x="0" y="38" text-anchor="middle" fill="#d9a334" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.2">SELF IMPROVEMENT</text>
+  </g>
+
+  <!-- ================= 4. SLOGAN & SPARKLE STAR ================= -->
+  <!-- 4-point Diamond Sparkle Star -->
+  <g transform="translate(500, 690)">
+    <polygon points="0,-14 4,-4 14,0 4,4 0,14 -4,4 -14,0 -4,-4" fill="url(#goldLight)" />
+  </g>
+
+  <!-- Slogan Typography -->
+  <text x="500" y="734" text-anchor="middle" fill="url(#goldRing)" font-family="'Source Serif 4', Georgia, serif" font-size="20" font-weight="700" letter-spacing="6">
+    BETTER  SKILLS   ·   BIGGER  DREAMS
+  </text>
+
+  <!-- ================= 5. GOLDEN MOUNTAINS & WINDING ROAD ================= -->
+  <!-- Mountain Silhouette with Faceted Light/Dark Planes -->
+  <g id="mountains">
+    <!-- Left Foothill -->
+    <polygon points="340,840 400,810 440,840" fill="#996813" />
+    <!-- Left Main Peak (Light/Shadow facets) -->
+    <polygon points="440,795 400,835 440,840" fill="#fceda4" opacity="0.9" />
+    <polygon points="440,795 480,840 440,840" fill="#8c5d0a" />
+
+    <!-- Center Summit Peak (Highest) -->
+    <polygon points="500,760 450,830 500,840" fill="#fdf0b0" />
+    <polygon points="500,760 550,830 500,840" fill="#754c04" />
+
+    <!-- Right Main Peak -->
+    <polygon points="560,788 530,840 560,840" fill="#ffec99" opacity="0.95" />
+    <polygon points="560,788 610,840 560,840" fill="#946517" />
+    <!-- Right Foothill -->
+    <polygon points="610,840 640,815 670,840" fill="#6d4605" />
+  </g>
+
+  <!-- Winding Golden Highway Road Through Mountains -->
+  <g id="road">
+    <!-- The winding asphalt/gold path with perspective -->
+    <path d="M 495,815 C 505,825 460,845 470,865 C 480,885 550,890 520,905 L 420,905 C 450,890 435,870 425,855 C 415,835 480,825 485,815 Z" fill="#0d0d0d" stroke="url(#goldRing)" stroke-width="3" />
+    <path d="M 490,815 C 500,825 455,845 465,865 C 475,885 545,890 515,905" fill="none" stroke="url(#goldLight)" stroke-width="2" stroke-dasharray="6,4" />
+  </g>
+</svg>
