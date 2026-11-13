@@ -19,6 +19,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pages_configured: ${{ steps.pages_check.outputs.ready }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,14 +40,27 @@ jobs:
         run: npm run build
 
       - name: Configure Pages
+        id: pages
+        continue-on-error: true
         uses: actions/configure-pages@v5
 
+      - name: Check Pages readiness
+        id: pages_check
+        run: |
+          if [ "${{ steps.pages.outcome }}" = "success" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Upload Pages artifact
+        if: steps.pages.outcome == 'success'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
+    if: needs.build.outputs.pages_configured == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

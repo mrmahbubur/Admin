@@ -15,15 +15,25 @@
         else if (lower.indexOf('contact') !== -1) section = '#contact-section';
 
         var segments = path.split('/').filter(Boolean);
-        var isGithubProject = window.location.hostname.indexOf('github.io') !== -1 && segments.length >= 1;
-        var base = isGithubProject ? '/' + segments[0] + '/dist/' : '/dist/';
-        if (path !== base) {
-          window.location.replace(base + section);
+        if (segments.length >= 1) {
+          var candidate = '/' + segments[0] + '/';
+          fetch(candidate + 'index.html', { method: 'HEAD' })
+            .then(function (r) {
+              var target = r.ok ? candidate : '/';
+              if (path !== target) {
+                window.location.replace(target + section);
+              }
+            })
+            .catch(function () {
+              window.location.replace('/' + section);
+            });
+        } else {
+          window.location.replace('/' + section);
         }
       })();
     </script>
   </head>
   <body style="background:#050505;color:#f4f4f5;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;">
-    <p>Redirecting to <a href="./dist/" style="color:#f59e0b;">M R S</a>...</p>
+    <p>Redirecting to <a href="./" style="color:#f59e0b;">M R S</a>...</p>
   </body>
 </html>
