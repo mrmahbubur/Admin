@@ -66,7 +66,9 @@
         var rawEntry = document.querySelector('script[src="/src/main.tsx"]');
         var viteClient = document.querySelector('script[src*="@vite/client"]');
         if (rawEntry && !viteClient && window.location.pathname.indexOf('/dist/') === -1) {
-          window.location.replace('./dist/' + window.location.search + window.location.hash);
+          var p = window.location.pathname;
+          var dir = p.slice(-11) === '/index.html' ? p.slice(0, -10) : (p.charAt(p.length - 1) === '/' ? p : p + '/');
+          window.location.replace(dir + 'dist/' + window.location.search + window.location.hash);
         }
       })();
     </script>

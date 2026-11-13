@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M R S — Redirecting</title>
+    <script>
+      (function () {
+        var path = window.location.pathname;
+        var lower = path.toLowerCase();
+        var section = '';
+        if (lower.indexOf('websites') !== -1) section = '#websites-section';
+        else if (lower.indexOf('credentials') !== -1 || lower.indexOf('about') !== -1) section = '#about-section';
+        else if (lower.indexOf('skills') !== -1) section = '#skills-section';
+        else if (lower.indexOf('contact') !== -1) section = '#contact-section';
+
+        var segments = path.split('/').filter(Boolean);
+        var isGithubProject = window.location.hostname.indexOf('github.io') !== -1 && segments.length >= 1;
+        var base = isGithubProject ? '/' + segments[0] + '/dist/' : '/dist/';
+        if (path !== base) {
+          window.location.replace(base + section);
+        }
+      })();
+    </script>
+  </head>
+  <body style="background:#050505;color:#f4f4f5;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;">
+    <p>Redirecting to <a href="./dist/" style="color:#f59e0b;">M R S</a>...</p>
+  </body>
+</html>
