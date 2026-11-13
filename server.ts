@@ -21,9 +21,20 @@ const WEBSITES_CACHE_FILE = path.join(DATA_DIR, 'websites_cache.json');
 const INQUIRIES_FILE = path.join(DATA_DIR, 'inquiries.json');
 const LOGO_FILE = path.join(__dirname, 'public', 'site_logo.svg');
 
+const GRAVATAR_USERNAME = (process.env.GRAVATAR_USERNAME || 'mrxshahin').trim();
+const GRAVATAR_API_KEY = (
+  process.env.GRAVATAR_API_KEY ||
+  process.env.GRAVATAR_KEY ||
+  process.env.GRAVATAR_TOKEN ||
+  process.env.GRAVATAR ||
+  ''
+).trim();
+const GRAVATAR_V3_PROFILE_URL = `https://api.gravatar.com/v3/profiles/${encodeURIComponent(GRAVATAR_USERNAME)}`;
+const GRAVATAR_PUBLIC_JSON_URL = `https://gravatar.com/${encodeURIComponent(GRAVATAR_USERNAME)}.json`;
+
 const UPSTREAM_BASE = (process.env.UPSTREAM_SOURCE_URL || 'https://mrxshahin.ai.studio').replace(/\/$/, '');
-const UPSTREAM_GRAVATAR_API = `${UPSTREAM_BASE}/api/gravatar?username=mrxshahin&email=mr216873@gmail.com`;
-const UPSTREAM_GRAVATAR_STREAM = `${UPSTREAM_BASE}/api/gravatar/stream?username=mrxshahin&email=mr216873@gmail.com`;
+const UPSTREAM_GRAVATAR_API = `${UPSTREAM_BASE}/api/gravatar?username=${encodeURIComponent(GRAVATAR_USERNAME)}&email=mr216873@gmail.com`;
+const UPSTREAM_GRAVATAR_STREAM = `${UPSTREAM_BASE}/api/gravatar/stream?username=${encodeURIComponent(GRAVATAR_USERNAME)}&email=mr216873@gmail.com`;
 const UPSTREAM_RSS_URL = `${UPSTREAM_BASE}/rss.xml`;
 const UPSTREAM_HEALTH_URL = `${UPSTREAM_BASE}/api/health`;
 const UPSTREAM_POLICIES_URL = `${UPSTREAM_BASE}/api/policies/current`;
@@ -181,7 +192,84 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
     'Job application processing & admin support',
     'Web management & content creation',
   ],
-  liveServices: [],
+  liveServices: [
+    {
+      title: 'IT Support & Technical Troubleshooting',
+      items: [
+        'Windows PC troubleshooting and basic system maintenance',
+        'Android device support and app-related troubleshooting',
+        'Browser, internet connectivity, Wi-Fi, and common software issues',
+        'Software installation, configuration, and basic technical guidance',
+        'Step-by-step technical documentation and user support',
+      ],
+    },
+    {
+      title: 'Virtual Assistance & Administrative Support',
+      items: [
+        'Data entry, data organization, and document formatting',
+        'Microsoft Word, Excel, PowerPoint, and office productivity tasks',
+        'Email management, professional correspondence, and inbox organization',
+        'Online research, information collection, and data verification',
+        'Form filling, job application assistance, and document preparation',
+        'File organization, record keeping, and digital documentation',
+        'Task coordination and routine administrative assistance',
+      ],
+    },
+    {
+      title: 'Website Management & Digital Content',
+      items: [
+        'Website content updates and basic website administration',
+        'Blog post publishing and content formatting',
+        'WordPress and Blogger content management',
+        'SEO-friendly article writing and on-page content optimization',
+        'Website testing, troubleshooting, and basic usability checks',
+        'Web research, content planning, and topic development',
+        'AI-assisted content creation, editing, and proofreading',
+      ],
+    },
+    {
+      title: 'Technical Writing & Documentation',
+      items: [
+        'Writing technology guides, tutorials, and how-to articles',
+        'Creating step-by-step troubleshooting instructions',
+        'Explaining websites, apps, and digital tools in simple language',
+        'Preparing FAQs, user guides, and knowledge-base articles',
+        'Rewriting, proofreading, and improving existing content',
+        'Creating informative articles about software, websites, apps, and online services',
+      ],
+    },
+    {
+      title: 'Online Research & Digital Problem-Solving',
+      items: [
+        'Finding and evaluating online resources',
+        'Researching websites, apps, and technology solutions',
+        'Comparing digital tools and identifying practical alternatives',
+        'Organizing research findings into clear, useful reports',
+        'Testing online services and documenting user experiences',
+        'Identifying workflow improvements and opportunities for automation',
+      ],
+    },
+    {
+      title: 'AI Tools & Productivity Assistance',
+      items: [
+        'Using AI tools to support research, writing, and content development',
+        'Improving repetitive workflows with practical digital tools',
+        'Assisting with AI-generated content review and refinement',
+        'Developing detailed prompts for writing, research, and creative tasks',
+        'Exploring no-code and low-code solutions for everyday business needs',
+      ],
+    },
+    {
+      title: 'Social Media & Online Business Support',
+      items: [
+        'Preparing social media posts, captions, and content descriptions',
+        'Managing content schedules and organizing publishing materials',
+        'Creating promotional copy for websites, apps, and digital services',
+        'Assisting with basic online brand and content management',
+        'Supporting digital projects through research, documentation, and coordination',
+      ],
+    },
+  ],
   workExperience: [
     {
       role: 'Independent IT Support Specialist & Web Manager',
@@ -505,12 +593,12 @@ function parseGravatarBioServices(markdownBio: string): LiveServiceCategory[] {
       if (current && current.items.length > 0) {
         categories.push(current);
       }
-      current = { title: catMatch[1].trim(), items: [] };
+      current = { title: decodeHtmlEntities(catMatch[1]).trim(), items: [] };
       continue;
     }
 
     if (current && line.startsWith('* ')) {
-      current.items.push(line.slice(2).replace(/\*\*/g, '').trim());
+      current.items.push(decodeHtmlEntities(line.slice(2).replace(/\*\*/g, '')).trim());
     }
   }
 
@@ -640,8 +728,146 @@ function parseRssXml(xml: string): { buildDate?: string; items: RssFeedItem[] } 
   };
 }
 
+function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
+  if (!v3Profile || typeof v3Profile !== 'object') return;
+
+  const syncedAt = new Date().toISOString();
+  const prev = websitesState.adminProfile;
+  const legacyEntry = Array.isArray(legacyJson?.entry) ? legacyJson.entry[0] : null;
+
+  // Location & Role Title (prefer Gravatar v3 fields if populated, preserve verified defaults if blank)
+  const rawLocation = typeof v3Profile.location === 'string' && v3Profile.location.trim()
+    ? decodeHtmlEntities(v3Profile.location).trim()
+    : prev.location;
+
+  const rawJobTitle = typeof v3Profile.job_title === 'string' && v3Profile.job_title.trim()
+    ? decodeHtmlEntities(v3Profile.job_title).trim()
+    : '';
+  const roleTitle = rawJobTitle || prev.roleTitle;
+
+  const avatarUrl =
+    typeof v3Profile.avatar_url === 'string' && v3Profile.avatar_url.startsWith('https://')
+      ? `${v3Profile.avatar_url}${v3Profile.avatar_url.includes('?') ? '&' : '?'}s=512`
+      : prev.avatarUrl;
+
+  const bioMarkdown =
+    typeof v3Profile.description === 'string' && v3Profile.description.trim()
+      ? v3Profile.description
+      : typeof legacyEntry?.aboutMe === 'string'
+        ? legacyEntry.aboutMe
+        : '';
+
+  const parsedServices = bioMarkdown ? parseGravatarBioServices(bioMarkdown) : [];
+
+  // Normalize verified_accounts from Gravatar v3 (strict HTTPS + non-hidden check)
+  let verifiedAccounts = prev.verifiedAccounts;
+  const socials = { ...prev.socials };
+
+  if (typeof v3Profile.profile_url === 'string' && v3Profile.profile_url.startsWith('https://')) {
+    socials.gravatarUrl = v3Profile.profile_url.trim();
+  }
+
+  if (v3Profile.contact_info && typeof v3Profile.contact_info === 'object') {
+    const ci = v3Profile.contact_info;
+    if (typeof ci.email === 'string' && ci.email.includes('@')) socials.email = ci.email.trim();
+    if (typeof ci.cell_phone === 'string' && ci.cell_phone.trim()) socials.phone = ci.cell_phone.trim();
+    if (typeof ci.calendar === 'string' && ci.calendar.startsWith('https://')) socials.calendlyUrl = ci.calendar.trim();
+    if (typeof ci.contact_form === 'string' && ci.contact_form.startsWith('https://')) socials.contactForm = ci.contact_form.trim();
+  }
+
+  if (Array.isArray(v3Profile.verified_accounts)) {
+    const cleanAccounts = v3Profile.verified_accounts
+      .filter((acc: any) => {
+        if (acc?.is_hidden) return false;
+        const u = String(acc?.url || '').trim();
+        return u.startsWith('https://') && u.length < 160 && !/[\s<>]/.test(u);
+      })
+      .map((acc: any) => {
+        const u = String(acc.url).trim();
+        const label = String(acc.service_label || acc.service_type || 'Profile').trim();
+        const stype = String(acc.service_type || '').toLowerCase();
+        if (stype === 'github' || u.includes('github.com/')) socials.githubUrl = u;
+        if (stype === 'linkedin' || u.includes('linkedin.com/')) socials.linkedinUrl = u;
+        if (stype === 'twitter' || stype === 'x' || u.includes('x.com/')) socials.xUrl = u;
+        if (stype === 'bluesky' || u.includes('bsky.app/')) socials.blueskyUrl = u;
+        if (stype === 'wordpress' || u.includes('wordpress.com')) socials.wordpressUrl = u;
+
+        let handle = u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+        if (handle.includes('x.com/')) handle = `@${handle.split('x.com/')[1]}`;
+        if (handle.includes('github.com/')) handle = handle.split('github.com/')[1];
+        if (handle.includes('linkedin.com/in/')) handle = handle.split('linkedin.com/in/')[1];
+        if (handle.includes('bsky.app/profile/')) handle = handle.split('bsky.app/profile/')[1];
+        return { label, handle, url: u };
+      });
+
+    if (cleanAccounts.length > 0) {
+      // Preserve Gravatar & Goodreads verified entries if already known and valid
+      const seenUrls = new Set(cleanAccounts.map((a: any) => a.url.replace(/\/$/, '').toLowerCase()));
+      const retainedExtras = prev.verifiedAccounts.filter(
+        (existing) => !seenUrls.has(existing.url.replace(/\/$/, '').toLowerCase()) &&
+          (existing.url.includes('gravatar.com/') || existing.url.includes('wordpress.com') || existing.url.includes('goodreads.com'))
+      );
+      verifiedAccounts = [...cleanAccounts, ...retainedExtras];
+    }
+  }
+
+  // Interests (v3 authenticated profile or legacy public JSON)
+  let interests = prev.interests;
+  const rawInterests = Array.isArray(v3Profile.interests)
+    ? v3Profile.interests
+    : Array.isArray(legacyEntry?.interests)
+      ? legacyEntry.interests
+      : null;
+  if (rawInterests && rawInterests.length > 0) {
+    const normalized = rawInterests
+      .map((item: any) => (typeof item === 'string' ? item.trim() : String(item?.name || '').trim()))
+      .filter(Boolean);
+    if (normalized.length > 0) {
+      interests = normalized;
+    }
+  }
+
+  websitesState = {
+    ...websitesState,
+    siteName: 'M R S',
+    upstreamStatus: {
+      ...websitesState.upstreamStatus,
+      connected: true,
+      lastSyncedAt: syncedAt,
+    },
+    adminProfile: {
+      ...prev,
+      siteName: 'M R S',
+      roleTitle,
+      location: rawLocation,
+      avatarUrl,
+      liveServices: parsedServices.length > 0 ? parsedServices : prev.liveServices,
+      interests,
+      socials,
+      verifiedAccounts,
+    },
+    lastUpdated: syncedAt,
+  };
+}
+
 async function syncFromMrxshahinBackend(): Promise<void> {
-  const [profileRes, rssRes, healthRes, policiesRes] = await Promise.allSettled([
+  const gravatarHeaders: Record<string, string> = {
+    'User-Agent': 'MRS-Portfolio-Sync/1.0',
+    Accept: 'application/json',
+  };
+  if (GRAVATAR_API_KEY) {
+    gravatarHeaders.Authorization = `Bearer ${GRAVATAR_API_KEY}`;
+  }
+
+  const [gravatarV3Res, gravatarJsonRes, profileRes, rssRes, healthRes, policiesRes] = await Promise.allSettled([
+    fetch(GRAVATAR_V3_PROFILE_URL, {
+      signal: AbortSignal.timeout(6000),
+      headers: gravatarHeaders,
+    }),
+    fetch(GRAVATAR_PUBLIC_JSON_URL, {
+      signal: AbortSignal.timeout(6000),
+      headers: { 'User-Agent': 'MRS-Portfolio-Sync/1.0', Accept: 'application/json' },
+    }),
     fetch(UPSTREAM_GRAVATAR_API, {
       signal: AbortSignal.timeout(6000),
       headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0', Accept: 'application/json' },
@@ -666,6 +892,26 @@ async function syncFromMrxshahinBackend(): Promise<void> {
     try {
       const json = await profileRes.value.json();
       applyUpstreamProfilePayload(json);
+      upstreamOk = true;
+    } catch {
+      // Ignore parse warning
+    }
+  }
+
+  let legacyGravatarJson: any = null;
+  if (gravatarJsonRes.status === 'fulfilled' && gravatarJsonRes.value.ok) {
+    try {
+      legacyGravatarJson = await gravatarJsonRes.value.json();
+    } catch {
+      // Ignore parse warning
+    }
+  }
+
+  // Apply authoritative Gravatar REST API v3 data last so live bio, services, contact info & verified accounts take precedence
+  if (gravatarV3Res.status === 'fulfilled' && gravatarV3Res.value.ok) {
+    try {
+      const v3Json = await gravatarV3Res.value.json();
+      applyGravatarDirectPayload(v3Json, legacyGravatarJson);
       upstreamOk = true;
     } catch {
       // Ignore parse warning
@@ -933,6 +1179,15 @@ const SSE_PING_INTERVAL_MS = 25 * 1000;
 
 // ================= API ROUTES =================
 
+app.get(['/health', '/api/health'], (_req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    siteName: websitesState.siteName,
+    port: PORT,
+    syncCycle: websitesState.syncCycle,
+  });
+});
+
 app.get('/api/websites', (_req, res) => {
   websitesState.yearlySystem = computeYearlyData();
   res.json({
@@ -1056,7 +1311,7 @@ app.delete('/api/websites/:id', (req, res) => {
     return res.status(404).json({ success: false, error: 'Website not found.' });
   }
   if (target.isCore) {
-    return res.status(400).json({ success: false, error: 'Core mrxshahin.ai.studio websites cannot be removed.' });
+    return res.status(400).json({ success: false, error: 'Core M R S portfolio websites cannot be removed.' });
   }
 
   websitesState = {
@@ -1180,15 +1435,27 @@ async function startServer() {
   });
 
   if (!isProd) {
-    const { createServer: createViteServer } = await import('vite');
-    const vite = await createViteServer({
-      server: {
-        middlewareMode: true,
-        hmr: false,
-      },
-      appType: 'spa',
+    const vitePromise = import('vite').then(({ createServer: createViteServer }) =>
+      createViteServer({
+        server: {
+          middlewareMode: true,
+          hmr: false,
+          watch: null,
+        },
+        appType: 'spa',
+      })
+    );
+    vitePromise.catch((err) => {
+      console.error('[Vite Middleware Startup Error]', err);
     });
-    app.use(vite.middlewares);
+    app.use(async (req, res, next) => {
+      try {
+        const vite = await vitePromise;
+        vite.middlewares(req, res, next);
+      } catch (err) {
+        next(err);
+      }
+    });
   } else {
     const distDir = path.join(__dirname, 'dist');
     app.use(express.static(distDir, { maxAge: '1h', index: 'index.html' }));
@@ -1200,9 +1467,9 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
+  const httpServer = app.listen(PORT, '0.0.0.0', () => {
     const hostDisplay = APP_URL || `http://0.0.0.0:${PORT}`;
-    console.log(`[Server] M R S backend connected to ${UPSTREAM_BASE} running at ${hostDisplay} (port ${PORT})`);
+    console.log(`[Server] M R S backend running at ${hostDisplay} (port ${PORT})`);
 
     // Start background sync and upstream SSE bridge after port 3000 is bound
     syncAllWebsites().catch(() => {});
@@ -1235,6 +1502,11 @@ async function startServer() {
         }
       }
     }, SSE_PING_INTERVAL_MS);
+  });
+
+  httpServer.on('error', (err) => {
+    console.error('[Server Listen Error]', err);
+    process.exit(1);
   });
 }
 

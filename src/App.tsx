@@ -67,28 +67,51 @@ function MainLayout() {
     } catch {
       // Ignore storage restriction
     }
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
     return false;
   });
 
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
-      try {
-        localStorage.setItem('mrs_dark_theme', 'true');
-      } catch {
-        // Ignore storage error
-      }
     } else {
       document.documentElement.classList.remove('dark');
-      try {
-        localStorage.setItem('mrs_dark_theme', 'false');
-      } catch {
-        // Ignore storage error
-      }
+    }
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute('content', darkMode ? '#050505' : '#fafafa');
     }
   }, [darkMode]);
 
-  const toggleDarkMode = () => setDarkMode((prev) => !prev);
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleSystemChange = (e: MediaQueryListEvent) => {
+      try {
+        if (localStorage.getItem('mrs_dark_theme') === null) {
+          setDarkMode(e.matches);
+        }
+      } catch {
+        setDarkMode(e.matches);
+      }
+    };
+    mq.addEventListener('change', handleSystemChange);
+    return () => mq.removeEventListener('change', handleSystemChange);
+  }, []);
+
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('mrs_dark_theme', String(next));
+      } catch {
+        // Ignore storage error
+      }
+      return next;
+    });
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#fafafa] dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] transition-colors duration-200">

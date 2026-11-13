@@ -2,7 +2,20 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('mrs_dark_theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = saved === 'true' || (saved === null && prefersDark);
+          if (isDark) document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+          var tc = document.querySelector('meta[name="theme-color"]');
+          if (tc) tc.setAttribute('content', isDark ? '#050505' : '#fafafa');
+        } catch (e) {}
+      })();
+    </script>
     <title>M R S — Certified IT Support Professional &amp; Web Manager</title>
     <meta
       name="description"
@@ -15,7 +28,7 @@
       content="Official M R S portfolio &amp; live websites showcase. Remote IT support, document management, and web operations."
     />
     <meta name="author" content="M R S" />
-    <meta name="theme-color" content="#050505" />
+    <meta name="theme-color" content="#fafafa" />
     <link rel="icon" type="image/jpeg" href="./mrs_profile_avatar.jpg" />
     <link rel="apple-touch-icon" href="./mrs_profile_avatar.jpg" />
     <link rel="alternate icon" type="image/svg+xml" href="./site_logo.svg" />

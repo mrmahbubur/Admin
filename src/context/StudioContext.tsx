@@ -33,11 +33,7 @@ interface StudioContextType {
   selectedInquiryTopic: string;
   setSelectedInquiryTopic: (topic: string) => void;
   syncWebsites: () => Promise<void>;
-  addWebsite: (input: { url: string; name?: string; category?: string; description?: string }) => Promise<{ ok: boolean; error?: string }>;
-  removeWebsite: (id: string) => Promise<{ ok: boolean; error?: string }>;
 }
-
-const CUSTOM_SITES_STORAGE_KEY = 'mrs_custom_websites_v1';
 
 const initialYearly: YearlySystemData = {
   currentYear: getCurrentYear(),
@@ -65,7 +61,84 @@ const defaultAdminProfile: AdminProfileData = {
     'Job application processing & admin support',
     'Web management & content creation',
   ],
-  liveServices: [],
+  liveServices: [
+    {
+      title: 'IT Support & Technical Troubleshooting',
+      items: [
+        'Windows PC troubleshooting and basic system maintenance',
+        'Android device support and app-related troubleshooting',
+        'Browser, internet connectivity, Wi-Fi, and common software issues',
+        'Software installation, configuration, and basic technical guidance',
+        'Step-by-step technical documentation and user support',
+      ],
+    },
+    {
+      title: 'Virtual Assistance & Administrative Support',
+      items: [
+        'Data entry, data organization, and document formatting',
+        'Microsoft Word, Excel, PowerPoint, and office productivity tasks',
+        'Email management, professional correspondence, and inbox organization',
+        'Online research, information collection, and data verification',
+        'Form filling, job application assistance, and document preparation',
+        'File organization, record keeping, and digital documentation',
+        'Task coordination and routine administrative assistance',
+      ],
+    },
+    {
+      title: 'Website Management & Digital Content',
+      items: [
+        'Website content updates and basic website administration',
+        'Blog post publishing and content formatting',
+        'WordPress and Blogger content management',
+        'SEO-friendly article writing and on-page content optimization',
+        'Website testing, troubleshooting, and basic usability checks',
+        'Web research, content planning, and topic development',
+        'AI-assisted content creation, editing, and proofreading',
+      ],
+    },
+    {
+      title: 'Technical Writing & Documentation',
+      items: [
+        'Writing technology guides, tutorials, and how-to articles',
+        'Creating step-by-step troubleshooting instructions',
+        'Explaining websites, apps, and digital tools in simple language',
+        'Preparing FAQs, user guides, and knowledge-base articles',
+        'Rewriting, proofreading, and improving existing content',
+        'Creating informative articles about software, websites, apps, and online services',
+      ],
+    },
+    {
+      title: 'Online Research & Digital Problem-Solving',
+      items: [
+        'Finding and evaluating online resources',
+        'Researching websites, apps, and technology solutions',
+        'Comparing digital tools and identifying practical alternatives',
+        'Organizing research findings into clear, useful reports',
+        'Testing online services and documenting user experiences',
+        'Identifying workflow improvements and opportunities for automation',
+      ],
+    },
+    {
+      title: 'AI Tools & Productivity Assistance',
+      items: [
+        'Using AI tools to support research, writing, and content development',
+        'Improving repetitive workflows with practical digital tools',
+        'Assisting with AI-generated content review and refinement',
+        'Developing detailed prompts for writing, research, and creative tasks',
+        'Exploring no-code and low-code solutions for everyday business needs',
+      ],
+    },
+    {
+      title: 'Social Media & Online Business Support',
+      items: [
+        'Preparing social media posts, captions, and content descriptions',
+        'Managing content schedules and organizing publishing materials',
+        'Creating promotional copy for websites, apps, and digital services',
+        'Assisting with basic online brand and content management',
+        'Supporting digital projects through research, documentation, and coordination',
+      ],
+    },
+  ],
   workExperience: [
     {
       role: 'Independent IT Support Specialist & Web Manager',
@@ -279,26 +352,6 @@ const fallbackWebsites: EcosystemWebsite[] = [
   },
 ];
 
-function loadCustomWebsitesFromStorage(): EcosystemWebsite[] {
-  try {
-    const raw = localStorage.getItem(CUSTOM_SITES_STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveCustomWebsitesToStorage(sites: EcosystemWebsite[]) {
-  try {
-    const custom = sites.filter((s) => !s.isCore);
-    localStorage.setItem(CUSTOM_SITES_STORAGE_KEY, JSON.stringify(custom));
-  } catch {
-    // Ignore storage error
-  }
-}
-
 const fallbackUpstreamStatus: UpstreamConnectionStatus = {
   sourceUrl: 'https://mrxshahin.ai.studio',
   connected: false,
@@ -316,7 +369,7 @@ const fallbackHubState: WebsitesHubState = {
   lastUpdated: new Date().toISOString(),
   syncCycle: 0,
   yearlySystem: initialYearly,
-  websites: [...fallbackWebsites, ...loadCustomWebsitesFromStorage()],
+  websites: fallbackWebsites,
 };
 
 function fetchBloggerJsonp(domain: string): Promise<WebsitePostPreview[]> {
@@ -412,8 +465,6 @@ const StudioContext = createContext<StudioContextType>({
   selectedInquiryTopic: 'General Inquiry',
   setSelectedInquiryTopic: () => {},
   syncWebsites: async () => {},
-  addWebsite: async () => ({ ok: false }),
-  removeWebsite: async () => ({ ok: false }),
 });
 
 export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -422,7 +473,71 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [sseConnected, setSseConnected] = useState(false);
   const [selectedInquiryTopic, setSelectedInquiryTopic] = useState('General Inquiry');
 
+  const parseGravatarServicesClient = (markdown: string): LiveServiceCategory[] => {
+    const categories: LiveServiceCategory[] = [];
+    const decode = (s: string) =>
+      s
+        .replace(/&amp;/g, '&')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>');
+
+    let current: LiveServiceCategory | null = null;
+    for (const rawLine of markdown.split(/\r?\n/)) {
+      const line = rawLine.trim();
+      if (!line) continue;
+      if (line.startsWith('###') && current) {
+        if (current.items.length > 0) categories.push(current);
+        current = null;
+        continue;
+      }
+      const catMatch = line.match(/^[✅🔹📌💼]\s*\*\*(.+?)\*\*/);
+      if (catMatch) {
+        if (current && current.items.length > 0) categories.push(current);
+        current = { title: decode(catMatch[1]).trim(), items: [] };
+        continue;
+      }
+      if (current && line.startsWith('* ')) {
+        current.items.push(decode(line.slice(2).replace(/\*\*/g, '')).trim());
+      }
+    }
+    if (current && current.items.length > 0) categories.push(current);
+    return categories;
+  };
+
   const runClientSideSync = async () => {
+    let nextProfile = hubState.adminProfile;
+    try {
+      const gravRes = await fetch('https://api.gravatar.com/v3/profiles/mrxshahin', {
+        headers: { Accept: 'application/json' },
+      });
+      if (gravRes.ok) {
+        const g = await gravRes.json();
+        const parsedServices =
+          typeof g?.description === 'string' ? parseGravatarServicesClient(g.description) : [];
+        const ci = g?.contact_info && typeof g.contact_info === 'object' ? g.contact_info : {};
+        nextProfile = {
+          ...nextProfile,
+          siteName: 'M R S',
+          avatarUrl:
+            typeof g?.avatar_url === 'string' && g.avatar_url.startsWith('https://')
+              ? `${g.avatar_url}?s=512`
+              : nextProfile.avatarUrl,
+          liveServices: parsedServices.length > 0 ? parsedServices : nextProfile.liveServices,
+          socials: {
+            ...nextProfile.socials,
+            email: typeof ci.email === 'string' && ci.email.includes('@') ? ci.email.trim() : nextProfile.socials.email,
+            phone: typeof ci.cell_phone === 'string' && ci.cell_phone.trim() ? ci.cell_phone.trim() : nextProfile.socials.phone,
+            calendlyUrl: typeof ci.calendar === 'string' && ci.calendar.startsWith('https://') ? ci.calendar.trim() : nextProfile.socials.calendlyUrl,
+            contactForm: typeof ci.contact_form === 'string' && ci.contact_form.startsWith('https://') ? ci.contact_form.trim() : nextProfile.socials.contactForm,
+          },
+        };
+      }
+    } catch {
+      // Fall back quietly to static verified defaults
+    }
+
     const updatedSites = await Promise.all(
       hubState.websites.map(async (site) => {
         if (site.domain.endsWith('.blogspot.com')) {
@@ -443,6 +558,8 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     setHubState((prev) => ({
       ...prev,
+      siteName: 'M R S',
+      adminProfile: nextProfile,
       websites: updatedSites,
       lastUpdated: new Date().toISOString(),
       syncCycle: prev.syncCycle + 1,
@@ -478,88 +595,6 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     } finally {
       setIsSyncing(false);
     }
-  };
-
-  const addWebsite = async (input: { url: string; name?: string; category?: string; description?: string }) => {
-    try {
-      const res = await fetch('./api/websites', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(input),
-      });
-      const ct = res.headers.get('content-type') || '';
-      if (ct.includes('application/json')) {
-        const json = await res.json();
-        if (!res.ok || !json?.success) {
-          return { ok: false, error: json?.error || 'Failed to add website.' };
-        }
-        if (json.data) setHubState(json.data);
-        return { ok: true };
-      }
-    } catch {
-      // Static GitHub Pages fallback
-    }
-
-    try {
-      const normalized = input.url.trim().startsWith('http') ? input.url.trim() : `https://${input.url.trim()}`;
-      const parsedUrl = new URL(normalized);
-      if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
-        return { ok: false, error: 'Please enter a valid http/https URL.' };
-      }
-
-      const imageKeys: EcosystemWebsite['imageKey'][] = ['flagship', 'admin', 'tech', 'charity'];
-      const newSite: EcosystemWebsite = {
-        id: `site-${Date.now().toString(36)}`,
-        name: (input.name || parsedUrl.hostname).trim(),
-        url: parsedUrl.toString().replace(/\/$/, ''),
-        domain: parsedUrl.hostname,
-        category: (input.category || 'Connected Property').trim(),
-        description:
-          (input.description || '').trim() || 'Web property synchronized in real time by M R S.',
-        imageKey: imageKeys[hubState.websites.length % imageKeys.length],
-        status: 'online',
-        lastChecked: new Date().toISOString(),
-        isCore: false,
-        latestPosts: [],
-      };
-
-      const nextList = [...hubState.websites, newSite];
-      saveCustomWebsitesToStorage(nextList);
-      setHubState((prev) => ({
-        ...prev,
-        websites: nextList,
-        lastUpdated: new Date().toISOString(),
-      }));
-      return { ok: true };
-    } catch {
-      return { ok: false, error: 'Please enter a valid website URL.' };
-    }
-  };
-
-  const removeWebsite = async (id: string) => {
-    try {
-      const res = await fetch(`./api/websites/${encodeURIComponent(id)}`, { method: 'DELETE' });
-      const ct = res.headers.get('content-type') || '';
-      if (ct.includes('application/json')) {
-        const json = await res.json();
-        if (!res.ok || !json?.success) {
-          return { ok: false, error: json?.error || 'Failed to remove website.' };
-        }
-        if (json.data) setHubState(json.data);
-        return { ok: true };
-      }
-    } catch {
-      // Static mode fallback
-    }
-
-    const nextList = hubState.websites.filter((s) => s.id !== id);
-    saveCustomWebsitesToStorage(nextList);
-    setHubState((prev) => ({
-      ...prev,
-      websites: nextList,
-      lastUpdated: new Date().toISOString(),
-    }));
-    return { ok: true };
   };
 
   useEffect(() => {
@@ -630,8 +665,6 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         selectedInquiryTopic,
         setSelectedInquiryTopic,
         syncWebsites,
-        addWebsite,
-        removeWebsite,
       }}
     >
       {children}

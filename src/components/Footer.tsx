@@ -38,7 +38,7 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, onToggleDarkMode }) =>
             <button
               type="button"
               onClick={onToggleDarkMode}
-              className="whitespace-nowrap inline-flex items-center gap-2 px-3.5 py-2 min-h-[40px] rounded-lg border border-[#27272a] bg-[#0f0f11] hover:border-[#52525b] text-[12.5px] font-medium text-[#e4e4e7] transition-colors cursor-pointer"
+              className="whitespace-nowrap inline-flex items-center gap-2 px-3.5 py-2 min-h-[44px] sm:min-h-[40px] rounded-lg border border-[#27272a] bg-[#0f0f11] hover:border-[#52525b] text-[12.5px] font-medium text-[#e4e4e7] transition-colors cursor-pointer"
             >
               {darkMode ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5" />}
               <span>{darkMode ? 'Light Theme' : 'Dark Theme'}</span>

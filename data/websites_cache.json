@@ -1,57 +1,20 @@
 {
   "siteName": "M R S",
-  "sourceUrl": "https://mrxshahin.ai.studio",
+  "sourceUrl": "[https://mrxshahin.ai.studio](https://mrxshahin.ai.studio)",
   "upstreamStatus": {
-    "sourceUrl": "https://mrxshahin.ai.studio",
+    "sourceUrl": "[https://mrxshahin.ai.studio](https://mrxshahin.ai.studio)",
     "connected": true,
-    "sseActive": true,
-    "healthStatus": "ok",
-    "lastSyncedAt": "2026-11-13T05:28:26.556Z",
-    "rssItems": [
-      {
-        "title": "Cloud — Central Portfolio & Verified Web Hub",
-        "link": "https://mrsadmin.blogspot.com/?m=1",
-        "description": "Central Portfolio and Web Hub for M R S’s work, IT administration, and digital projects.",
-        "category": "Portfolio & Web Hub",
-        "pubDate": "Fri, 01 Sep 2023 12:00:00 GMT"
-      },
-      {
-        "title": "Blogger Tech Blog — Practical Guides & IT Fixes",
-        "link": "https://mrxshahin.blogspot.com/",
-        "description": "Practical fixes and step-by-step guides for everyday tech problems — Windows, Android, WiFi, browsers, and more since 2018.",
-        "category": "Tech Blog",
-        "pubDate": "Mon, 15 Jan 2024 10:00:00 GMT"
-      },
-      {
-        "title": "IPTV WEB — 10,000+ Live Channels Media Platform",
-        "link": "https://shahin-iptv.ai.studio",
-        "description": "Your World, One Screen. Stream 10,000+ live channels of Sports, Movies, Dramas, and News with high-definition playback.",
-        "category": "Media Streaming",
-        "pubDate": "Wed, 20 Mar 2024 14:30:00 GMT"
-      },
-      {
-        "title": "Mrs IPTV Android TV APK — High-Definition TV Streaming Package",
-        "link": "https://www.upload-apk.com/en/0Jr71hMVlsFwN9Y%20",
-        "description": "Direct Android APK download for Smart TVs, TV boxes, tablets, and phones.",
-        "category": "Android Package",
-        "pubDate": "Sun, 05 May 2024 08:00:00 GMT"
-      },
-      {
-        "title": "Executive CV Download & Verified Professional Credentials",
-        "link": "https://mrxshahin.ai.studio/#cv-download",
-        "description": "Official 360-Hour Certified Computer Specialist & MS Office Professional credentials and IT Support CV.",
-        "category": "Credentials",
-        "pubDate": "Fri, 13 Nov 2026 05:28:26 GMT"
-      }
-    ],
-    "rssBuildDate": "Fri, 13 Nov 2026 05:28:26 GMT"
+    "sseActive": false,
+    "healthStatus": "connecting",
+    "lastSyncedAt": "2026-11-13T18:32:07.719Z",
+    "rssItems": []
   },
   "adminProfile": {
     "siteName": "M R S",
     "roleTitle": "IT Support Professional | Remote Admin & Documentation Specialist | Web Manager",
     "tagline": "Helping businesses run smoother, one ticket at a time",
     "location": "Global / Remote",
-    "avatarUrl": "https://1.gravatar.com/avatar/79cb903b47ada0af52e9962551bab25e563cc0a515939789f348aaa0ca135946?size=512",
+    "avatarUrl": "https://1.gravatar.com/avatar/79cb903b47ada0af52e9962551bab25e563cc0a515939789f348aaa0ca135946?s=512",
     "certification": "360-Hour Certified Computer Specialist & MS Office Professional",
     "availabilityNote": "Open to remote contract, freelance, and part-time opportunities.",
     "bioParagraphs": [
@@ -253,7 +216,7 @@
       "wordpressUrl": "https://mrxshahin.wordpress.com",
       "calendlyUrl": "https://calendly.com/mrxshahin",
       "contactForm": "https://mrsadmin.blogspot.com/p/contact-us.html?m=1",
-      "goodreadsUrl": "https://goodreads.com"
+      "goodreadsUrl": "https://www.goodreads.com/mrxshahin"
     },
     "verifiedAccounts": [
       {
@@ -263,17 +226,17 @@
       },
       {
         "label": "GitHub",
-        "handle": "github.com/mrmahbubur",
+        "handle": "mrmahbubur",
         "url": "https://github.com/mrmahbubur"
       },
       {
         "label": "Bluesky",
-        "handle": "bsky.app/profile/mrxshahin.bsky.social",
+        "handle": "mrxshahin.bsky.social",
         "url": "https://bsky.app/profile/mrxshahin.bsky.social"
       },
       {
         "label": "LinkedIn",
-        "handle": "linkedin.com/in/mrmahbubur",
+        "handle": "mrmahbubur",
         "url": "https://www.linkedin.com/in/mrmahbubur"
       },
       {
@@ -285,6 +248,11 @@
         "label": "Goodreads",
         "handle": "goodreads.com/mrxshahin",
         "url": "https://www.goodreads.com/mrxshahin"
+      },
+      {
+        "label": "Gravatar",
+        "handle": "gravatar.com/mrxshahin",
+        "url": "https://gravatar.com/mrxshahin"
       }
     ]
   },
@@ -299,11 +267,11 @@
       "description": "Official portfolio of M R S featuring verified credentials, live projects, and an interactive multimodal AI concierge.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-13T05:28:26.749Z",
+      "lastChecked": "2026-11-13T18:32:07.911Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 192,
+      "latencyMs": 191,
       "liveTitle": "M R S Portfolio · Certified IT Support Professional & Web Manager"
     },
     {
@@ -313,10 +281,10 @@
       "domain": "mrsadmin.blogspot.com",
       "category": "Portfolio & Web Hub",
       "badge": "CENTRAL HUB",
-      "description": "Central Portfolio and Web Hub for M R S’s work, IT administration, and digital projects.",
+      "description": "Central portfolio and web hub for M R S covering IT administration, web management, and digital projects since 2018.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-13T05:28:28.634Z",
+      "lastChecked": "2026-11-13T18:32:09.897Z",
       "isCore": true,
       "feedUrl": "https://mrsadmin.blogspot.com/feeds/posts/default?alt=json&max-results=3",
       "latestPosts": [
@@ -327,7 +295,7 @@
         }
       ],
       "httpCode": 200,
-      "latencyMs": 904,
+      "latencyMs": 1010,
       "liveTitle": "MRS ADMIN"
     },
     {
@@ -337,10 +305,10 @@
       "domain": "mrxshahin.blogspot.com",
       "category": "Tech Blog",
       "badge": "TECH BLOG",
-      "description": "Practical fixes and step-by-step guides for everyday tech problems — Windows, Android, WiFi, browsers, and more since 2018.",
+      "description": "Practical fixes and step-by-step guides for everyday tech problems covering Windows, Android, WiFi, and browsers.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-13T05:28:28.762Z",
+      "lastChecked": "2026-11-13T18:32:09.047Z",
       "isCore": true,
       "feedUrl": "https://mrxshahin.blogspot.com/feeds/posts/default?alt=json&max-results=3",
       "latestPosts": [
@@ -361,7 +329,7 @@
         }
       ],
       "httpCode": 200,
-      "latencyMs": 1051,
+      "latencyMs": 1056,
       "liveTitle": "mrxshahin"
     },
     {
@@ -371,14 +339,14 @@
       "domain": "shahin-iptv.ai.studio",
       "category": "Live Streaming & Media Platform",
       "badge": "LIVE WEB APP",
-      "description": "Your World, One Screen. Stream 10,000+ live channels of Sports, Movies, Dramas, and News with high-definition playback.",
+      "description": "Web streaming platform delivering 10,000+ live international channels spanning Sports, Movies, Dramas, and News.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-13T05:28:26.648Z",
+      "lastChecked": "2026-11-13T18:32:07.905Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 87,
+      "latencyMs": 181,
       "liveTitle": "M R S IPTV"
     },
     {
@@ -391,11 +359,11 @@
       "description": "Direct Mrs IPTV APK package download supporting Android TVs, set-top boxes, and Android mobile devices.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-13T05:28:27.152Z",
+      "lastChecked": "2026-11-13T18:32:08.448Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 589,
+      "latencyMs": 721,
       "liveTitle": "Upload APK — Download — _Mrs__IPTV_.apk"
     },
     {
@@ -408,7 +376,7 @@
       "description": "Humanitarian initiative dedicated to healthcare, education, shelter, and community empowerment.",
       "imageKey": "charity",
       "status": "online",
-      "lastChecked": "2026-11-13T05:28:28.562Z",
+      "lastChecked": "2026-11-13T18:32:09.870Z",
       "isCore": true,
       "feedUrl": "https://mrscharityfoundation.blogspot.com/feeds/posts/default?alt=json&max-results=3",
       "latestPosts": [
@@ -419,7 +387,7 @@
         }
       ],
       "httpCode": 200,
-      "latencyMs": 936,
+      "latencyMs": 1090,
       "liveTitle": "M R S charity foundation"
     },
     {
@@ -432,16 +400,16 @@
       "description": "Verified WordPress publication sharing technical solutions, digital guides, and documentation crafted by M R S.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-13T05:28:26.635Z",
+      "lastChecked": "2026-11-13T18:32:07.789Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 54,
+      "latencyMs": 47,
       "liveTitle": "Solutions crafted for you"
     }
   ],
-  "lastUpdated": "2026-11-13T05:28:28.762Z",
-  "syncCycle": 1,
+  "lastUpdated": "2026-11-13T18:32:09.897Z",
+  "syncCycle": 3,
   "yearlySystem": {
     "currentYear": 2026,
     "establishedYear": 2018,

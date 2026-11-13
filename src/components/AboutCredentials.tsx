@@ -167,7 +167,7 @@ export const AboutCredentials: React.FC = () => {
                     <Languages className="w-4 h-4 text-[#d97706] dark:text-[#f59e0b]" />
                     <span>Languages</span>
                   </div>
-                  <div className="grid grid-cols-3 gap-4 pt-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-1">
                     {adminProfile.languages.map((lang) => (
                       <div key={lang.name}>
                         <div className="font-semibold text-[13.5px] text-[#09090b] dark:text-white">{lang.name}</div>

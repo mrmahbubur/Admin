@@ -30,7 +30,7 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
           <button
             type="button"
             onClick={onToggleDarkMode}
-            className="whitespace-nowrap shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[40px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#0f0f11] hover:border-[#a1a1aa] dark:hover:border-[#52525b] text-[12.5px] font-semibold text-[#09090b] dark:text-[#f4f4f5] transition-colors cursor-pointer"
+            className="whitespace-nowrap shrink-0 inline-flex items-center gap-2 px-4 py-2 min-h-[44px] sm:min-h-[40px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#0f0f11] hover:border-[#a1a1aa] dark:hover:border-[#52525b] text-[12.5px] font-semibold text-[#09090b] dark:text-[#f4f4f5] transition-colors cursor-pointer"
             aria-label="Toggle color theme"
           >
             {darkMode ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5" />}
@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
             <div className="space-y-4">
               <h1
                 className="font-serif font-extrabold text-[#09090b] dark:text-white tracking-tight leading-[1.04] text-balance"
-                style={{ fontSize: 'clamp(2.75rem, 5vw, 4.25rem)' }}
+                style={{ fontSize: 'clamp(2.25rem, 5vw, 4.25rem)' }}
               >
                 {adminProfile.siteName}
               </h1>
@@ -135,39 +135,39 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
         </div>
 
         {/* Full-Width Verified Fact Strip */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 rounded-2xl border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#0f0f11] divide-y lg:divide-y-0 lg:divide-x divide-[#e4e4e7] dark:divide-[#27272a]">
-          <div className="p-4 sm:p-5">
-            <div className="font-serif text-xl sm:text-2xl font-bold text-[#09090b] dark:text-white tabular-nums">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl border border-[#e4e4e7] dark:border-[#27272a] bg-[#e4e4e7] dark:bg-[#27272a] overflow-hidden">
+          <div className="p-4 sm:p-5 bg-white dark:bg-[#0f0f11]">
+            <div className="font-serif text-lg sm:text-2xl font-bold text-[#09090b] dark:text-white tabular-nums">
               Since {yearly.establishedYear}
             </div>
-            <div className="text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
+            <div className="text-[12px] sm:text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
               Remote IT &amp; Web Management
             </div>
           </div>
 
-          <div className="p-4 sm:p-5">
-            <div className="font-serif text-xl sm:text-2xl font-bold text-[#09090b] dark:text-white tabular-nums">
+          <div className="p-4 sm:p-5 bg-white dark:bg-[#0f0f11]">
+            <div className="font-serif text-lg sm:text-2xl font-bold text-[#09090b] dark:text-white tabular-nums">
               360 Hours
             </div>
-            <div className="text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
+            <div className="text-[12px] sm:text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
               Certified Computer &amp; MS Office
             </div>
           </div>
 
-          <div className="p-4 sm:p-5">
-            <div className="font-serif text-xl sm:text-2xl font-bold text-[#09090b] dark:text-white tabular-nums">
+          <div className="p-4 sm:p-5 bg-white dark:bg-[#0f0f11]">
+            <div className="font-serif text-lg sm:text-2xl font-bold text-[#09090b] dark:text-white tabular-nums">
               {websites.length} Live Sites
             </div>
-            <div className="text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
+            <div className="text-[12px] sm:text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
               Official Digital Properties
             </div>
           </div>
 
-          <div className="p-4 sm:p-5">
-            <div className="font-serif text-xl sm:text-2xl font-bold text-[#09090b] dark:text-white">
+          <div className="p-4 sm:p-5 bg-white dark:bg-[#0f0f11]">
+            <div className="font-serif text-lg sm:text-2xl font-bold text-[#09090b] dark:text-white">
               {upstreamStatus.sseActive || upstreamStatus.connected ? 'Live' : 'Active'}
             </div>
-            <div className="text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
+            <div className="text-[12px] sm:text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
               Real-Time Status
             </div>
           </div>

@@ -231,7 +231,7 @@ export const ContactSection: React.FC = () => {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
+                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
                     />
                   </div>
 
@@ -249,7 +249,7 @@ export const ContactSection: React.FC = () => {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
+                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
                     />
                   </div>
                 </div>
@@ -268,7 +268,7 @@ export const ContactSection: React.FC = () => {
                       setTopic(e.target.value);
                       setSelectedInquiryTopic(e.target.value);
                     }}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
                   >
                     <option value="Document management & formatting">Document management &amp; formatting</option>
                     <option value="Professional email & correspondence handling">
@@ -299,7 +299,7 @@ export const ContactSection: React.FC = () => {
                     required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706] resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706] resize-none"
                   />
                 </div>
 

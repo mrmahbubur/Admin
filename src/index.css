@@ -38,15 +38,38 @@
   --focus-ring: #f59e0b;
 }
 
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-page);
   color: var(--text-primary);
   line-height: 1.6;
+  overflow-x: clip;
 }
 
 .dark body {
   letter-spacing: 0.005em;
+}
+
+section[id],
+div[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
 
 .font-serif {

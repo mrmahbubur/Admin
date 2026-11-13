@@ -12,7 +12,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-[#fafafa]/95 dark:bg-[#050505]/95 backdrop-blur-md border-b border-[#e4e4e7] dark:border-[#27272a] transition-colors duration-200">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4 sm:gap-8">
         {/* Zone 1: Single-line Brand Wordmark */}
         <button
           type="button"
@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center gap-2 shrink-0">
           <a
             href="#contact-section"
-            className="whitespace-nowrap shrink-0 inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#09090b] hover:bg-[#27272a] dark:bg-[#f4f4f5] dark:hover:bg-white text-white dark:text-[#09090b] text-[13px] font-semibold transition-colors"
+            className="whitespace-nowrap shrink-0 inline-flex items-center justify-center px-3.5 sm:px-4 py-2 min-h-[40px] rounded-lg bg-[#09090b] hover:bg-[#27272a] dark:bg-[#f4f4f5] dark:hover:bg-white text-white dark:text-[#09090b] text-[12.5px] sm:text-[13px] font-semibold transition-colors"
           >
             Contact M R S
           </a>

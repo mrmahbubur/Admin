@@ -2,7 +2,20 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('mrs_dark_theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = saved === 'true' || (saved === null && prefersDark);
+          if (isDark) document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+          var tc = document.querySelector('meta[name="theme-color"]');
+          if (tc) tc.setAttribute('content', isDark ? '#050505' : '#fafafa');
+        } catch (e) {}
+      })();
+    </script>
     <title>M R S — Certified IT Support Professional &amp; Web Manager</title>
     <meta
       name="description"
@@ -15,7 +28,7 @@
       content="Official M R S portfolio &amp; live websites showcase. Remote IT support, document management, and web operations."
     />
     <meta name="author" content="M R S" />
-    <meta name="theme-color" content="#050505" />
+    <meta name="theme-color" content="#fafafa" />
     <link rel="icon" type="image/jpeg" href="./mrs_profile_avatar.jpg" />
     <link rel="apple-touch-icon" href="./mrs_profile_avatar.jpg" />
     <link rel="alternate icon" type="image/svg+xml" href="./site_logo.svg" />
@@ -57,12 +70,12 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="./assets/index-D9s6iSA7.js"></script>
+    <script type="module" crossorigin src="./assets/index-A0-OPua6.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-BWaJ3C7D.js">
-    <link rel="modulepreload" crossorigin href="./assets/vendor-icons-CRx0DlD-.js">
-    <link rel="modulepreload" crossorigin href="./assets/vendor-react-DXokRBrw.js">
-    <link rel="modulepreload" crossorigin href="./assets/vendor-motion-DaVQiSsO.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-BjvbvK41.css">
+    <link rel="modulepreload" crossorigin href="./assets/vendor-icons-DbUSqQ1g.js">
+    <link rel="modulepreload" crossorigin href="./assets/vendor-react-CxOuZVv1.js">
+    <link rel="modulepreload" crossorigin href="./assets/vendor-motion-DNCsjl2b.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-r01_gAiI.css">
   </head>
   <body class="bg-[#fafafa] dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] antialiased selection:bg-amber-200 selection:text-stone-900 transition-colors duration-200">
     <div id="root"></div>

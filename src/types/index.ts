@@ -40,6 +40,8 @@ export interface UpstreamConnectionStatus {
   sourceUrl: string;
   connected: boolean;
   sseActive: boolean;
+  authenticated?: boolean;
+  rateLimitRemaining?: number;
   healthStatus: string;
   lastSyncedAt: string;
   rssBuildDate?: string;
