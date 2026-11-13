@@ -98,24 +98,20 @@ export const WebsiteSlideshow: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="space-y-1">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#09090b] dark:text-white tracking-tight text-balance">
-            Websites from mrxshahin.ai.studio
+            Official Websites &amp; Portals
           </h2>
           <div className="flex flex-wrap items-center gap-2 text-[12.5px] text-[#71717a] dark:text-[#a1a1aa]">
-            {upstreamStatus.sseActive && (
+            {(upstreamStatus.sseActive || sseConnected) && (
               <span
                 className="w-2 h-2 rounded-full bg-emerald-500 shrink-0"
                 aria-hidden="true"
-                title="Live upstream SSE stream active"
+                title="Live stream active"
               />
             )}
             <span>
-              {upstreamStatus.sseActive
-                ? 'Upstream SSE Connected to mrxshahin.ai.studio'
-                : upstreamStatus.connected
-                  ? 'Synced with mrxshahin.ai.studio'
-                  : sseConnected
-                    ? 'Realtime Backend Stream Active'
-                    : 'Client Feed Sync Active'}
+              {upstreamStatus.sseActive || sseConnected
+                ? 'Live Stream Active'
+                : 'Live Feed Active'}
             </span>
             <span aria-hidden="true">·</span>
             <span className="font-mono tabular-nums">{websites.length} Websites</span>

@@ -70,7 +70,7 @@ export const SkillsSection: React.FC = () => {
           <div className="pt-10 border-t border-[#e4e4e7] dark:border-[#27272a]">
             <div className="mb-6 space-y-1.5">
               <div className="text-[13px] font-medium text-[#d97706] dark:text-[#f59e0b]">
-                Real-Time RSS Bridge · mrxshahin.ai.studio/rss.xml
+                Directory Highlights
               </div>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#09090b] dark:text-white tracking-tight text-balance">
                 Official {adminProfile.siteName} Directory Feed
@@ -99,7 +99,7 @@ export const SkillsSection: React.FC = () => {
                     )}
                   </div>
                   <div className="text-[11.5px] font-mono tabular-nums text-[#71717a] dark:text-[#a1a1aa] flex items-center justify-between pt-3 border-t border-[#e4e4e7] dark:border-[#27272a]">
-                    <span className="truncate">{item.pubDate ? item.pubDate.slice(0, 16) : 'mrxshahin.ai.studio'}</span>
+                    <span className="truncate">{item.pubDate ? item.pubDate.slice(0, 16) : 'Featured'}</span>
                     <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                   </div>
                 </a>

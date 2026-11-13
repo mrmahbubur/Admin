@@ -13,7 +13,7 @@ export const AboutCredentials: React.FC = () => {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="mb-10 sm:mb-12 space-y-2">
           <div className="text-[13px] font-medium text-[#d97706] dark:text-[#f59e0b]">
-            Verified Credentials · mrxshahin.ai.studio
+            Verified Credentials
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#09090b] dark:text-white tracking-tight text-balance">
             About {adminProfile.siteName} &amp; Verified Background
@@ -41,11 +41,6 @@ export const AboutCredentials: React.FC = () => {
                 <h3 className="font-serif text-xl font-bold text-[#09090b] dark:text-white">
                   What {adminProfile.siteName} Can Help With
                 </h3>
-                {adminProfile.liveServices && adminProfile.liveServices.length > 0 && (
-                  <span className="text-[12px] font-mono text-[#d97706] dark:text-[#f59e0b]">
-                    Live Sync · mrxshahin.ai.studio
-                  </span>
-                )}
               </div>
 
               {adminProfile.liveServices && adminProfile.liveServices.length > 0 ? (

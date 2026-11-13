@@ -86,7 +86,7 @@ export const ContactSection: React.FC = () => {
             Connect with {adminProfile.siteName}
           </h2>
           <p className="text-[15px] text-[#52525b] dark:text-[#a1a1aa] max-w-2xl">
-            Official channels and verified profiles published on mrxshahin.ai.studio. {adminProfile.availabilityNote}
+            Official channels and verified profiles for direct communication. {adminProfile.availabilityNote}
           </p>
         </div>
 

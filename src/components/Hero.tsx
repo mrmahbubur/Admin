@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, ExternalLink, Moon, Sun } from 'lucide-react';
+import { Calendar, Moon, Sun } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
 import { WebsiteSlideshow } from './WebsiteSlideshow';
 
@@ -25,8 +25,6 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
             <span>{adminProfile.location}</span>
             <span aria-hidden="true">·</span>
             <span className="tabular-nums">Since {yearly.establishedYear}</span>
-            <span aria-hidden="true">·</span>
-            <span className="font-mono text-[12px]">mrxshahin.ai.studio</span>
           </div>
 
           <button
@@ -77,16 +75,6 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
                 <Calendar className="w-4 h-4 text-[#d97706] dark:text-[#f59e0b]" />
                 <span>Book Calendly</span>
               </a>
-
-              <a
-                href="https://mrxshahin.ai.studio/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="whitespace-nowrap shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#0f0f11] hover:border-[#a1a1aa] dark:hover:border-[#52525b] text-[#09090b] dark:text-[#f4f4f5] text-[13.5px] font-semibold transition-colors"
-              >
-                <span>mrxshahin.ai.studio</span>
-                <ExternalLink className="w-3.5 h-3.5 text-[#71717a]" />
-              </a>
             </div>
           </div>
 
@@ -136,15 +124,10 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
                   </a>
                 </div>
                 <div className="pt-3 flex items-center justify-between gap-4">
-                  <span className="text-[#71717a] dark:text-[#a1a1aa]">Source Hub</span>
-                  <a
-                    href="https://mrxshahin.ai.studio/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-[12.5px] font-semibold text-[#d97706] dark:text-[#f59e0b] hover:underline"
-                  >
-                    mrxshahin.ai.studio
-                  </a>
+                  <span className="text-[#71717a] dark:text-[#a1a1aa]">Availability</span>
+                  <span className="font-medium text-[#09090b] dark:text-[#f4f4f5] text-right">
+                    Remote &amp; Contract
+                  </span>
                 </div>
               </div>
             </div>
@@ -176,16 +159,16 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
               {websites.length} Live Sites
             </div>
             <div className="text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
-              Synced from mrxshahin.ai.studio
+              Official Digital Properties
             </div>
           </div>
 
           <div className="p-4 sm:p-5">
             <div className="font-serif text-xl sm:text-2xl font-bold text-[#09090b] dark:text-white">
-              {upstreamStatus.sseActive ? 'SSE Live' : upstreamStatus.connected ? 'Synced Live' : 'Client Sync'}
+              {upstreamStatus.sseActive || upstreamStatus.connected ? 'Live' : 'Active'}
             </div>
             <div className="text-[12.5px] text-[#71717a] dark:text-[#a1a1aa] mt-0.5">
-              Real-Time Backend Stream
+              Real-Time Status
             </div>
           </div>
         </div>

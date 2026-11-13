@@ -142,7 +142,7 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, onToggleDarkMode }) =>
             <strong className="text-[#e4e4e7]">{adminProfile.siteName}</strong>. All rights reserved.
           </div>
           <div className="text-[12px] font-mono tabular-nums text-[#71717a]">
-            Synchronized with mrxshahin.ai.studio · Est. {yearly.establishedYear}
+            Official Digital Hub · Est. {yearly.establishedYear}
           </div>
         </div>
       </div>
