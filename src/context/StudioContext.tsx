@@ -210,33 +210,14 @@ const defaultAdminProfile: AdminProfileData = {
   ],
   coursesCertifications: [
     'Basic Computer Course (360 Hrs)',
-    'Android Hardware Repair',
-    'IELTS — Band 5.5',
+    'Certified Computer & MS Office Professional',
   ],
-  education: [
-    {
-      degree: 'Bachelor of Social Science',
-      institution: 'Sylhet Government College, Sylhet',
-      period: 'Jan 2021 – Present',
-    },
-    {
-      degree: 'Higher Secondary Certificate (HSC)',
-      institution: 'Tajpur Degree College, Sylhet',
-      period: 'Jan 2019 – Dec 2020',
-      gpa: 'GPA: 3.33',
-    },
-    {
-      degree: 'Secondary School Certificate (SSC)',
-      institution: 'Mongol Chondi Nishikanto High School, Sylhet',
-      period: 'Jan 2017 – Dec 2018',
-      gpa: 'GPA: 3.39',
-    },
-  ],
+  education: [],
   languages: [{ name: 'English', level: 'Proficient' }],
   interests: ['Web Development', 'web3', 'ethical hacking', 'Social Sciences', 'Remote Working'],
   socials: {
-    email: 'mr216873@gmail.com',
-    phone: '+8809611056361',
+    email: '',
+    phone: '',
     gravatarUrl: '',
     githubUrl: 'https://github.com/mrmahbubur',
     linkedinUrl: 'https://www.linkedin.com/in/mrmahbubur',

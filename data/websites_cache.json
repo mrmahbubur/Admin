@@ -6,7 +6,7 @@
     "connected": true,
     "sseActive": true,
     "healthStatus": "ok",
-    "lastSyncedAt": "2026-11-14T12:02:00.464Z",
+    "lastSyncedAt": "2026-11-14T12:12:35.357Z",
     "rssItems": [
       {
         "title": "Discover a Trusted Community — Now on a New Secure Domain!",
@@ -17,7 +17,7 @@
       }
     ],
     "authenticated": true,
-    "rateLimitRemaining": 940,
+    "rateLimitRemaining": 851,
     "rssBuildDate": "Wed, 01 Oct 2025 10:11:41 +0000"
   },
   "adminProfile": {
@@ -187,28 +187,9 @@
     ],
     "coursesCertifications": [
       "Basic Computer Course (360 Hrs)",
-      "Android Hardware Repair",
-      "IELTS — Band 5.5"
+      "Certified Computer & MS Office Professional"
     ],
-    "education": [
-      {
-        "degree": "Bachelor of Social Science",
-        "institution": "Sylhet Government College, Sylhet",
-        "period": "Jan 2021 – Present"
-      },
-      {
-        "degree": "Higher Secondary Certificate (HSC)",
-        "institution": "Tajpur Degree College, Sylhet",
-        "period": "Jan 2019 – Dec 2020",
-        "gpa": "GPA: 3.33"
-      },
-      {
-        "degree": "Secondary School Certificate (SSC)",
-        "institution": "Mongol Chondi Nishikanto High School, Sylhet",
-        "period": "Jan 2017 – Dec 2018",
-        "gpa": "GPA: 3.39"
-      }
-    ],
+    "education": [],
     "languages": [
       {
         "name": "English",
@@ -223,8 +204,8 @@
       "Remote Working"
     ],
     "socials": {
-      "email": "mr216873@gmail.com",
-      "phone": "+8809611056361",
+      "email": "",
+      "phone": "",
       "gravatarUrl": "",
       "githubUrl": "https://github.com/mrmahbubur",
       "linkedinUrl": "https://www.linkedin.com/in/mrmahbubur",
@@ -319,16 +300,16 @@
       "name": "All Services",
       "url": "https://mrs-services.ai.studio/",
       "domain": "mrs-services.ai.studio",
-      "category": "Services & Rate Catalog",
+      "category": "Automation & Digital Services Portal",
       "badge": "SERVICES",
-      "description": "Official M R S remote IT support, WordPress CMS, documentation, identity setup, and IPTV services directory.",
+      "description": "Automate. Deliver. Grow. Browse professional technical and digital solutions, request quotes, Client ID & PIN portal access, and verified payment processing.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.659Z",
+      "lastChecked": "2026-11-14T12:12:35.543Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 194,
+      "latencyMs": 186,
       "liveTitle": "M R S — Professional Automation & Digital Services"
     },
     {
@@ -338,14 +319,14 @@
       "domain": "shahin-iptv.ai.studio",
       "category": "Live Streaming & Media Platform",
       "badge": "LIVE WEB APP",
-      "description": "Web streaming platform delivering 10,000+ live international channels spanning Sports, Movies, Dramas, and News.",
+      "description": "A premium Android-style live sports streaming application featuring Camellia Stream Doctor, real-time M3U playlist processing, direct m3u8 playback, and TV mode navigation.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.670Z",
+      "lastChecked": "2026-11-14T12:12:35.575Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 204,
+      "latencyMs": 215,
       "liveTitle": "M R S IPTV"
     },
     {
@@ -353,16 +334,16 @@
       "name": "Apps Store",
       "url": "https://mrmahbubur.github.io/APPS-STORE/",
       "domain": "mrmahbubur.github.io",
-      "category": "Web & Mobile Apps Directory",
+      "category": "Official IPTV & APK Store",
       "badge": "APPS STORE",
-      "description": "Curated Android and web software repository maintaining verified utility packages and tools.",
+      "description": "Download verified M R S IPTV Android and M R S IPTV TV APKs directly with SHA-256 verification, real user reviews, and inbuilt developer app publishing.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.592Z",
+      "lastChecked": "2026-11-14T12:12:35.471Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 125,
+      "latencyMs": 109,
       "liveTitle": "MRS App Store - Official IPTV Network"
     },
     {
@@ -370,16 +351,16 @@
       "name": "Private C N",
       "url": "https://mrs-pcn.ai.studio/",
       "domain": "mrs-pcn.ai.studio",
-      "category": "Private Communications Network",
+      "category": "Private Communication Network",
       "badge": "PRIVATE APP",
-      "description": "Dedicated private web application environment engineered and administered under the M R S digital suite.",
+      "description": "Production-ready private communication network featuring end-to-end encrypted messaging, authenticated private file attachments, and secure WebRTC audio and video calling.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.660Z",
+      "lastChecked": "2026-11-14T12:12:35.555Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 193,
+      "latencyMs": 195,
       "liveTitle": "M R S — Private Communication Network"
     },
     {
@@ -387,16 +368,16 @@
       "name": "Camellia Shop",
       "url": "https://mrmahbubur.github.io/Camellia-Shop/",
       "domain": "mrmahbubur.github.io",
-      "category": "Digital Storefront & E-Commerce",
+      "category": "Workspace Electronics & Hardware Store",
       "badge": "E-COMMERCE",
-      "description": "Streamlined online commerce storefront showcasing digital catalog structure and front-end web administration.",
+      "description": "Shop curated workspace electronics, computer hardware, audio gear, and direct Amazon Prime and Shopz BD products at Camellia Shop.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.591Z",
+      "lastChecked": "2026-11-14T12:12:35.472Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 122,
+      "latencyMs": 110,
       "liveTitle": "Camellia Shop | Workspace Electronics & Hardware Store"
     },
     {
@@ -406,14 +387,14 @@
       "domain": "mrmahbubur.github.io",
       "category": "Humanitarian & Community Initiative",
       "badge": "CHARITY",
-      "description": "Humanitarian charity web portal supporting community outreach, transparent initiatives, and digital coordination.",
+      "description": "M R S Charity Foundation - A Project of M R S. Transforming lives by offering healthcare, education, and essential necessities to individuals experiencing poverty.",
       "imageKey": "charity",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.612Z",
+      "lastChecked": "2026-11-14T12:12:35.480Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 142,
+      "latencyMs": 115,
       "liveTitle": "M R S Charity Foundation | Poverty Ends With Us"
     },
     {
@@ -421,16 +402,16 @@
       "name": "Camellia Ai",
       "url": "https://mrmahbubur.github.io/Camellia-Ai/",
       "domain": "mrmahbubur.github.io",
-      "category": "AI Productivity Interface",
+      "category": "Multi-Provider AI Assistant",
       "badge": "AI TOOL",
-      "description": "Interactive AI web assistant interface built to streamline research, drafting, and automated workflows.",
+      "description": "Camellia AI, the interactive assistant of M R S — multi-provider SSE streaming across Gemini, Anthropic, and OpenRouter with live search grounding, math, code, and voice.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.579Z",
+      "lastChecked": "2026-11-14T12:12:35.480Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 107,
+      "latencyMs": 115,
       "liveTitle": "Camellia AI — Assistant of M R S"
     },
     {
@@ -438,33 +419,33 @@
       "name": "Cloud",
       "url": "https://mrmahbubur.github.io/Admin/",
       "domain": "mrmahbubur.github.io",
-      "category": "Cloud Administration Console",
-      "badge": "CLOUD ADMIN",
-      "description": "Centralized cloud management workspace and remote operational console for digital resources.",
+      "category": "Official Admin Hub Portal",
+      "badge": "ADMIN HUB",
+      "description": "Official M R S portfolio & live websites showcase. Certified IT Support Professional, Remote Admin & Documentation Specialist, and Web Manager.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.589Z",
+      "lastChecked": "2026-11-14T12:12:35.474Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 117,
+      "latencyMs": 109,
       "liveTitle": "M R S — Certified IT Support Professional & Web Manager"
     },
     {
       "id": "proj-6-ai-assistant",
-      "name": "M R S Portfolio & AI Assistant",
+      "name": "M R S Portfolio & AI Concierge",
       "url": "https://mrxshahin.ai.studio/",
       "domain": "mrxshahin.ai.studio",
       "category": "Official Portfolio & AI Concierge",
       "badge": "AI CONCIERGE",
-      "description": "Official portfolio of M R S featuring verified credentials, live projects, and an interactive multimodal AI concierge.",
+      "description": "Certified IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management. Interactive AI Concierge & Portfolio for M R S.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.655Z",
+      "lastChecked": "2026-11-14T12:12:35.572Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 182,
+      "latencyMs": 208,
       "liveTitle": "M R S Portfolio · Certified IT Support Professional & Web Manager"
     },
     {
@@ -474,10 +455,10 @@
       "domain": "mrxshahin.wordpress.com",
       "category": "Verified Publication",
       "badge": "WORDPRESS",
-      "description": "Discover a Trusted Community — Now on a New Secure Domain! I’ve recently come across an outstanding site dedicated to [insert niche/topic], and I highly recommend giving it a visit. They’ve just upgraded to a new, more secure v3 domain, which you can access he",
+      "description": "Solutions crafted for you — verified WordPress publication sharing technical guides and digital documentation by M R S.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.673Z",
+      "lastChecked": "2026-11-14T12:12:35.581Z",
       "isCore": true,
       "feedUrl": "https://mrxshahin.wordpress.com/feed/",
       "latestPosts": [
@@ -488,7 +469,7 @@
         }
       ],
       "httpCode": 200,
-      "latencyMs": 18,
+      "latencyMs": 20,
       "liveTitle": "Solutions crafted for you"
     },
     {
@@ -498,14 +479,14 @@
       "domain": "upload-apk.com",
       "category": "Android Package Download",
       "badge": "DIRECT APK",
-      "description": "Direct Mrs IPTV APK package download supporting Android TVs, set-top boxes, and Android mobile devices.",
+      "description": "Direct M R S IPTV Android APK package download supporting Android TVs, set-top boxes, and mobile devices.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T12:02:00.976Z",
+      "lastChecked": "2026-11-14T12:12:36.083Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 501,
+      "latencyMs": 714,
       "liveTitle": "Upload APK — Download — _Mrs__IPTV_.apk"
     }
   ],
@@ -1120,10 +1101,10 @@
     "url": "https://mrs-services.ai.studio/",
     "status": "online",
     "httpCode": 200,
-    "latencyMs": 188,
-    "lastChecked": "2026-11-14T12:02:00.661Z"
+    "latencyMs": 190,
+    "lastChecked": "2026-11-14T12:12:35.556Z"
   },
-  "lastUpdated": "2026-11-14T12:02:00.976Z",
+  "lastUpdated": "2026-11-14T12:12:36.083Z",
   "syncCycle": 2,
   "yearlySystem": {
     "currentYear": 2026,

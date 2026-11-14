@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Calendar, CheckCircle2, ExternalLink, Globe, Mail, Phone, Send } from 'lucide-react';
+import { Briefcase, Calendar, CheckCircle2, ExternalLink, Globe, MessageSquare, Send } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
 
 export const ContactSection: React.FC = () => {
@@ -106,27 +106,36 @@ export const ContactSection: React.FC = () => {
           <div className="lg:col-span-6 space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <a
-                href={`mailto:${adminProfile.socials.email}`}
-                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
+                href="https://mrs-services.ai.studio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
-                <Mail className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
-                <div className="min-w-0">
-                  <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Direct Email</div>
-                  <div className="text-[13px] font-mono font-medium text-[#0f172a] dark:text-white truncate">
-                    {adminProfile.socials.email}
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <Briefcase className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Services Portal</div>
+                    <div className="text-[13px] font-mono font-medium text-[#0f172a] dark:text-white truncate">
+                      mrs-services.ai.studio
+                    </div>
                   </div>
                 </div>
+                <ExternalLink className="w-3.5 h-3.5 text-[#64748b] shrink-0" />
               </a>
 
               <a
-                href={`tel:${adminProfile.socials.phone}`}
+                href="#contact-name"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('contact-name')?.focus();
+                }}
                 className="flex items-center gap-3.5 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
-                <Phone className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
+                <MessageSquare className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
                 <div className="min-w-0">
-                  <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Telephone</div>
-                  <div className="text-[13px] font-mono tabular-nums font-medium text-[#0f172a] dark:text-white truncate">
-                    {adminProfile.socials.phone}
+                  <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Direct Dispatch</div>
+                  <div className="text-[13.5px] font-semibold text-[#0f172a] dark:text-white truncate">
+                    Submit Inquiry Form
                   </div>
                 </div>
               </a>

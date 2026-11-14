@@ -587,7 +587,7 @@ export const SERVICE_PAYMENT_CHANNELS = [
   },
   {
     label: 'bKash & Nagad (BDT)',
-    detail: 'Personal Send Money · Instant local verification',
+    detail: 'Direct Send Money · Instant local verification',
     region: 'Local (BDT)',
   },
 ] as const;

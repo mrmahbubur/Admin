@@ -193,27 +193,29 @@ export const AboutCredentials: React.FC = () => {
                 </ul>
               </div>
 
-              {/* Education */}
-              <div className="p-6 space-y-4">
-                <div className="flex items-center gap-2 font-semibold text-[15px] text-[#0f172a] dark:text-white">
-                  <GraduationCap className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8]" />
-                  <span>Education</span>
-                </div>
-                <div className="divide-y divide-[#dbe3ee] dark:divide-[#1c273b]">
-                  {adminProfile.education.map((edu, idx) => (
-                    <div key={idx} className="py-3 first:pt-0 last:pb-0 space-y-1">
-                      <div className="font-semibold text-[14px] text-[#0f172a] dark:text-white">{edu.degree}</div>
-                      <div className="text-[13px] text-[#475569] dark:text-[#94a3b8]">{edu.institution}</div>
-                      <div className="flex items-center justify-between text-[12px] font-mono tabular-nums text-[#64748b] dark:text-[#94a3b8] pt-0.5">
-                        <span>{edu.period}</span>
-                        {edu.gpa && (
-                          <span className="text-[#2563eb] dark:text-[#38bdf8] font-semibold">{edu.gpa}</span>
-                        )}
+              {/* Education (rendered only if explicitly present in public credentials) */}
+              {adminProfile.education && adminProfile.education.length > 0 && (
+                <div className="p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold text-[15px] text-[#0f172a] dark:text-white">
+                    <GraduationCap className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8]" />
+                    <span>Education</span>
+                  </div>
+                  <div className="divide-y divide-[#dbe3ee] dark:divide-[#1c273b]">
+                    {adminProfile.education.map((edu, idx) => (
+                      <div key={idx} className="py-3 first:pt-0 last:pb-0 space-y-1">
+                        <div className="font-semibold text-[14px] text-[#0f172a] dark:text-white">{edu.degree}</div>
+                        <div className="text-[13px] text-[#475569] dark:text-[#94a3b8]">{edu.institution}</div>
+                        <div className="flex items-center justify-between text-[12px] font-mono tabular-nums text-[#64748b] dark:text-[#94a3b8] pt-0.5">
+                          <span>{edu.period}</span>
+                          {edu.gpa && (
+                            <span className="text-[#2563eb] dark:text-[#38bdf8] font-semibold">{edu.gpa}</span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Languages & Focus Areas */}
               <div className="p-6 space-y-5">

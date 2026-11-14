@@ -358,33 +358,14 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
   ],
   coursesCertifications: [
     'Basic Computer Course (360 Hrs)',
-    'Android Hardware Repair',
-    'IELTS — Band 5.5',
+    'Certified Computer & MS Office Professional',
   ],
-  education: [
-    {
-      degree: 'Bachelor of Social Science',
-      institution: 'Sylhet Government College, Sylhet',
-      period: 'Jan 2021 – Present',
-    },
-    {
-      degree: 'Higher Secondary Certificate (HSC)',
-      institution: 'Tajpur Degree College, Sylhet',
-      period: 'Jan 2019 – Dec 2020',
-      gpa: 'GPA: 3.33',
-    },
-    {
-      degree: 'Secondary School Certificate (SSC)',
-      institution: 'Mongol Chondi Nishikanto High School, Sylhet',
-      period: 'Jan 2017 – Dec 2018',
-      gpa: 'GPA: 3.39',
-    },
-  ],
+  education: [],
   languages: [{ name: 'English', level: 'Proficient' }],
   interests: ['Web Development', 'web3', 'ethical hacking', 'Social Sciences', 'Remote Working'],
   socials: {
-    email: 'mr216873@gmail.com',
-    phone: '+8809611056361',
+    email: '',
+    phone: '',
     gravatarUrl: '',
     githubUrl: 'https://github.com/mrmahbubur',
     linkedinUrl: 'https://www.linkedin.com/in/mrmahbubur',
@@ -406,29 +387,14 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
 
 const DEFAULT_WEBSITES: EcosystemWebsite[] = [
   {
-    id: 'proj-6-ai-assistant',
-    name: 'M R S Portfolio & AI Assistant',
-    url: 'https://mrxshahin.ai.studio/',
-    domain: 'mrxshahin.ai.studio',
-    category: 'Official Portfolio & AI Concierge',
-    badge: 'AI CONCIERGE',
-    description:
-      'Official portfolio of M R S featuring verified credentials, live projects, and an interactive multimodal AI concierge.',
-    imageKey: 'flagship',
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
     id: 'proj-mrs-services',
-    name: 'All Services Portal',
+    name: 'M R S — Professional Automation & Digital Services',
     url: 'https://mrs-services.ai.studio/',
     domain: 'mrs-services.ai.studio',
-    category: 'Services & Rate Catalog',
+    category: 'Automation & Digital Services Portal',
     badge: 'SERVICES',
     description:
-      'Official M R S remote IT support, WordPress CMS, documentation, identity setup, and IPTV services directory.',
+      'Automate. Deliver. Grow. Browse professional technical and digital solutions, request quotes, Client ID & PIN portal access, and verified payment processing.',
     imageKey: 'admin',
     status: 'standby',
     lastChecked: new Date().toISOString(),
@@ -436,14 +402,29 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     latestPosts: [],
   },
   {
+    id: 'proj-6-ai-assistant',
+    name: 'M R S Portfolio & AI Concierge',
+    url: 'https://mrxshahin.ai.studio/',
+    domain: 'mrxshahin.ai.studio',
+    category: 'Official Portfolio & AI Concierge',
+    badge: 'AI CONCIERGE',
+    description:
+      'Certified IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management with Interactive AI Concierge.',
+    imageKey: 'flagship',
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+    isCore: true,
+    latestPosts: [],
+  },
+  {
     id: 'proj-3-iptv-web',
-    name: 'IPTV WEB',
+    name: 'M R S IPTV',
     url: 'https://shahin-iptv.ai.studio',
     domain: 'shahin-iptv.ai.studio',
     category: 'Live Streaming & Media Platform',
     badge: 'LIVE WEB APP',
     description:
-      'Web streaming platform delivering 10,000+ live international channels spanning Sports, Movies, Dramas, and News.',
+      'Live sports and media streaming web application featuring Camellia Stream Doctor, real-time M3U playlist processing, direct m3u8 playback, and TV mode navigation.',
     imageKey: 'flagship',
     status: 'standby',
     lastChecked: new Date().toISOString(),
@@ -458,7 +439,7 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     category: 'Android Package Download',
     badge: 'DIRECT APK',
     description:
-      'Direct Mrs IPTV APK package download supporting Android TVs, set-top boxes, and Android mobile devices.',
+      'Direct M R S IPTV Android APK package download supporting Android TVs, set-top boxes, and mobile devices.',
     imageKey: 'tech',
     status: 'standby',
     lastChecked: new Date().toISOString(),
@@ -473,7 +454,7 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     category: 'Verified Publication',
     badge: 'WORDPRESS',
     description:
-      'Verified WordPress publication sharing technical solutions, digital guides, and documentation crafted by M R S.',
+      'Solutions crafted for you — verified WordPress publication sharing technical guides and digital documentation by M R S.',
     imageKey: 'admin',
     status: 'standby',
     lastChecked: new Date().toISOString(),
@@ -491,70 +472,70 @@ const CURATED_PROJECT_HINTS: Record<
     category: 'Official Portfolio & AI Concierge',
     badge: 'AI CONCIERGE',
     description:
-      'Official portfolio of M R S featuring verified credentials, live projects, and an interactive multimodal AI concierge.',
+      'Certified IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management with Interactive AI Concierge.',
     imageKey: 'flagship',
   },
   'mrs-services.ai.studio': {
-    category: 'Services & Rate Catalog',
+    category: 'Automation & Digital Services Portal',
     badge: 'SERVICES',
     description:
-      'Official M R S remote IT support, WordPress CMS, documentation, identity setup, and IPTV services directory.',
+      'Automate. Deliver. Grow. Browse professional technical and digital solutions, request quotes, Client ID & PIN portal access, and verified payment processing.',
     imageKey: 'admin',
   },
   'shahin-iptv.ai.studio': {
     category: 'Live Streaming & Media Platform',
     badge: 'LIVE WEB APP',
     description:
-      'Web streaming platform delivering 10,000+ live international channels spanning Sports, Movies, Dramas, and News.',
+      'Live sports and media streaming web application featuring Camellia Stream Doctor, real-time M3U playlist processing, direct m3u8 playback, and TV mode navigation.',
     imageKey: 'flagship',
   },
   'mrs-pcn.ai.studio': {
-    category: 'Private Communications Network',
+    category: 'Private Communication Network',
     badge: 'PRIVATE APP',
     description:
-      'Dedicated private web application environment engineered and administered under the M R S digital suite.',
+      'Private communication network featuring end-to-end encrypted messaging, authenticated private file attachments, and secure WebRTC audio and video calling.',
     imageKey: 'tech',
   },
   'mrmahbubur.github.io/apps-store': {
-    category: 'Web & Mobile Apps Directory',
+    category: 'Official IPTV & APK Store',
     badge: 'APPS STORE',
     description:
-      'Curated Android and web software repository maintaining verified utility packages and tools.',
+      'Download verified M R S IPTV Android and TV APKs directly with SHA-256 checksum verification, user reviews, and developer app publishing.',
     imageKey: 'tech',
   },
   'mrmahbubur.github.io/camellia-shop': {
-    category: 'Digital Storefront & E-Commerce',
+    category: 'Workspace Electronics & Hardware Store',
     badge: 'E-COMMERCE',
     description:
-      'Streamlined online commerce storefront showcasing digital catalog structure and front-end web administration.',
+      'Curated workspace electronics, computer hardware, audio gear, and direct Prime and hardware selections at Camellia Shop.',
     imageKey: 'admin',
   },
   'mrmahbubur.github.io/charity-foundation': {
     category: 'Humanitarian & Community Initiative',
     badge: 'CHARITY',
     description:
-      'Humanitarian charity web portal supporting community outreach, transparent initiatives, and digital coordination.',
+      'M R S Charity Foundation — Poverty Ends With Us. Supporting healthcare, education, and essential necessities for underserved communities.',
     imageKey: 'charity',
   },
   'mrmahbubur.github.io/camellia-ai': {
-    category: 'AI Productivity Interface',
+    category: 'Multi-Provider AI Assistant',
     badge: 'AI TOOL',
     description:
-      'Interactive AI web assistant interface built to streamline research, drafting, and automated workflows.',
+      'Camellia AI — interactive assistant of M R S featuring multi-provider SSE streaming with live search grounding, math, code, and voice.',
     imageKey: 'tech',
   },
   'mrmahbubur.github.io/admin': {
-    category: 'Cloud Administration Console',
-    badge: 'CLOUD ADMIN',
+    category: 'Official Admin Hub Portal',
+    badge: 'ADMIN HUB',
     description:
-      'Centralized cloud management workspace and remote operational console for digital resources.',
+      'Centralized M R S operations hub and live websites showcase for remote IT support, documentation workflows, and web management.',
     imageKey: 'admin',
   },
   'mrxshahin.wordpress.com': {
     category: 'Verified Publication',
     badge: 'WORDPRESS',
     description:
-      'Verified WordPress publication sharing technical solutions, digital guides, and documentation crafted by M R S.',
+      'Solutions crafted for you — verified WordPress publication sharing technical guides and digital documentation by M R S.',
     imageKey: 'admin',
   },
 };
@@ -616,13 +597,23 @@ try {
     let restoredProfile = websitesState.adminProfile;
     if (parsed?.adminProfile && typeof parsed.adminProfile === 'object') {
       const candidate = parsed.adminProfile as AdminProfileData;
-      const cleanSocials = { ...BASE_ADMIN_PROFILE.socials, ...(candidate.socials || {}), gravatarUrl: '' };
+      const cleanSocials = {
+        ...BASE_ADMIN_PROFILE.socials,
+        ...(candidate.socials || {}),
+        email: '',
+        phone: '',
+        gravatarUrl: '',
+      };
       if (/blogspot\./i.test(cleanSocials.contactForm || '')) {
         cleanSocials.contactForm = cleanSocials.wordpressUrl || BASE_ADMIN_PROFILE.socials.wordpressUrl;
       }
       restoredProfile = {
         ...BASE_ADMIN_PROFILE,
         ...candidate,
+        pronouns: '',
+        pronunciation: '',
+        coursesCertifications: BASE_ADMIN_PROFILE.coursesCertifications,
+        education: [],
         socials: cleanSocials,
         verifiedAccounts: Array.isArray(candidate.verifiedAccounts)
           ? candidate.verifiedAccounts.filter(
@@ -905,24 +896,13 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     typeof v3Profile?.display_name === 'string' && v3Profile.display_name.trim()
       ? decodeHtmlEntities(v3Profile.display_name).trim()
       : '';
-  const rawFullName = [v3Profile?.first_name, v3Profile?.last_name]
-    .filter((p) => typeof p === 'string' && p.trim())
-    .map((p) => decodeHtmlEntities(String(p)).trim())
-    .join(' ');
   const rawLegacyName =
     typeof legacyEntry?.displayName === 'string' && legacyEntry.displayName.trim()
       ? decodeHtmlEntities(legacyEntry.displayName).trim()
       : '';
-  const siteName = rawV3Name || rawFullName || rawLegacyName || base.siteName;
+  const siteName = rawV3Name || rawLegacyName || base.siteName;
 
-  const rawLocation =
-    (typeof v3Profile?.location === 'string' && v3Profile.location.trim()
-      ? decodeHtmlEntities(v3Profile.location).trim()
-      : '') ||
-    (typeof legacyEntry?.currentLocation === 'string' && legacyEntry.currentLocation.trim()
-      ? decodeHtmlEntities(legacyEntry.currentLocation).trim()
-      : '') ||
-    base.location;
+  const rawLocation = base.location;
 
   const rawJobTitle =
     typeof v3Profile?.job_title === 'string' && v3Profile.job_title.trim()
@@ -937,12 +917,8 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       ? `${rawJobTitle} · ${rawCompany}`
       : rawJobTitle || base.roleTitle;
 
-  const pronouns =
-    typeof v3Profile?.pronouns === 'string' ? decodeHtmlEntities(v3Profile.pronouns).trim() : '';
-  const pronunciation =
-    typeof v3Profile?.pronunciation === 'string'
-      ? decodeHtmlEntities(v3Profile.pronunciation).trim()
-      : '';
+  const pronouns = '';
+  const pronunciation = '';
   const avatarAltText =
     typeof v3Profile?.avatar_alt_text === 'string' && v3Profile.avatar_alt_text.trim()
       ? decodeHtmlEntities(v3Profile.avatar_alt_text).trim()
@@ -973,14 +949,12 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
 
   const parsedBio = parseGravatarBioMarkdown(bioMarkdown);
 
-  // Merge contact info from v3 + legacy JSON cleanly (excluding any blogspot links)
+  // Merge public business channels from v3 + legacy JSON cleanly (excluding personal email/phone & blogspot links)
   const isBlogspotUrl = (val: string) => /blogspot\./i.test(val);
-  const socials = { ...base.socials, gravatarUrl: '' };
+  const socials = { ...base.socials, email: '', phone: '', gravatarUrl: '' };
 
   if (v3Profile?.contact_info && typeof v3Profile.contact_info === 'object') {
     const ci = v3Profile.contact_info;
-    if (typeof ci.email === 'string' && ci.email.includes('@')) socials.email = ci.email.trim();
-    if (typeof ci.cell_phone === 'string' && ci.cell_phone.trim()) socials.phone = ci.cell_phone.trim();
     if (typeof ci.calendar === 'string' && ci.calendar.startsWith('https://')) {
       socials.calendlyUrl = ci.calendar.trim();
     }
@@ -993,18 +967,6 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   }
 
-  if (Array.isArray(legacyEntry?.emails)) {
-    const primaryEmail = legacyEntry.emails.find((e: any) => e?.value)?.value;
-    if (typeof primaryEmail === 'string' && primaryEmail.includes('@')) {
-      socials.email = primaryEmail.trim();
-    }
-  }
-  if (Array.isArray(legacyEntry?.phoneNumbers)) {
-    const primaryPhone = legacyEntry.phoneNumbers.find((p: any) => p?.value)?.value;
-    if (typeof primaryPhone === 'string' && primaryPhone.trim()) {
-      socials.phone = primaryPhone.trim();
-    }
-  }
   if (Array.isArray(legacyEntry?.contactInfo)) {
     for (const item of legacyEntry.contactInfo) {
       const val = String(item?.value || '').trim();
@@ -1466,6 +1428,9 @@ async function syncProfileAndFeeds(): Promise<void> {
     };
 
     websitesState.websites = websitesState.websites.map((site) => {
+      if (site.isCore || site.domain === 'mrxshahin.wordpress.com') {
+        return site;
+      }
       const matched = combinedRssItems.find((it) => {
         try {
           return new URL(it.link).hostname === site.domain && !it.link.includes('#cv-download');
@@ -1559,7 +1524,12 @@ async function probeSingleWebsite(site: EcosystemWebsite): Promise<EcosystemWebs
         if (meta.title && meta.title.length > 2) {
           liveTitle = meta.title;
         }
-        if (meta.description && meta.description.length > 25 && !site.isCore) {
+        if (
+          meta.description &&
+          meta.description.length > 35 &&
+          site.domain !== 'mrxshahin.wordpress.com' &&
+          site.domain !== 'upload-apk.com'
+        ) {
           description = meta.description;
         }
       }

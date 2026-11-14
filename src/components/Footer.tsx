@@ -103,18 +103,23 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, onToggleDarkMode }) =>
             </ul>
           </div>
 
-          {/* Col 4: Verified Direct Contact */}
+          {/* Col 4: Official Channels */}
           <div className="space-y-3.5">
-            <h4 className="text-white font-semibold text-[14px]">Direct Channels</h4>
+            <h4 className="text-white font-semibold text-[14px]">Official Channels</h4>
             <ul className="space-y-2.5 text-[#94a3b8]">
               <li>
-                <a href={`mailto:${adminProfile.socials.email}`} className="hover:text-white transition-colors font-mono text-[12.5px]">
-                  {adminProfile.socials.email}
+                <a
+                  href="https://mrs-services.ai.studio/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors font-mono text-[12.5px]"
+                >
+                  mrs-services.ai.studio
                 </a>
               </li>
               <li>
-                <a href={`tel:${adminProfile.socials.phone}`} className="hover:text-white transition-colors font-mono text-[12.5px] tabular-nums">
-                  {adminProfile.socials.phone}
+                <a href="#contact-section" className="hover:text-white transition-colors">
+                  Send Service Inquiry
                 </a>
               </li>
               <li>

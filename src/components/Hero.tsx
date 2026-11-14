@@ -23,12 +23,6 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
             <span className="font-mono font-semibold text-[#2563eb] dark:text-[#38bdf8]">Verified Profile</span>
             <span aria-hidden="true">·</span>
             <span>{adminProfile.location}</span>
-            {adminProfile.pronouns && (
-              <>
-                <span aria-hidden="true">·</span>
-                <span>{adminProfile.pronouns}</span>
-              </>
-            )}
             <span aria-hidden="true">·</span>
             <span className="font-mono tabular-nums">Since {yearly.establishedYear}</span>
           </div>
@@ -101,11 +95,6 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
                   <div className="font-display text-xl font-bold text-[#0f172a] dark:text-white leading-tight">
                     {adminProfile.siteName}
                   </div>
-                  {adminProfile.pronunciation && (
-                    <div className="text-[11.5px] font-mono text-[#64748b] dark:text-[#94a3b8]">
-                      /{adminProfile.pronunciation}/
-                    </div>
-                  )}
                   <div className="text-[12.5px] font-medium text-[#2563eb] dark:text-[#38bdf8] mt-0.5 leading-snug">
                     {adminProfile.certification}
                   </div>
@@ -118,28 +107,35 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
                   <span className="font-semibold text-[#0f172a] dark:text-[#f1f5f9] text-right">{adminProfile.location}</span>
                 </div>
                 <div className="py-3 flex items-center justify-between gap-4">
-                  <span className="text-[#64748b] dark:text-[#94a3b8]">Direct Email</span>
+                  <span className="text-[#64748b] dark:text-[#94a3b8]">Services Portal</span>
                   <a
-                    href={`mailto:${adminProfile.socials.email}`}
+                    href="https://mrs-services.ai.studio/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="font-mono text-[12.5px] font-medium text-[#0f172a] dark:text-[#f1f5f9] hover:text-[#2563eb] dark:hover:text-[#38bdf8] truncate"
                   >
-                    {adminProfile.socials.email}
+                    mrs-services.ai.studio
                   </a>
                 </div>
                 <div className="py-3 flex items-center justify-between gap-4">
-                  <span className="text-[#64748b] dark:text-[#94a3b8]">Direct Phone</span>
+                  <span className="text-[#64748b] dark:text-[#94a3b8]">Scheduling</span>
                   <a
-                    href={`tel:${adminProfile.socials.phone}`}
-                    className="font-mono text-[12.5px] font-medium text-[#0f172a] dark:text-[#f1f5f9] hover:text-[#2563eb] dark:hover:text-[#38bdf8] tabular-nums"
+                    href={adminProfile.socials.calendlyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[12.5px] font-medium text-[#0f172a] dark:text-[#f1f5f9] hover:text-[#2563eb] dark:hover:text-[#38bdf8] truncate"
                   >
-                    {adminProfile.socials.phone}
+                    calendly.com/mrxshahin
                   </a>
                 </div>
                 <div className="pt-3 flex items-center justify-between gap-4">
                   <span className="text-[#64748b] dark:text-[#94a3b8]">Availability</span>
-                  <span className="font-medium text-[#0f172a] dark:text-[#f1f5f9] text-right">
+                  <a
+                    href="#contact-section"
+                    className="font-medium text-[#2563eb] dark:text-[#38bdf8] hover:underline underline-offset-4 text-right"
+                  >
                     Remote &amp; Contract
-                  </span>
+                  </a>
                 </div>
               </div>
             </div>
