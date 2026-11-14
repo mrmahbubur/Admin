@@ -6,13 +6,12 @@
     <script>
       (function () {
         try {
-          var saved = localStorage.getItem('mrs_dark_theme');
-          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          var isDark = saved === 'true' || (saved === null && prefersDark);
+          var saved = localStorage.getItem('mrs_tech_theme_mode');
+          var isDark = saved !== 'light';
           if (isDark) document.documentElement.classList.add('dark');
           else document.documentElement.classList.remove('dark');
           var tc = document.querySelector('meta[name="theme-color"]');
-          if (tc) tc.setAttribute('content', isDark ? '#050505' : '#fafafa');
+          if (tc) tc.setAttribute('content', isDark ? '#070b14' : '#f4f7fb');
         } catch (e) {}
       })();
     </script>
@@ -28,7 +27,7 @@
       content="Official M R S portfolio &amp; live websites showcase. Remote IT support, document management, and web operations."
     />
     <meta name="author" content="M R S" />
-    <meta name="theme-color" content="#fafafa" />
+    <meta name="theme-color" content="#070b14" />
     <link rel="icon" type="image/jpeg" href="./mrs_profile_avatar.jpg" />
     <link rel="apple-touch-icon" href="./mrs_profile_avatar.jpg" />
     <link rel="alternate icon" type="image/svg+xml" href="./site_logo.svg" />
@@ -45,7 +44,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <script type="application/ld+json">
@@ -71,7 +70,7 @@
       }
     </script>
   </head>
-  <body class="bg-[#fafafa] dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] antialiased selection:bg-amber-200 selection:text-stone-900 transition-colors duration-200">
+  <body class="bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] antialiased selection:bg-blue-500/30 selection:text-white transition-colors duration-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
@@ -107,7 +106,7 @@
                   '<h1 style="font-size:2.5rem;font-weight:800;margin-bottom:8px;">M R S</h1>' +
                   '<p style="opacity:0.85;margin-bottom:20px;">IT Support Professional | Remote Admin &amp; Documentation Specialist | Web Manager</p>' +
                   '<p style="font-size:14px;opacity:0.75;margin-bottom:20px;">Static build bundle (dist/ or docs/) was not found at this branch root. Set GitHub Pages Source to <strong>GitHub Actions</strong> or <strong>main /docs</strong> to serve the full interactive application.</p>' +
-                  '<a href="https://mrxshahin.ai.studio/" style="display:inline-block;padding:10px 18px;border-radius:8px;background:#d97706;color:#fff;font-weight:700;text-decoration:none;">Visit mrxshahin.ai.studio</a>' +
+                  '<a href="https://mrxshahin.ai.studio/" style="display:inline-block;padding:10px 18px;border-radius:8px;background:#2563eb;color:#fff;font-weight:700;text-decoration:none;">Visit mrxshahin.ai.studio</a>' +
                   '</main>';
               }
             }

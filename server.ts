@@ -36,7 +36,6 @@ const UPSTREAM_BASE = (process.env.UPSTREAM_SOURCE_URL || 'https://mrxshahin.ai.
 const UPSTREAM_GRAVATAR_API = `${UPSTREAM_BASE}/api/gravatar?username=${encodeURIComponent(GRAVATAR_USERNAME)}&email=mr216873@gmail.com`;
 const UPSTREAM_GRAVATAR_STREAM = `${UPSTREAM_BASE}/api/gravatar/stream?username=${encodeURIComponent(GRAVATAR_USERNAME)}&email=mr216873@gmail.com`;
 const UPSTREAM_RSS_URL = `${UPSTREAM_BASE}/rss.xml`;
-const UPSTREAM_HEALTH_URL = `${UPSTREAM_BASE}/api/health`;
 const UPSTREAM_POLICIES_URL = `${UPSTREAM_BASE}/api/policies/current`;
 
 export interface WebsitePostPreview {
@@ -160,14 +159,14 @@ export interface WebsitesHubState {
 
 const ESTABLISHED_YEAR = 2018;
 
-function computeYearlyData(): YearlySystemData {
+function computeYearlyData(siteName = 'M R S'): YearlySystemData {
   const now = new Date();
   const currentYear = now.getFullYear();
   const nextYear = currentYear + 1;
   return {
     currentYear,
     establishedYear: ESTABLISHED_YEAR,
-    copyrightNotice: `© ${currentYear} M R S. All rights reserved.`,
+    copyrightNotice: `© ${currentYear} ${siteName}. All rights reserved.`,
     nextRolloverDate: new Date(Date.UTC(nextYear, 0, 1, 0, 0, 0)).toISOString(),
   };
 }
@@ -364,11 +363,9 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
   verifiedAccounts: [
     { label: 'LinkedIn', handle: 'mrmahbubur', url: 'https://www.linkedin.com/in/mrmahbubur' },
     { label: 'GitHub', handle: 'mrmahbubur', url: 'https://github.com/mrmahbubur' },
-    { label: 'X (Twitter)', handle: '@Mrshahinx', url: 'https://x.com/Mrshahinx' },
+    { label: 'X', handle: '@Mrshahinx', url: 'https://x.com/Mrshahinx' },
     { label: 'Bluesky', handle: 'mrxshahin.bsky.social', url: 'https://bsky.app/profile/mrxshahin.bsky.social' },
     { label: 'WordPress', handle: 'mrxshahin.wordpress.com', url: 'https://mrxshahin.wordpress.com' },
-    { label: 'Gravatar', handle: 'gravatar.com/mrxshahin', url: 'https://gravatar.com/mrxshahin' },
-    { label: 'Goodreads', handle: 'mrxshahin', url: 'https://www.goodreads.com/mrxshahin' },
   ],
 };
 
@@ -485,9 +482,9 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
 
 let websitesState: WebsitesHubState = {
   siteName: 'M R S',
-  sourceUrl: UPSTREAM_BASE,
+  sourceUrl: '',
   upstreamStatus: {
-    sourceUrl: UPSTREAM_BASE,
+    sourceUrl: '',
     connected: false,
     sseActive: false,
     healthStatus: 'connecting',
@@ -572,84 +569,129 @@ function extractMetaFromHtml(html: string): { title?: string; description?: stri
   };
 }
 
-function parseGravatarBioServices(markdownBio: string): LiveServiceCategory[] {
-  if (!markdownBio || typeof markdownBio !== 'string') return [];
-  const categories: LiveServiceCategory[] = [];
-  const lines = markdownBio.split(/\r?\n/);
-  let current: LiveServiceCategory | null = null;
+function cleanMarkdownInline(text: string): string {
+  return decodeHtmlEntities(text)
+    .replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0F\s]+/gu, '')
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/__(.+?)__/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function parseGravatarBioMarkdown(rawBio: string): {
+  bioParagraphs: string[];
+  liveServices: LiveServiceCategory[];
+  availabilityNote?: string;
+} {
+  if (!rawBio || typeof rawBio !== 'string') {
+    return { bioParagraphs: [], liveServices: [] };
+  }
+
+  const normalized = decodeHtmlEntities(rawBio);
+  const lines = normalized.split(/\r?\n/);
+
+  const introParagraphs: string[] = [];
+  const whyParagraphs: string[] = [];
+  const availabilityParagraphs: string[] = [];
+  const liveServices: LiveServiceCategory[] = [];
+
+  type SectionMode = 'intro' | 'services' | 'why' | 'background' | 'availability' | 'other';
+  let mode: SectionMode = 'intro';
+  let currentService: LiveServiceCategory | null = null;
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
     if (!line) continue;
 
-    if (line.startsWith('###') && current) {
-      categories.push(current);
-      current = null;
-      continue;
-    }
-
-    const catMatch = line.match(/^[✅🔹📌💼]\s*\*\*(.+?)\*\*/);
-    if (catMatch) {
-      if (current && current.items.length > 0) {
-        categories.push(current);
+    if (line.startsWith('###')) {
+      if (currentService && currentService.items.length > 0) {
+        liveServices.push(currentService);
+        currentService = null;
       }
-      current = { title: decodeHtmlEntities(catMatch[1]).trim(), items: [] };
+      const lowerHeading = line.toLowerCase();
+      if (lowerHeading.includes('what i can do')) {
+        mode = 'services';
+      } else if (lowerHeading.includes('why work with me')) {
+        mode = 'why';
+      } else if (lowerHeading.includes('my background')) {
+        mode = 'background';
+      } else if (lowerHeading.includes('available')) {
+        mode = 'availability';
+      } else {
+        mode = 'other';
+      }
       continue;
     }
 
-    if (current && line.startsWith('* ')) {
-      current.items.push(decodeHtmlEntities(line.slice(2).replace(/\*\*/g, '')).trim());
+    if (mode === 'services') {
+      const catMatch = line.match(/^[✅🔹📌💼]\s*\*\*(.+?)\*\*/);
+      if (catMatch) {
+        if (currentService && currentService.items.length > 0) {
+          liveServices.push(currentService);
+        }
+        currentService = { title: cleanMarkdownInline(catMatch[1]), items: [] };
+        continue;
+      }
+      if (currentService && line.startsWith('* ')) {
+        currentService.items.push(cleanMarkdownInline(line.slice(2)));
+        continue;
+      }
+    }
+
+    if (mode === 'intro') {
+      // Skip the leading emoji/bold availability banner line in intro paragraphs
+      if (/^[🖥️💻🚀✅🔹📌💼]/.test(line)) {
+        continue;
+      }
+      const cleaned = cleanMarkdownInline(line);
+      if (cleaned.length > 20) introParagraphs.push(cleaned);
+      continue;
+    }
+
+    if (mode === 'why') {
+      const cleaned = cleanMarkdownInline(line);
+      if (cleaned.length > 20) whyParagraphs.push(cleaned);
+      continue;
+    }
+
+    if (mode === 'availability') {
+      const cleaned = cleanMarkdownInline(line);
+      if (cleaned.length > 15) availabilityParagraphs.push(cleaned);
     }
   }
 
-  if (current && current.items.length > 0) {
-    categories.push(current);
+  if (currentService && currentService.items.length > 0) {
+    liveServices.push(currentService);
   }
-  return categories;
+
+  const combinedParagraphs = [...introParagraphs, ...whyParagraphs].slice(0, 5);
+  return {
+    bioParagraphs: combinedParagraphs,
+    liveServices,
+    availabilityNote: availabilityParagraphs[0],
+  };
+}
+
+function normalizeVerifiedUrlKey(rawUrl: string): string {
+  return rawUrl.trim().replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '').toLowerCase();
+}
+
+function formatAccountHandle(url: string): string {
+  let handle = url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+  if (handle.includes('x.com/')) return `@${handle.split('x.com/')[1]}`;
+  if (handle.includes('github.com/')) return handle.split('github.com/')[1];
+  if (handle.includes('linkedin.com/in/')) return handle.split('linkedin.com/in/')[1];
+  if (handle.includes('bsky.app/profile/')) return handle.split('bsky.app/profile/')[1];
+  return handle;
 }
 
 function applyUpstreamProfilePayload(payload: any) {
   const remoteProfile = payload?.profile;
   if (!remoteProfile || typeof remoteProfile !== 'object') return;
 
-  const syncedAt = payload.syncedAt || new Date().toISOString();
   const prev = websitesState.adminProfile;
 
-  // Clean roleTitle and tagline if combined on upstream
-  let roleTitle = prev.roleTitle;
-  let tagline = prev.tagline;
-  if (typeof remoteProfile.roleTitle === 'string' && remoteProfile.roleTitle.trim()) {
-    const parts = remoteProfile.roleTitle.split('|').map((p: string) => p.trim()).filter(Boolean);
-    if (parts.length > 3 && parts[parts.length - 1].toLowerCase().includes('helping')) {
-      tagline = parts.pop()!;
-      roleTitle = parts.join(' | ');
-    } else {
-      roleTitle = remoteProfile.roleTitle.trim();
-    }
-  }
-
-  // Strictly sanitize verifiedAccounts (filter out any malformed HTML entries)
-  let verifiedAccounts = prev.verifiedAccounts;
-  if (Array.isArray(remoteProfile.verifiedAccounts)) {
-    const cleanAccounts = remoteProfile.verifiedAccounts
-      .filter((acc: any) => {
-        const u = String(acc?.url || '').trim();
-        return u.startsWith('https://') && u.length < 160 && !/[\s<>]/.test(u);
-      })
-      .map((acc: any) => {
-        const u = String(acc.url).trim();
-        const label = String(acc.service_label || acc.label || 'Profile').trim();
-        let handle = u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
-        if (handle.includes('x.com/')) handle = `@${handle.split('x.com/')[1]}`;
-        return { label, handle, url: u };
-      });
-
-    if (cleanAccounts.length > 0) {
-      verifiedAccounts = cleanAccounts;
-    }
-  }
-
-  // Normalize interests cleanly from strings or { name } objects
+  // Normalize interests when provided
   let interests = prev.interests;
   if (Array.isArray(remoteProfile.interests) && remoteProfile.interests.length > 0) {
     const normalized = remoteProfile.interests
@@ -660,43 +702,15 @@ function applyUpstreamProfilePayload(payload: any) {
     }
   }
 
-  // Parse live markdown service blocks from upstream gravatarBio
-  const liveServices =
-    typeof remoteProfile.gravatarBio === 'string'
-      ? parseGravatarBioServices(remoteProfile.gravatarBio)
-      : prev.liveServices;
-
-  const socials = {
-    ...prev.socials,
-    ...(remoteProfile.socials && typeof remoteProfile.socials === 'object' ? remoteProfile.socials : {}),
-  };
-
   websitesState = {
     ...websitesState,
-    siteName: 'M R S',
-    upstreamStatus: {
-      ...websitesState.upstreamStatus,
-      connected: true,
-      lastSyncedAt: syncedAt,
-    },
+    siteName: prev.siteName,
+    sourceUrl: '',
     adminProfile: {
       ...prev,
-      siteName: 'M R S',
-      roleTitle,
-      tagline,
-      location: typeof remoteProfile.location === 'string' && remoteProfile.location.trim()
-        ? remoteProfile.location.trim()
-        : prev.location,
-      avatarUrl:
-        typeof remoteProfile.avatarUrl === 'string' && remoteProfile.avatarUrl.startsWith('https://')
-          ? remoteProfile.avatarUrl
-          : prev.avatarUrl,
-      liveServices: liveServices.length > 0 ? liveServices : prev.liveServices,
+      siteName: prev.siteName,
       interests,
-      socials,
-      verifiedAccounts,
     },
-    lastUpdated: new Date().toISOString(),
   };
 }
 
@@ -729,91 +743,140 @@ function parseRssXml(xml: string): { buildDate?: string; items: RssFeedItem[] } 
 }
 
 function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
-  if (!v3Profile || typeof v3Profile !== 'object') return;
+  const legacyEntry = Array.isArray(legacyJson?.entry) ? legacyJson.entry[0] : null;
+  if ((!v3Profile || typeof v3Profile !== 'object') && !legacyEntry) return;
 
   const syncedAt = new Date().toISOString();
   const prev = websitesState.adminProfile;
-  const legacyEntry = Array.isArray(legacyJson?.entry) ? legacyJson.entry[0] : null;
 
-  // Location & Role Title (prefer Gravatar v3 fields if populated, preserve verified defaults if blank)
-  const rawLocation = typeof v3Profile.location === 'string' && v3Profile.location.trim()
-    ? decodeHtmlEntities(v3Profile.location).trim()
-    : prev.location;
+  const rawV3Name =
+    typeof v3Profile?.display_name === 'string' && v3Profile.display_name.trim()
+      ? decodeHtmlEntities(v3Profile.display_name).trim()
+      : '';
+  const rawLegacyName =
+    typeof legacyEntry?.displayName === 'string' && legacyEntry.displayName.trim()
+      ? decodeHtmlEntities(legacyEntry.displayName).trim()
+      : '';
+  const siteName = rawV3Name || rawLegacyName || prev.siteName;
 
-  const rawJobTitle = typeof v3Profile.job_title === 'string' && v3Profile.job_title.trim()
-    ? decodeHtmlEntities(v3Profile.job_title).trim()
-    : '';
+  const rawLocation =
+    (typeof v3Profile?.location === 'string' && v3Profile.location.trim()
+      ? decodeHtmlEntities(v3Profile.location).trim()
+      : '') ||
+    (typeof legacyEntry?.currentLocation === 'string' && legacyEntry.currentLocation.trim()
+      ? decodeHtmlEntities(legacyEntry.currentLocation).trim()
+      : '') ||
+    prev.location;
+
+  const rawJobTitle =
+    typeof v3Profile?.job_title === 'string' && v3Profile.job_title.trim()
+      ? decodeHtmlEntities(v3Profile.job_title).trim()
+      : '';
   const roleTitle = rawJobTitle || prev.roleTitle;
 
-  const avatarUrl =
-    typeof v3Profile.avatar_url === 'string' && v3Profile.avatar_url.startsWith('https://')
-      ? `${v3Profile.avatar_url}${v3Profile.avatar_url.includes('?') ? '&' : '?'}s=512`
-      : prev.avatarUrl;
+  const rawAvatar =
+    (typeof v3Profile?.avatar_url === 'string' && v3Profile.avatar_url.startsWith('https://')
+      ? v3Profile.avatar_url
+      : '') ||
+    (typeof legacyEntry?.thumbnailUrl === 'string' && legacyEntry.thumbnailUrl.startsWith('https://')
+      ? legacyEntry.thumbnailUrl
+      : '');
+  const avatarUrl = rawAvatar
+    ? `${rawAvatar}${rawAvatar.includes('?') ? '&' : '?'}s=512`
+    : prev.avatarUrl;
 
   const bioMarkdown =
-    typeof v3Profile.description === 'string' && v3Profile.description.trim()
+    (typeof v3Profile?.description === 'string' && v3Profile.description.trim()
       ? v3Profile.description
-      : typeof legacyEntry?.aboutMe === 'string'
-        ? legacyEntry.aboutMe
-        : '';
+      : '') ||
+    (typeof legacyEntry?.aboutMe === 'string' && legacyEntry.aboutMe.trim()
+      ? legacyEntry.aboutMe
+      : '');
 
-  const parsedServices = bioMarkdown ? parseGravatarBioServices(bioMarkdown) : [];
+  const parsedBio = parseGravatarBioMarkdown(bioMarkdown);
 
-  // Normalize verified_accounts from Gravatar v3 (strict HTTPS + non-hidden check)
-  let verifiedAccounts = prev.verifiedAccounts;
-  const socials = { ...prev.socials };
+  // Merge contact info from v3 + legacy JSON
+  const socials = { ...prev.socials, gravatarUrl: '' };
 
-  if (typeof v3Profile.profile_url === 'string' && v3Profile.profile_url.startsWith('https://')) {
-    socials.gravatarUrl = v3Profile.profile_url.trim();
-  }
-
-  if (v3Profile.contact_info && typeof v3Profile.contact_info === 'object') {
+  if (v3Profile?.contact_info && typeof v3Profile.contact_info === 'object') {
     const ci = v3Profile.contact_info;
     if (typeof ci.email === 'string' && ci.email.includes('@')) socials.email = ci.email.trim();
     if (typeof ci.cell_phone === 'string' && ci.cell_phone.trim()) socials.phone = ci.cell_phone.trim();
     if (typeof ci.calendar === 'string' && ci.calendar.startsWith('https://')) socials.calendlyUrl = ci.calendar.trim();
-    if (typeof ci.contact_form === 'string' && ci.contact_form.startsWith('https://')) socials.contactForm = ci.contact_form.trim();
-  }
-
-  if (Array.isArray(v3Profile.verified_accounts)) {
-    const cleanAccounts = v3Profile.verified_accounts
-      .filter((acc: any) => {
-        if (acc?.is_hidden) return false;
-        const u = String(acc?.url || '').trim();
-        return u.startsWith('https://') && u.length < 160 && !/[\s<>]/.test(u);
-      })
-      .map((acc: any) => {
-        const u = String(acc.url).trim();
-        const label = String(acc.service_label || acc.service_type || 'Profile').trim();
-        const stype = String(acc.service_type || '').toLowerCase();
-        if (stype === 'github' || u.includes('github.com/')) socials.githubUrl = u;
-        if (stype === 'linkedin' || u.includes('linkedin.com/')) socials.linkedinUrl = u;
-        if (stype === 'twitter' || stype === 'x' || u.includes('x.com/')) socials.xUrl = u;
-        if (stype === 'bluesky' || u.includes('bsky.app/')) socials.blueskyUrl = u;
-        if (stype === 'wordpress' || u.includes('wordpress.com')) socials.wordpressUrl = u;
-
-        let handle = u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
-        if (handle.includes('x.com/')) handle = `@${handle.split('x.com/')[1]}`;
-        if (handle.includes('github.com/')) handle = handle.split('github.com/')[1];
-        if (handle.includes('linkedin.com/in/')) handle = handle.split('linkedin.com/in/')[1];
-        if (handle.includes('bsky.app/profile/')) handle = handle.split('bsky.app/profile/')[1];
-        return { label, handle, url: u };
-      });
-
-    if (cleanAccounts.length > 0) {
-      // Preserve Gravatar & Goodreads verified entries if already known and valid
-      const seenUrls = new Set(cleanAccounts.map((a: any) => a.url.replace(/\/$/, '').toLowerCase()));
-      const retainedExtras = prev.verifiedAccounts.filter(
-        (existing) => !seenUrls.has(existing.url.replace(/\/$/, '').toLowerCase()) &&
-          (existing.url.includes('gravatar.com/') || existing.url.includes('wordpress.com') || existing.url.includes('goodreads.com'))
-      );
-      verifiedAccounts = [...cleanAccounts, ...retainedExtras];
+    if (typeof ci.contact_form === 'string' && ci.contact_form.startsWith('https://')) {
+      socials.contactForm = ci.contact_form.trim();
     }
   }
 
-  // Interests (v3 authenticated profile or legacy public JSON)
+  if (Array.isArray(legacyEntry?.emails)) {
+    const primaryEmail = legacyEntry.emails.find((e: any) => e?.value)?.value;
+    if (typeof primaryEmail === 'string' && primaryEmail.includes('@') && !socials.email) {
+      socials.email = primaryEmail.trim();
+    }
+  }
+  if (Array.isArray(legacyEntry?.phoneNumbers)) {
+    const primaryPhone = legacyEntry.phoneNumbers.find((p: any) => p?.value)?.value;
+    if (typeof primaryPhone === 'string' && primaryPhone.trim() && !socials.phone) {
+      socials.phone = primaryPhone.trim();
+    }
+  }
+  if (Array.isArray(legacyEntry?.contactInfo)) {
+    for (const item of legacyEntry.contactInfo) {
+      const val = String(item?.value || '').trim();
+      const kind = String(item?.type || '').toLowerCase();
+      if (kind === 'calendar' && val.startsWith('https://') && !socials.calendlyUrl) {
+        socials.calendlyUrl = val;
+      }
+      if (kind === 'contactform' && val.startsWith('https://') && !socials.contactForm) {
+        socials.contactForm = val;
+      }
+    }
+  }
+
+  // Merge verified_accounts (v3) + accounts (legacy JSON), excluding gravatar.com links
+  const mergedAccounts: { label: string; handle: string; url: string }[] = [];
+  const seenAccountKeys = new Set<string>();
+
+  const pushVerifiedAccount = (rawUrl: any, rawLabel: any) => {
+    const u = String(rawUrl || '').trim();
+    if (!u.startsWith('https://') || u.length >= 160 || /[\s<>]/.test(u)) return;
+    if (u.toLowerCase().includes('gravatar.com/')) return;
+    const key = normalizeVerifiedUrlKey(u);
+    if (seenAccountKeys.has(key)) return;
+    seenAccountKeys.add(key);
+
+    const label = String(rawLabel || 'Profile').trim();
+    const lowerUrl = u.toLowerCase();
+    if (lowerUrl.includes('github.com/')) socials.githubUrl = u;
+    if (lowerUrl.includes('linkedin.com/')) socials.linkedinUrl = u;
+    if (lowerUrl.includes('x.com/') || lowerUrl.includes('twitter.com/')) socials.xUrl = u;
+    if (lowerUrl.includes('bsky.app/')) socials.blueskyUrl = u;
+    if (lowerUrl.includes('wordpress.com')) socials.wordpressUrl = u;
+
+    mergedAccounts.push({
+      label,
+      handle: formatAccountHandle(u),
+      url: u,
+    });
+  };
+
+  if (Array.isArray(v3Profile?.verified_accounts)) {
+    for (const acc of v3Profile.verified_accounts) {
+      if (acc?.is_hidden) continue;
+      pushVerifiedAccount(acc?.url, acc?.service_label || acc?.service_type);
+    }
+  }
+
+  if (Array.isArray(legacyEntry?.accounts)) {
+    for (const acc of legacyEntry.accounts) {
+      if (acc?.is_hidden || acc?.verified === false) continue;
+      pushVerifiedAccount(acc?.url, acc?.name || acc?.shortname);
+    }
+  }
+
+  // Interests (authenticated v3 profile or legacy JSON)
   let interests = prev.interests;
-  const rawInterests = Array.isArray(v3Profile.interests)
+  const rawInterests = Array.isArray(v3Profile?.interests)
     ? v3Profile.interests
     : Array.isArray(legacyEntry?.interests)
       ? legacyEntry.interests
@@ -827,58 +890,135 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   }
 
+  // Languages (when populated on Gravatar authenticated API)
+  let languages = prev.languages;
+  if (Array.isArray(v3Profile?.languages) && v3Profile.languages.length > 0) {
+    const parsedLangs = v3Profile.languages
+      .map((l: any) => ({
+        name: String(l?.name || '').trim(),
+        level: String(l?.proficiency || l?.level || 'Proficient').trim(),
+      }))
+      .filter((l: { name: string }) => Boolean(l.name));
+    if (parsedLangs.length > 0) {
+      languages = parsedLangs;
+    }
+  }
+
+  const whatICanHelpWith =
+    parsedBio.liveServices.length > 0
+      ? parsedBio.liveServices.slice(0, 5).map((s) => s.title)
+      : prev.whatICanHelpWith;
+
   websitesState = {
     ...websitesState,
-    siteName: 'M R S',
+    siteName,
+    sourceUrl: '',
     upstreamStatus: {
       ...websitesState.upstreamStatus,
+      sourceUrl: '',
       connected: true,
+      healthStatus: 'ok',
       lastSyncedAt: syncedAt,
     },
     adminProfile: {
       ...prev,
-      siteName: 'M R S',
+      siteName,
       roleTitle,
       location: rawLocation,
       avatarUrl,
-      liveServices: parsedServices.length > 0 ? parsedServices : prev.liveServices,
+      availabilityNote: parsedBio.availabilityNote || prev.availabilityNote,
+      bioParagraphs: parsedBio.bioParagraphs.length > 0 ? parsedBio.bioParagraphs : prev.bioParagraphs,
+      whatICanHelpWith,
+      liveServices: parsedBio.liveServices.length > 0 ? parsedBio.liveServices : prev.liveServices,
+      languages,
       interests,
       socials,
-      verifiedAccounts,
+      verifiedAccounts: mergedAccounts.length > 0 ? mergedAccounts : prev.verifiedAccounts,
     },
     lastUpdated: syncedAt,
+    yearlySystem: computeYearlyData(siteName),
   };
 }
 
-async function syncFromMrxshahinBackend(): Promise<void> {
-  const gravatarHeaders: Record<string, string> = {
-    'User-Agent': 'MRS-Portfolio-Sync/1.0',
-    Accept: 'application/json',
-  };
-  if (GRAVATAR_API_KEY) {
-    gravatarHeaders.Authorization = `Bearer ${GRAVATAR_API_KEY}`;
-  }
+let lastGravatarSyncMs = 0;
+let gravatarSyncInFlight: Promise<boolean> | null = null;
 
-  const [gravatarV3Res, gravatarJsonRes, profileRes, rssRes, healthRes, policiesRes] = await Promise.allSettled([
-    fetch(GRAVATAR_V3_PROFILE_URL, {
-      signal: AbortSignal.timeout(6000),
-      headers: gravatarHeaders,
-    }),
-    fetch(GRAVATAR_PUBLIC_JSON_URL, {
-      signal: AbortSignal.timeout(6000),
-      headers: { 'User-Agent': 'MRS-Portfolio-Sync/1.0', Accept: 'application/json' },
-    }),
+async function syncGravatarProfileLive(force = false): Promise<boolean> {
+  if (!force && Date.now() - lastGravatarSyncMs < 4000) {
+    return true;
+  }
+  if (gravatarSyncInFlight) return gravatarSyncInFlight;
+
+  gravatarSyncInFlight = (async () => {
+    const gravatarHeaders: Record<string, string> = {
+      'User-Agent': 'MRS-Portfolio-Sync/1.0',
+      Accept: 'application/json',
+      'Cache-Control': 'no-cache',
+    };
+    if (GRAVATAR_API_KEY) {
+      gravatarHeaders.Authorization = `Bearer ${GRAVATAR_API_KEY}`;
+    }
+
+    const cacheBust = `?_t=${Date.now()}`;
+    const [v3Res, legacyRes] = await Promise.allSettled([
+      fetch(`${GRAVATAR_V3_PROFILE_URL}${cacheBust}`, {
+        signal: AbortSignal.timeout(6000),
+        headers: gravatarHeaders,
+        cache: 'no-store',
+      }),
+      fetch(`${GRAVATAR_PUBLIC_JSON_URL}${cacheBust}`, {
+        signal: AbortSignal.timeout(6000),
+        headers: {
+          'User-Agent': 'MRS-Portfolio-Sync/1.0',
+          Accept: 'application/json',
+          'Cache-Control': 'no-cache',
+        },
+        cache: 'no-store',
+      }),
+    ]);
+
+    let v3Json: any = null;
+    let legacyJson: any = null;
+
+    if (v3Res.status === 'fulfilled' && v3Res.value.ok) {
+      try {
+        v3Json = await v3Res.value.json();
+      } catch {
+        // Ignore parse error
+      }
+    }
+
+    if (legacyRes.status === 'fulfilled' && legacyRes.value.ok) {
+      try {
+        legacyJson = await legacyRes.value.json();
+      } catch {
+        // Ignore parse error
+      }
+    }
+
+    if (v3Json || legacyJson) {
+      applyGravatarDirectPayload(v3Json, legacyJson);
+      lastGravatarSyncMs = Date.now();
+      return true;
+    }
+    return false;
+  })().finally(() => {
+    gravatarSyncInFlight = null;
+  });
+
+  return gravatarSyncInFlight;
+}
+
+async function syncFromMrxshahinBackend(): Promise<void> {
+  const [gravatarOk, profileRes, rssRes, policiesRes] = await Promise.allSettled([
+    syncGravatarProfileLive(true),
     fetch(UPSTREAM_GRAVATAR_API, {
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.timeout(5000),
       headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0', Accept: 'application/json' },
     }),
     fetch(UPSTREAM_RSS_URL, {
       signal: AbortSignal.timeout(6000),
       headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0', Accept: 'application/xml,text/xml' },
-    }),
-    fetch(UPSTREAM_HEALTH_URL, {
-      signal: AbortSignal.timeout(4500),
-      headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0' },
     }),
     fetch(UPSTREAM_POLICIES_URL, {
       signal: AbortSignal.timeout(4500),
@@ -886,33 +1026,12 @@ async function syncFromMrxshahinBackend(): Promise<void> {
     }),
   ]);
 
-  let upstreamOk = false;
+  let upstreamOk = gravatarOk.status === 'fulfilled' && gravatarOk.value;
 
   if (profileRes.status === 'fulfilled' && profileRes.value.ok) {
     try {
       const json = await profileRes.value.json();
       applyUpstreamProfilePayload(json);
-      upstreamOk = true;
-    } catch {
-      // Ignore parse warning
-    }
-  }
-
-  let legacyGravatarJson: any = null;
-  if (gravatarJsonRes.status === 'fulfilled' && gravatarJsonRes.value.ok) {
-    try {
-      legacyGravatarJson = await gravatarJsonRes.value.json();
-    } catch {
-      // Ignore parse warning
-    }
-  }
-
-  // Apply authoritative Gravatar REST API v3 data last so live bio, services, contact info & verified accounts take precedence
-  if (gravatarV3Res.status === 'fulfilled' && gravatarV3Res.value.ok) {
-    try {
-      const v3Json = await gravatarV3Res.value.json();
-      applyGravatarDirectPayload(v3Json, legacyGravatarJson);
-      upstreamOk = true;
     } catch {
       // Ignore parse warning
     }
@@ -924,6 +1043,7 @@ async function syncFromMrxshahinBackend(): Promise<void> {
       const parsed = parseRssXml(xml);
       websitesState.upstreamStatus = {
         ...websitesState.upstreamStatus,
+        sourceUrl: '',
         rssBuildDate: parsed.buildDate,
         rssItems: parsed.items,
       };
@@ -948,20 +1068,6 @@ async function syncFromMrxshahinBackend(): Promise<void> {
     }
   }
 
-  if (healthRes.status === 'fulfilled' && healthRes.value.ok) {
-    try {
-      const hJson = await healthRes.value.json();
-      websitesState.upstreamStatus = {
-        ...websitesState.upstreamStatus,
-        healthStatus: String(hJson?.status || 'ok'),
-        connected: true,
-      };
-      upstreamOk = true;
-    } catch {
-      // Ignore
-    }
-  }
-
   if (policiesRes.status === 'fulfilled' && policiesRes.value.ok) {
     try {
       const pJson = await policiesRes.value.json();
@@ -978,12 +1084,13 @@ async function syncFromMrxshahinBackend(): Promise<void> {
 
   websitesState.upstreamStatus = {
     ...websitesState.upstreamStatus,
+    sourceUrl: '',
     connected: upstreamOk || websitesState.upstreamStatus.sseActive,
     lastSyncedAt: new Date().toISOString(),
   };
 }
 
-// Persistent real-time SSE bridge connected directly to https://mrxshahin.ai.studio
+// Persistent real-time SSE bridge for upstream events
 async function connectUpstreamSseBridge() {
   while (true) {
     try {
@@ -1153,14 +1260,15 @@ async function syncAllWebsites(): Promise<WebsitesHubState> {
     try {
       await syncFromMrxshahinBackend();
       const updatedSites = await Promise.all(websitesState.websites.map((s) => probeSingleWebsite(s)));
+      const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
       websitesState = {
         ...websitesState,
-        siteName: 'M R S',
-        sourceUrl: UPSTREAM_BASE,
+        siteName: activeSiteName,
+        sourceUrl: '',
         websites: updatedSites,
         lastUpdated: new Date().toISOString(),
         syncCycle: websitesState.syncCycle + 1,
-        yearlySystem: computeYearlyData(),
+        yearlySystem: computeYearlyData(activeSiteName),
       };
       saveWebsitesCache();
       broadcastWebsitesUpdate('websites_update', websitesState);
@@ -1173,6 +1281,7 @@ async function syncAllWebsites(): Promise<WebsitesHubState> {
   return probeInFlight;
 }
 
+const GRAVATAR_REALTIME_INTERVAL_MS = 15 * 1000;
 const PROBE_INTERVAL_MS = 45 * 1000;
 const YEARLY_CHECK_INTERVAL_MS = 60 * 60 * 1000;
 const SSE_PING_INTERVAL_MS = 25 * 1000;
@@ -1188,8 +1297,10 @@ app.get(['/health', '/api/health'], (_req, res) => {
   });
 });
 
-app.get('/api/websites', (_req, res) => {
+app.get('/api/websites', async (_req, res) => {
+  await syncGravatarProfileLive(false).catch(() => false);
   websitesState.yearlySystem = computeYearlyData();
+  res.setHeader('Cache-Control', 'no-store');
   res.json({
     success: true,
     data: websitesState,
@@ -1206,19 +1317,22 @@ app.get('/api/mrxshahin/status', (_req, res) => {
   });
 });
 
-app.get('/api/websites/stream', (req, res) => {
+app.get('/api/websites/stream', async (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
   res.flushHeaders();
 
-  websitesState.yearlySystem = computeYearlyData();
-  res.write(`data: ${JSON.stringify({ type: 'initial', data: websitesState })}\n\n`);
-
   sseClients.add(res);
   req.on('close', () => {
     sseClients.delete(res);
   });
+
+  await syncGravatarProfileLive(false).catch(() => false);
+  if (req.destroyed || !sseClients.has(res)) return;
+
+  websitesState.yearlySystem = computeYearlyData();
+  res.write(`data: ${JSON.stringify({ type: 'initial', data: websitesState })}\n\n`);
 });
 
 app.post('/api/websites/sync', async (_req, res) => {
@@ -1396,19 +1510,6 @@ app.get('/api/logo', (_req, res) => {
   }
 });
 
-app.get(['/api/blogger-theme', '/blogger-theme.xml'], (req, res) => {
-  const themeFile = path.join(__dirname, 'public', 'blogger-theme.xml');
-  if (fs.existsSync(themeFile)) {
-    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-    if (req.query.download === '1') {
-      res.setHeader('Content-Disposition', 'attachment; filename="mrs-blogger-theme.xml"');
-    }
-    fs.createReadStream(themeFile).pipe(res);
-  } else {
-    res.status(404).json({ error: 'Blogger theme XML not found' });
-  }
-});
-
 async function startServer() {
   // Explicit API 404 before static/SPA path redirection
   app.use('/api/*', (_req, res) => {
@@ -1474,6 +1575,15 @@ async function startServer() {
     // Start background sync and upstream SSE bridge after port 3000 is bound
     syncAllWebsites().catch(() => {});
     connectUpstreamSseBridge().catch(() => {});
+
+    setInterval(async () => {
+      const beforeSnapshot = JSON.stringify(websitesState.adminProfile);
+      const updated = await syncGravatarProfileLive(true).catch(() => false);
+      if (updated && JSON.stringify(websitesState.adminProfile) !== beforeSnapshot) {
+        saveWebsitesCache();
+        broadcastWebsitesUpdate('websites_update', websitesState);
+      }
+    }, GRAVATAR_REALTIME_INTERVAL_MS);
 
     setInterval(() => {
       syncAllWebsites().catch((err) => console.error('[Live Prober Error]', err));

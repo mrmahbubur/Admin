@@ -4,9 +4,18 @@ import { useStudio } from '../context/StudioContext';
 
 export const ContactSection: React.FC = () => {
   const { adminProfile, selectedInquiryTopic, setSelectedInquiryTopic } = useStudio();
+  const topicOptions = Array.from(
+    new Set([
+      ...(adminProfile.liveServices || []).map((svc) => svc.title),
+      ...adminProfile.whatICanHelpWith,
+      'General Inquiry',
+    ])
+  );
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [topic, setTopic] = useState(selectedInquiryTopic || 'IT troubleshooting (Windows, Android, browsers, WiFi)');
+  const [topic, setTopic] = useState(
+    selectedInquiryTopic || topicOptions[0] || 'IT Support & Technical Troubleshooting'
+  );
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -15,6 +24,7 @@ export const ContactSection: React.FC = () => {
   useEffect(() => {
     if (selectedInquiryTopic) {
       setTopic(selectedInquiryTopic);
+      setReceiptId('');
     }
   }, [selectedInquiryTopic]);
 
@@ -75,17 +85,17 @@ export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact-section"
-      className="py-16 sm:py-20 bg-white dark:bg-[#0a0a0c] border-b border-[#e4e4e7] dark:border-[#27272a] transition-colors duration-200"
+      className="py-16 sm:py-20 bg-[#f4f7fb] dark:bg-[#070b14] border-b border-[#dbe3ee] dark:border-[#1c273b] transition-colors duration-200"
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="mb-10 space-y-2">
-          <div className="text-[13px] font-medium text-[#d97706] dark:text-[#f59e0b]">
+          <div className="text-[13px] font-mono font-medium text-[#2563eb] dark:text-[#38bdf8]">
             Verified Contact &amp; Accounts
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#09090b] dark:text-white tracking-tight text-balance">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#0f172a] dark:text-white tracking-tight text-balance">
             Connect with {adminProfile.siteName}
           </h2>
-          <p className="text-[15px] text-[#52525b] dark:text-[#a1a1aa] max-w-2xl">
+          <p className="text-[15px] text-[#475569] dark:text-[#94a3b8] max-w-2xl">
             Official channels and verified profiles for direct communication. {adminProfile.availabilityNote}
           </p>
         </div>
@@ -96,12 +106,12 @@ export const ContactSection: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <a
                 href={`mailto:${adminProfile.socials.email}`}
-                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#e4e4e7] dark:border-[#27272a] bg-[#fafafa] dark:bg-[#0f0f11] hover:border-[#d97706] dark:hover:border-[#f59e0b] transition-colors"
+                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
-                <Mail className="w-4 h-4 text-[#d97706] dark:text-[#f59e0b] shrink-0" />
+                <Mail className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
                 <div className="min-w-0">
-                  <div className="text-[11.5px] text-[#71717a] dark:text-[#a1a1aa]">Direct Email</div>
-                  <div className="text-[13px] font-mono font-medium text-[#09090b] dark:text-white truncate">
+                  <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Direct Email</div>
+                  <div className="text-[13px] font-mono font-medium text-[#0f172a] dark:text-white truncate">
                     {adminProfile.socials.email}
                   </div>
                 </div>
@@ -109,12 +119,12 @@ export const ContactSection: React.FC = () => {
 
               <a
                 href={`tel:${adminProfile.socials.phone}`}
-                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#e4e4e7] dark:border-[#27272a] bg-[#fafafa] dark:bg-[#0f0f11] hover:border-[#d97706] dark:hover:border-[#f59e0b] transition-colors"
+                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
-                <Phone className="w-4 h-4 text-[#d97706] dark:text-[#f59e0b] shrink-0" />
+                <Phone className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
                 <div className="min-w-0">
-                  <div className="text-[11.5px] text-[#71717a] dark:text-[#a1a1aa]">Telephone</div>
-                  <div className="text-[13px] font-mono tabular-nums font-medium text-[#09090b] dark:text-white truncate">
+                  <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Telephone</div>
+                  <div className="text-[13px] font-mono tabular-nums font-medium text-[#0f172a] dark:text-white truncate">
                     {adminProfile.socials.phone}
                   </div>
                 </div>
@@ -124,61 +134,61 @@ export const ContactSection: React.FC = () => {
                 href={adminProfile.socials.calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#e4e4e7] dark:border-[#27272a] bg-[#fafafa] dark:bg-[#0f0f11] hover:border-[#d97706] dark:hover:border-[#f59e0b] transition-colors"
+                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <Calendar className="w-4 h-4 text-[#d97706] dark:text-[#f59e0b] shrink-0" />
+                  <Calendar className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
                   <div className="min-w-0">
-                    <div className="text-[11.5px] text-[#71717a] dark:text-[#a1a1aa]">Calendly</div>
-                    <div className="text-[13.5px] font-semibold text-[#09090b] dark:text-white truncate">
+                    <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Calendly</div>
+                    <div className="text-[13.5px] font-semibold text-[#0f172a] dark:text-white truncate">
                       Book Meeting
                     </div>
                   </div>
                 </div>
-                <ExternalLink className="w-3.5 h-3.5 text-[#71717a] shrink-0" />
+                <ExternalLink className="w-3.5 h-3.5 text-[#64748b] shrink-0" />
               </a>
 
               <a
                 href={adminProfile.socials.contactForm}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#e4e4e7] dark:border-[#27272a] bg-[#fafafa] dark:bg-[#0f0f11] hover:border-[#d97706] dark:hover:border-[#f59e0b] transition-colors"
+                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <Globe className="w-4 h-4 text-[#d97706] dark:text-[#f59e0b] shrink-0" />
+                  <Globe className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
                   <div className="min-w-0">
-                    <div className="text-[11.5px] text-[#71717a] dark:text-[#a1a1aa]">Web Portal</div>
-                    <div className="text-[13.5px] font-semibold text-[#09090b] dark:text-white truncate">
+                    <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Web Portal</div>
+                    <div className="text-[13.5px] font-semibold text-[#0f172a] dark:text-white truncate">
                       mrsadmin.blogspot
                     </div>
                   </div>
                 </div>
-                <ExternalLink className="w-3.5 h-3.5 text-[#71717a] shrink-0" />
+                <ExternalLink className="w-3.5 h-3.5 text-[#64748b] shrink-0" />
               </a>
             </div>
 
             <div className="pt-2 space-y-3">
-              <div className="text-[13px] font-semibold text-[#09090b] dark:text-white">
+              <div className="text-[13px] font-semibold text-[#0f172a] dark:text-white">
                 Verified Accounts
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 border-t border-[#e4e4e7] dark:border-[#27272a]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 border-t border-[#dbe3ee] dark:border-[#1c273b]">
                 {adminProfile.verifiedAccounts.map((acc) => (
                   <a
                     key={acc.url}
                     href={acc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center justify-between py-3.5 px-1 sm:odd:pr-5 sm:even:pl-5 border-b border-[#e4e4e7] dark:border-[#27272a] hover:text-[#d97706] dark:hover:text-[#f59e0b] transition-colors"
+                    className="group flex items-center justify-between py-3.5 px-1 sm:odd:pr-5 sm:even:pl-5 border-b border-[#dbe3ee] dark:border-[#1c273b] hover:text-[#2563eb] dark:hover:text-[#38bdf8] transition-colors"
                   >
                     <div className="min-w-0 pr-2">
-                      <div className="text-[13.5px] font-semibold text-[#09090b] dark:text-white group-hover:text-[#d97706] dark:group-hover:text-[#f59e0b] truncate transition-colors">
+                      <div className="text-[13.5px] font-semibold text-[#0f172a] dark:text-white group-hover:text-[#2563eb] dark:group-hover:text-[#38bdf8] truncate transition-colors">
                         {acc.label}
                       </div>
-                      <div className="text-[11.5px] font-mono text-[#71717a] dark:text-[#a1a1aa] truncate">
+                      <div className="text-[11.5px] font-mono text-[#64748b] dark:text-[#94a3b8] truncate">
                         {acc.handle}
                       </div>
                     </div>
-                    <ExternalLink className="w-3.5 h-3.5 text-[#71717a] group-hover:text-[#d97706] shrink-0 transition-colors" />
+                    <ExternalLink className="w-3.5 h-3.5 text-[#64748b] group-hover:text-[#2563eb] dark:group-hover:text-[#38bdf8] shrink-0 transition-colors" />
                   </a>
                 ))}
               </div>
@@ -186,11 +196,11 @@ export const ContactSection: React.FC = () => {
           </div>
 
           {/* Right Column: Accessible Inquiry Form */}
-          <div className="lg:col-span-6 p-6 sm:p-8 rounded-2xl border border-[#e4e4e7] dark:border-[#27272a] bg-[#fafafa] dark:bg-[#0f0f11]">
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#09090b] dark:text-white mb-1">
+          <div className="lg:col-span-6 p-6 sm:p-8 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface">
+            <h3 className="font-display text-xl sm:text-2xl font-bold text-[#0f172a] dark:text-white mb-1">
               Send an Inquiry to {adminProfile.siteName}
             </h3>
-            <p className="text-[13.5px] text-[#52525b] dark:text-[#a1a1aa] mb-6">
+            <p className="text-[13.5px] text-[#475569] dark:text-[#94a3b8] mb-6">
               Reach out for remote IT troubleshooting, document management, or web administration.
             </p>
 
@@ -209,7 +219,7 @@ export const ContactSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setReceiptId('')}
-                  className="px-4 py-2 min-h-[40px] rounded-lg bg-[#09090b] dark:bg-[#f4f4f5] text-white dark:text-[#09090b] text-[12.5px] font-semibold cursor-pointer"
+                  className="px-4 py-2 min-h-[44px] rounded-lg bg-[#0f172a] dark:bg-[#f1f5f9] text-white dark:text-[#0f172a] text-[12.5px] font-semibold cursor-pointer"
                 >
                   Send Another Inquiry
                 </button>
@@ -220,7 +230,7 @@ export const ContactSection: React.FC = () => {
                   <div>
                     <label
                       htmlFor="contact-name"
-                      className="block text-[12px] font-semibold text-[#52525b] dark:text-[#a1a1aa] mb-1.5"
+                      className="block text-[12px] font-semibold text-[#475569] dark:text-[#94a3b8] mb-1.5"
                     >
                       Your Name
                     </label>
@@ -231,14 +241,14 @@ export const ContactSection: React.FC = () => {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
+                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="contact-email"
-                      className="block text-[12px] font-semibold text-[#52525b] dark:text-[#a1a1aa] mb-1.5"
+                      className="block text-[12px] font-semibold text-[#475569] dark:text-[#94a3b8] mb-1.5"
                     >
                       Email Address
                     </label>
@@ -249,7 +259,7 @@ export const ContactSection: React.FC = () => {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
+                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
                     />
                   </div>
                 </div>
@@ -257,7 +267,7 @@ export const ContactSection: React.FC = () => {
                 <div>
                   <label
                     htmlFor="contact-topic"
-                    className="block text-[12px] font-semibold text-[#52525b] dark:text-[#a1a1aa] mb-1.5"
+                    className="block text-[12px] font-semibold text-[#475569] dark:text-[#94a3b8] mb-1.5"
                   >
                     Inquiry Topic
                   </label>
@@ -268,27 +278,20 @@ export const ContactSection: React.FC = () => {
                       setTopic(e.target.value);
                       setSelectedInquiryTopic(e.target.value);
                     }}
-                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706]"
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
                   >
-                    <option value="Document management & formatting">Document management &amp; formatting</option>
-                    <option value="Professional email & correspondence handling">
-                      Professional email &amp; correspondence handling
-                    </option>
-                    <option value="IT troubleshooting (Windows, Android, browsers, WiFi)">
-                      IT troubleshooting (Windows, Android, browsers, WiFi)
-                    </option>
-                    <option value="Job application processing & admin support">
-                      Job application processing &amp; admin support
-                    </option>
-                    <option value="Web management & content creation">Web management &amp; content creation</option>
-                    <option value="General Inquiry">General Inquiry</option>
+                    {topicOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
                 <div>
                   <label
                     htmlFor="contact-message"
-                    className="block text-[12px] font-semibold text-[#52525b] dark:text-[#a1a1aa] mb-1.5"
+                    className="block text-[12px] font-semibold text-[#475569] dark:text-[#94a3b8] mb-1.5"
                   >
                     Message
                   </label>
@@ -299,7 +302,7 @@ export const ContactSection: React.FC = () => {
                     required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#d97706] resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8] resize-none"
                   />
                 </div>
 
@@ -312,7 +315,7 @@ export const ContactSection: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3 px-5 min-h-[44px] rounded-lg bg-[#d97706] hover:bg-[#b45309] dark:bg-[#f59e0b] dark:hover:bg-[#d97706] text-white dark:text-[#050505] text-[13.5px] font-bold transition-colors cursor-pointer inline-flex items-center justify-center gap-2 disabled:opacity-60"
+                  className="w-full py-3 px-5 min-h-[44px] rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] dark:bg-[#3b82f6] dark:hover:bg-[#2563eb] text-white text-[13.5px] font-bold transition-colors cursor-pointer inline-flex items-center justify-center gap-2 disabled:opacity-60"
                 >
                   <Send className="w-4 h-4" />
                   <span>{submitting ? 'Submitting...' : 'Submit Inquiry'}</span>

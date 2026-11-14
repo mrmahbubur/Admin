@@ -1,6 +1,6 @@
 export const ADMIN_SITE_CONFIG = {
   siteName: 'M R S',
-  sourceUrl: 'https://mrxshahin.ai.studio',
+  sourceUrl: '',
   roleTitle: 'IT Support Professional | Remote Admin & Documentation Specialist | Web Manager',
   tagline: 'Helping businesses run smoother, one ticket at a time',
   location: 'Global / Remote',

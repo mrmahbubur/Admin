@@ -220,7 +220,7 @@ const defaultAdminProfile: AdminProfileData = {
   socials: {
     email: 'mr216873@gmail.com',
     phone: '+8809611056361',
-    gravatarUrl: 'https://gravatar.com/mrxshahin',
+    gravatarUrl: '',
     githubUrl: 'https://github.com/mrmahbubur',
     linkedinUrl: 'https://www.linkedin.com/in/mrmahbubur',
     xUrl: 'https://x.com/Mrshahinx',
@@ -233,11 +233,9 @@ const defaultAdminProfile: AdminProfileData = {
   verifiedAccounts: [
     { label: 'LinkedIn', handle: 'mrmahbubur', url: 'https://www.linkedin.com/in/mrmahbubur' },
     { label: 'GitHub', handle: 'mrmahbubur', url: 'https://github.com/mrmahbubur' },
-    { label: 'X (Twitter)', handle: '@Mrshahinx', url: 'https://x.com/Mrshahinx' },
+    { label: 'X', handle: '@Mrshahinx', url: 'https://x.com/Mrshahinx' },
     { label: 'Bluesky', handle: 'mrxshahin.bsky.social', url: 'https://bsky.app/profile/mrxshahin.bsky.social' },
     { label: 'WordPress', handle: 'mrxshahin.wordpress.com', url: 'https://mrxshahin.wordpress.com' },
-    { label: 'Gravatar', handle: 'gravatar.com/mrxshahin', url: 'https://gravatar.com/mrxshahin' },
-    { label: 'Goodreads', handle: 'mrxshahin', url: 'https://www.goodreads.com/mrxshahin' },
   ],
 };
 
@@ -353,7 +351,7 @@ const fallbackWebsites: EcosystemWebsite[] = [
 ];
 
 const fallbackUpstreamStatus: UpstreamConnectionStatus = {
-  sourceUrl: 'https://mrxshahin.ai.studio',
+  sourceUrl: '',
   connected: false,
   sseActive: false,
   healthStatus: 'connecting',
@@ -363,7 +361,7 @@ const fallbackUpstreamStatus: UpstreamConnectionStatus = {
 
 const fallbackHubState: WebsitesHubState = {
   siteName: 'M R S',
-  sourceUrl: 'https://mrxshahin.ai.studio',
+  sourceUrl: '',
   upstreamStatus: fallbackUpstreamStatus,
   adminProfile: defaultAdminProfile,
   lastUpdated: new Date().toISOString(),
@@ -473,71 +471,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [sseConnected, setSseConnected] = useState(false);
   const [selectedInquiryTopic, setSelectedInquiryTopic] = useState('General Inquiry');
 
-  const parseGravatarServicesClient = (markdown: string): LiveServiceCategory[] => {
-    const categories: LiveServiceCategory[] = [];
-    const decode = (s: string) =>
-      s
-        .replace(/&amp;/g, '&')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'")
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>');
-
-    let current: LiveServiceCategory | null = null;
-    for (const rawLine of markdown.split(/\r?\n/)) {
-      const line = rawLine.trim();
-      if (!line) continue;
-      if (line.startsWith('###') && current) {
-        if (current.items.length > 0) categories.push(current);
-        current = null;
-        continue;
-      }
-      const catMatch = line.match(/^[✅🔹📌💼]\s*\*\*(.+?)\*\*/);
-      if (catMatch) {
-        if (current && current.items.length > 0) categories.push(current);
-        current = { title: decode(catMatch[1]).trim(), items: [] };
-        continue;
-      }
-      if (current && line.startsWith('* ')) {
-        current.items.push(decode(line.slice(2).replace(/\*\*/g, '')).trim());
-      }
-    }
-    if (current && current.items.length > 0) categories.push(current);
-    return categories;
-  };
-
   const runClientSideSync = async () => {
-    let nextProfile = hubState.adminProfile;
-    try {
-      const gravRes = await fetch('https://api.gravatar.com/v3/profiles/mrxshahin', {
-        headers: { Accept: 'application/json' },
-      });
-      if (gravRes.ok) {
-        const g = await gravRes.json();
-        const parsedServices =
-          typeof g?.description === 'string' ? parseGravatarServicesClient(g.description) : [];
-        const ci = g?.contact_info && typeof g.contact_info === 'object' ? g.contact_info : {};
-        nextProfile = {
-          ...nextProfile,
-          siteName: 'M R S',
-          avatarUrl:
-            typeof g?.avatar_url === 'string' && g.avatar_url.startsWith('https://')
-              ? `${g.avatar_url}?s=512`
-              : nextProfile.avatarUrl,
-          liveServices: parsedServices.length > 0 ? parsedServices : nextProfile.liveServices,
-          socials: {
-            ...nextProfile.socials,
-            email: typeof ci.email === 'string' && ci.email.includes('@') ? ci.email.trim() : nextProfile.socials.email,
-            phone: typeof ci.cell_phone === 'string' && ci.cell_phone.trim() ? ci.cell_phone.trim() : nextProfile.socials.phone,
-            calendlyUrl: typeof ci.calendar === 'string' && ci.calendar.startsWith('https://') ? ci.calendar.trim() : nextProfile.socials.calendlyUrl,
-            contactForm: typeof ci.contact_form === 'string' && ci.contact_form.startsWith('https://') ? ci.contact_form.trim() : nextProfile.socials.contactForm,
-          },
-        };
-      }
-    } catch {
-      // Fall back quietly to static verified defaults
-    }
-
     const updatedSites = await Promise.all(
       hubState.websites.map(async (site) => {
         if (site.domain.endsWith('.blogspot.com')) {
@@ -558,8 +492,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     setHubState((prev) => ({
       ...prev,
-      siteName: 'M R S',
-      adminProfile: nextProfile,
+      siteName: prev.adminProfile.siteName || prev.siteName,
       websites: updatedSites,
       lastUpdated: new Date().toISOString(),
       syncCycle: prev.syncCycle + 1,
@@ -568,7 +501,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const fetchWebsites = async (): Promise<boolean> => {
     try {
-      const res = await fetch('./api/websites');
+      const res = await fetch('./api/websites', { cache: 'no-store' });
       const json = await parseJsonIfAvailable(res);
       if (json?.success && json?.data) {
         setHubState(json.data);

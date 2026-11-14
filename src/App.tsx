@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { WebsiteSlideshow } from './components/WebsiteSlideshow';
 import { AboutCredentials } from './components/AboutCredentials';
 import { SkillsSection } from './components/SkillsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { StudioProvider } from './context/StudioContext';
+import { StudioProvider, useStudio } from './context/StudioContext';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -29,24 +30,24 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, Error
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-[#fafafa] dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] p-6">
+        <div className="min-h-screen flex items-center justify-center bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] p-6">
           <div className="max-w-md text-center space-y-4">
-            <h1 className="font-serif text-3xl font-bold">M R S</h1>
-            <p className="text-sm text-[#52525b] dark:text-[#a1a1aa]">
+            <h1 className="font-display text-3xl font-extrabold tracking-tight">M R S</h1>
+            <p className="text-sm text-[#475569] dark:text-[#94a3b8]">
               A temporary display error occurred. Try restoring the view or reload the page.
             </p>
             <div className="flex items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={this.handleReset}
-                className="px-4 py-2 rounded-lg border border-[#e4e4e7] dark:border-[#27272a] bg-white dark:bg-[#0f0f11] text-[#09090b] dark:text-[#f4f4f5] text-sm font-semibold cursor-pointer"
+                className="px-4 py-2 rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] text-[#0f172a] dark:text-[#f1f5f9] text-sm font-semibold cursor-pointer"
               >
                 Try Again
               </button>
               <button
                 type="button"
                 onClick={() => window.location.reload()}
-                className="px-4 py-2 rounded-lg bg-[#d97706] text-white text-sm font-bold cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-sm font-bold cursor-pointer"
               >
                 Reload Page
               </button>
@@ -60,18 +61,35 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, Error
 }
 
 function MainLayout() {
+  const { adminProfile } = useStudio();
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     try {
-      const saved = localStorage.getItem('mrs_dark_theme');
-      if (saved !== null) return saved === 'true';
+      const saved = localStorage.getItem('mrs_tech_theme_mode');
+      if (saved === 'light') return false;
+      if (saved === 'dark') return true;
     } catch {
       // Ignore storage restriction
     }
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
+    return true;
   });
+
+  useEffect(() => {
+    const exactSiteName = adminProfile.siteName || 'M R S';
+    const nextTitle = `${exactSiteName} — Certified IT Support Professional & Web Manager`;
+    document.title = nextTitle;
+
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', nextTitle);
+
+    const ogSiteName = document.querySelector('meta[property="og:site_name"]');
+    if (ogSiteName) ogSiteName.setAttribute('content', exactSiteName);
+
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', nextTitle);
+
+    const authorMeta = document.querySelector('meta[name="author"]');
+    if (authorMeta) authorMeta.setAttribute('content', exactSiteName);
+  }, [adminProfile.siteName]);
 
   useEffect(() => {
     if (darkMode) {
@@ -81,31 +99,15 @@ function MainLayout() {
     }
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {
-      metaTheme.setAttribute('content', darkMode ? '#050505' : '#fafafa');
+      metaTheme.setAttribute('content', darkMode ? '#070b14' : '#f4f7fb');
     }
   }, [darkMode]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return;
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleSystemChange = (e: MediaQueryListEvent) => {
-      try {
-        if (localStorage.getItem('mrs_dark_theme') === null) {
-          setDarkMode(e.matches);
-        }
-      } catch {
-        setDarkMode(e.matches);
-      }
-    };
-    mq.addEventListener('change', handleSystemChange);
-    return () => mq.removeEventListener('change', handleSystemChange);
-  }, []);
 
   const toggleDarkMode = () => {
     setDarkMode((prev) => {
       const next = !prev;
       try {
-        localStorage.setItem('mrs_dark_theme', String(next));
+        localStorage.setItem('mrs_tech_theme_mode', next ? 'dark' : 'light');
       } catch {
         // Ignore storage error
       }
@@ -114,11 +116,12 @@ function MainLayout() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fafafa] dark:bg-[#050505] text-[#09090b] dark:text-[#f4f4f5] transition-colors duration-200">
+    <div className="min-h-screen flex flex-col bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] transition-colors duration-200">
       <Navbar />
 
       <main className="flex-1">
         <Hero darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />
+        <WebsiteSlideshow />
         <AboutCredentials />
         <SkillsSection />
         <ContactSection />

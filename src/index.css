@@ -3,39 +3,39 @@
 
 :root {
   color-scheme: light;
-  --bg-page: #fafafa;
+  --bg-page: #f4f7fb;
   --bg-card: #ffffff;
-  --bg-subtle: #f4f4f5;
-  --text-primary: #09090b;
-  --text-secondary: #52525b;
-  --text-muted: #71717a;
-  --border-color: #e4e4e7;
-  --border-subtle: #f4f4f5;
-  --accent: #d97706;
-  --accent-light: #fef3c7;
-  --focus-ring: #d97706;
-  --primary: #09090b;
-  --primary-light: #27272a;
+  --bg-subtle: #e9eff7;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-color: #dbe3ee;
+  --border-subtle: #e9eff7;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --focus-ring: #2563eb;
+  --primary: #0f172a;
+  --primary-light: #1e293b;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Fraunces', Georgia, serif;
+  --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 .dark {
   color-scheme: dark;
-  --bg-page: #050505;
-  --bg-card: #0f0f11;
-  --bg-subtle: #18181b;
-  --text-primary: #f4f4f5;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --border-color: #27272a;
-  --border-subtle: #18181b;
+  --bg-page: #070b14;
+  --bg-card: #0c121e;
+  --bg-subtle: #111a2b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border-color: #1c273b;
+  --border-subtle: #111a2b;
   --primary: #ffffff;
-  --primary-light: #e4e4e7;
-  --accent: #f59e0b;
-  --accent-light: #451a03;
-  --focus-ring: #f59e0b;
+  --primary-light: #e2e8f0;
+  --accent: #3b82f6;
+  --accent-light: #172554;
+  --focus-ring: #38bdf8;
 }
 
 html {
@@ -60,6 +60,29 @@ div[id] {
   scroll-margin-top: 4.5rem;
 }
 
+.tech-hero-canvas {
+  position: relative;
+  background-color: var(--bg-page);
+  background-image:
+    radial-gradient(ellipse 80% 45% at 50% -10%, rgba(37, 99, 235, 0.09), transparent 70%),
+    linear-gradient(to right, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+.dark .tech-hero-canvas {
+  background-image:
+    radial-gradient(ellipse 80% 45% at 50% -10%, rgba(56, 189, 248, 0.14), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 15%, rgba(37, 99, 235, 0.12), transparent 65%),
+    linear-gradient(to right, rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
+
+.dark .tech-surface {
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.045);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto !important;
@@ -72,8 +95,8 @@ div[id] {
   }
 }
 
-.font-serif {
-  font-family: var(--font-serif);
+.font-display {
+  font-family: var(--font-display);
 }
 
 .font-sans {

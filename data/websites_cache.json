@@ -6,7 +6,7 @@
     "connected": true,
     "sseActive": false,
     "healthStatus": "connecting",
-    "lastSyncedAt": "2026-11-13T18:32:07.719Z",
+    "lastSyncedAt": "2026-11-14T06:19:55.720Z",
     "rssItems": []
   },
   "adminProfile": {
@@ -267,11 +267,11 @@
       "description": "Official portfolio of M R S featuring verified credentials, live projects, and an interactive multimodal AI concierge.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-13T18:32:07.911Z",
+      "lastChecked": "2026-11-14T06:19:55.916Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 191,
+      "latencyMs": 195,
       "liveTitle": "M R S Portfolio · Certified IT Support Professional & Web Manager"
     },
     {
@@ -284,7 +284,7 @@
       "description": "Central portfolio and web hub for M R S covering IT administration, web management, and digital projects since 2018.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-13T18:32:09.897Z",
+      "lastChecked": "2026-11-14T06:19:57.017Z",
       "isCore": true,
       "feedUrl": "https://mrsadmin.blogspot.com/feeds/posts/default?alt=json&max-results=3",
       "latestPosts": [
@@ -295,7 +295,7 @@
         }
       ],
       "httpCode": 200,
-      "latencyMs": 1010,
+      "latencyMs": 187,
       "liveTitle": "MRS ADMIN"
     },
     {
@@ -308,7 +308,7 @@
       "description": "Practical fixes and step-by-step guides for everyday tech problems covering Windows, Android, WiFi, and browsers.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-13T18:32:09.047Z",
+      "lastChecked": "2026-11-14T06:19:57.897Z",
       "isCore": true,
       "feedUrl": "https://mrxshahin.blogspot.com/feeds/posts/default?alt=json&max-results=3",
       "latestPosts": [
@@ -329,7 +329,7 @@
         }
       ],
       "httpCode": 200,
-      "latencyMs": 1056,
+      "latencyMs": 1058,
       "liveTitle": "mrxshahin"
     },
     {
@@ -342,11 +342,11 @@
       "description": "Web streaming platform delivering 10,000+ live international channels spanning Sports, Movies, Dramas, and News.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-13T18:32:07.905Z",
+      "lastChecked": "2026-11-14T06:19:55.954Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 181,
+      "latencyMs": 227,
       "liveTitle": "M R S IPTV"
     },
     {
@@ -359,11 +359,11 @@
       "description": "Direct Mrs IPTV APK package download supporting Android TVs, set-top boxes, and Android mobile devices.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-13T18:32:08.448Z",
+      "lastChecked": "2026-11-14T06:19:56.445Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 721,
+      "latencyMs": 718,
       "liveTitle": "Upload APK — Download — _Mrs__IPTV_.apk"
     },
     {
@@ -376,7 +376,7 @@
       "description": "Humanitarian initiative dedicated to healthcare, education, shelter, and community empowerment.",
       "imageKey": "charity",
       "status": "online",
-      "lastChecked": "2026-11-13T18:32:09.870Z",
+      "lastChecked": "2026-11-14T06:19:57.056Z",
       "isCore": true,
       "feedUrl": "https://mrscharityfoundation.blogspot.com/feeds/posts/default?alt=json&max-results=3",
       "latestPosts": [
@@ -387,7 +387,7 @@
         }
       ],
       "httpCode": 200,
-      "latencyMs": 1090,
+      "latencyMs": 226,
       "liveTitle": "M R S charity foundation"
     },
     {
@@ -400,16 +400,16 @@
       "description": "Verified WordPress publication sharing technical solutions, digital guides, and documentation crafted by M R S.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-13T18:32:07.789Z",
+      "lastChecked": "2026-11-14T06:19:55.793Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 47,
+      "latencyMs": 48,
       "liveTitle": "Solutions crafted for you"
     }
   ],
-  "lastUpdated": "2026-11-13T18:32:09.897Z",
-  "syncCycle": 3,
+  "lastUpdated": "2026-11-14T06:19:57.897Z",
+  "syncCycle": 5,
   "yearlySystem": {
     "currentYear": 2026,
     "establishedYear": 2018,
