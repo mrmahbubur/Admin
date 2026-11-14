@@ -141,35 +141,37 @@ export const AboutCredentials: React.FC = () => {
               </p>
             </div>
 
-            <div className="pt-8 border-t border-[#dbe3ee] dark:border-[#1c273b] space-y-5">
-              <div className="flex items-center gap-2 font-display text-xl font-bold text-[#0f172a] dark:text-white">
-                <Briefcase className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8]" />
-                <span>Work Experience</span>
-              </div>
-              {adminProfile.workExperience.map((exp, idx) => (
-                <div key={idx} className="space-y-3">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <div className="font-semibold text-[15.5px] text-[#0f172a] dark:text-white">{exp.role}</div>
-                    <div className="text-[12.5px] font-mono tabular-nums text-[#2563eb] dark:text-[#38bdf8]">
-                      {exp.period} · {exp.location}
-                    </div>
-                  </div>
-                  <ul className="space-y-2.5 max-w-[65ch]">
-                    {exp.highlights.map((hl, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-3 text-[14.5px] text-[#475569] dark:text-[#94a3b8] leading-relaxed"
-                      >
-                        <span className="font-mono tabular-nums text-[#2563eb] dark:text-[#38bdf8] text-[12.5px] mt-0.5 shrink-0">
-                          0{i + 1}.
-                        </span>
-                        <span>{hl}</span>
-                      </li>
-                    ))}
-                  </ul>
+            {adminProfile.workExperience && adminProfile.workExperience.length > 0 && (
+              <div className="pt-8 border-t border-[#dbe3ee] dark:border-[#1c273b] space-y-5">
+                <div className="flex items-center gap-2 font-display text-xl font-bold text-[#0f172a] dark:text-white">
+                  <Briefcase className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8]" />
+                  <span>Experience &amp; Availability</span>
                 </div>
-              ))}
-            </div>
+                {adminProfile.workExperience.map((exp, idx) => (
+                  <div key={idx} className="space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                      <div className="font-semibold text-[15.5px] text-[#0f172a] dark:text-white">{exp.role}</div>
+                      <div className="text-[12.5px] font-mono tabular-nums text-[#2563eb] dark:text-[#38bdf8]">
+                        {exp.period} · {exp.location}
+                      </div>
+                    </div>
+                    <ul className="space-y-2.5 max-w-[65ch]">
+                      {exp.highlights.map((hl, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-3 text-[14.5px] text-[#475569] dark:text-[#94a3b8] leading-relaxed"
+                        >
+                          <span className="font-mono tabular-nums text-[#2563eb] dark:text-[#38bdf8] text-[12.5px] mt-0.5 shrink-0">
+                            {String(i + 1).padStart(2, '0')}.
+                          </span>
+                          <span>{hl}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right Column: Single Unified Technical Dossier Card (Hairline Divided) */}
@@ -179,7 +181,7 @@ export const AboutCredentials: React.FC = () => {
               <div className="p-6 space-y-3.5">
                 <div className="flex items-center gap-2 font-semibold text-[15px] text-[#0f172a] dark:text-white">
                   <Award className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8]" />
-                  <span>Courses &amp; Certifications</span>
+                  <span>Credentials &amp; Background</span>
                 </div>
                 <ul className="divide-y divide-[#dbe3ee] dark:divide-[#1c273b]">
                   {adminProfile.coursesCertifications.map((cert) => (

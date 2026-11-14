@@ -73,6 +73,7 @@ export interface EcosystemWebsite {
   lastChecked: string;
   isCore: boolean;
   isCustom?: boolean;
+  hasProfileDescription?: boolean;
   feedUrl?: string;
   latestPosts: WebsitePostPreview[];
 }
@@ -181,15 +182,15 @@ export interface WebsitesHubState {
   yearlySystem: YearlySystemData;
 }
 
-const ESTABLISHED_YEAR = 2018;
+const DEFAULT_ESTABLISHED_YEAR = 2018;
 
-function computeYearlyData(siteName = 'M R S'): YearlySystemData {
+function computeYearlyData(siteName = 'M R S', establishedYear = DEFAULT_ESTABLISHED_YEAR): YearlySystemData {
   const now = new Date();
   const currentYear = now.getFullYear();
   const nextYear = currentYear + 1;
   return {
     currentYear,
-    establishedYear: ESTABLISHED_YEAR,
+    establishedYear,
     copyrightNotice: `© ${currentYear} ${siteName}. All rights reserved.`,
     nextRolloverDate: new Date(Date.UTC(nextYear, 0, 1, 0, 0, 0)).toISOString(),
   };
@@ -197,7 +198,7 @@ function computeYearlyData(siteName = 'M R S'): YearlySystemData {
 
 const BASE_ADMIN_PROFILE: AdminProfileData = {
   siteName: 'M R S',
-  roleTitle: 'IT Support Professional | Remote Admin & Documentation Specialist | Web Manager',
+  roleTitle: 'Available for Remote IT Support, Virtual Assistance & Administrative Work',
   tagline: 'Available for Remote IT Support, Virtual Assistance & Administrative Work',
   location: 'Global / Remote',
   avatarUrl: './mrs_profile_avatar.jpg',
@@ -205,9 +206,9 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
   pronouns: '',
   pronunciation: '',
   lastProfileEdit: '',
-  certification: '360-Hour Certified Computer Specialist & MS Office Professional',
+  certification: '360-hour computer systems course',
   availabilityNote:
-    'Whether you need a remote IT support assistant, virtual assistant, website content manager, technical writer, online researcher, or general digital operations support, I am open to discussing how I can help.',
+    'Whether you need a remote IT support assistant, virtual assistant, website content manager, technical writer, online researcher, or general digital operations support, I am open to discussing how I can help. I am happy to consider both ongoing support arrangements and clearly defined, project-based tasks that match my skills.',
   bioParagraphs: [
     'I help businesses, entrepreneurs, and individuals simplify their daily operations, solve technical problems, manage digital tasks, and stay productive — without the overhead of hiring a full-time employee.',
     'With years of independent online work experience and a strong interest in technology, web solutions, and digital productivity, I can support a wide range of technical, administrative, and content-related tasks remotely.',
@@ -224,11 +225,11 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
     'Work style: Self-directed, detail-oriented, adaptable, and comfortable across time zones',
   ],
   whatICanHelpWith: [
-    'Document management & formatting',
-    'Professional email & correspondence handling',
-    'IT troubleshooting (Windows, Android, browsers, WiFi)',
-    'Job application processing & admin support',
-    'Web management & content creation',
+    'IT Support & Technical Troubleshooting',
+    'Virtual Assistance & Administrative Support',
+    'Website Management & Digital Content',
+    'Technical Writing & Documentation',
+    'Online Research & Digital Problem-Solving',
   ],
   liveServices: [
     {
@@ -258,7 +259,7 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
       items: [
         'Website content updates and basic website administration',
         'Blog post publishing and content formatting',
-        'WordPress and web CMS content management',
+        'WordPress and CMS content management',
         'SEO-friendly article writing and on-page content optimization',
         'Website testing, troubleshooting, and basic usability checks',
         'Web research, content planning, and topic development',
@@ -310,55 +311,66 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
   ],
   workExperience: [
     {
-      role: 'Independent IT Support Specialist & Web Manager',
+      role: 'Available for Remote IT Support, Virtual Assistance & Administrative Work',
       period: '2018 – Present',
       location: 'Global / Remote',
       highlights: [
-        'Providing end-to-end remote IT administration, Windows & Android OS troubleshooting, hardware diagnostics, and WiFi network configuration for diverse clients.',
-        'Structuring, formatting, and proofreading high-stakes documentation, official correspondence, and job applications with precision and rapid turnaround.',
-        'Managing content, architecture, and live operations for web platforms, tech blogs, and streaming web services.',
+        'Certified: 360-hour computer systems course',
+        'Technical writing: Writing technology guides and solutions since 2018',
+        'Remote work: Years of independent online work experience',
+        'Work style: Self-directed, detail-oriented, adaptable, and comfortable across time zones',
       ],
     },
   ],
   skillsList: [
     {
-      category: 'IT Support & Administration',
+      category: 'IT Support & Technical Troubleshooting',
       skills: [
-        'System Troubleshooting',
-        'Microsoft 365 & Office Suite',
-        'Document Management',
-        'Professional Correspondence',
-        'User Hardware & Network Diagnostics',
+        'Windows PC troubleshooting and basic system maintenance',
+        'Android device support and app-related troubleshooting',
+        'Browser, internet connectivity, Wi-Fi, and common software issues',
+        'Software installation, configuration, and basic technical guidance',
+        'Step-by-step technical documentation and user support',
       ],
     },
     {
-      category: 'Web & Digital Management',
+      category: 'Virtual Assistance & Administrative Support',
       skills: [
-        'WordPress & Web CMS',
-        'Web Architecture',
-        'Domain & DNS Management',
-        'SEO & Analytics',
-        'Content Strategy',
+        'Data entry, data organization, and document formatting',
+        'Microsoft Word, Excel, PowerPoint, and office productivity tasks',
+        'Email management, professional correspondence, and inbox organization',
+        'Online research, information collection, and data verification',
+        'Form filling, job application assistance, and document preparation',
       ],
     },
     {
-      category: 'Digital Operations & Interactive Systems',
+      category: 'Website Management & Digital Content',
       skills: [
-        'Digital Interactive Concierge Systems',
-        'Workflow Automation',
-        'Autonomous Systems Management',
-        'E-Commerce Operations',
-        'Remote Team Collaboration',
+        'Website content updates and basic website administration',
+        'WordPress and CMS content management',
+        'SEO-friendly article writing and on-page content optimization',
+        'Website testing, troubleshooting, and basic usability checks',
+        'AI-assisted content creation, editing, and proofreading',
       ],
     },
     {
-      category: 'Core Competencies & Digital Skills',
-      skills: ['Remote Work Autonomy', 'Data Organization', 'Technical Writing', 'Client Communication'],
+      category: 'Technical Writing & Documentation',
+      skills: [
+        'Writing technology guides, tutorials, and how-to articles',
+        'Creating step-by-step troubleshooting instructions',
+        'Preparing FAQs, user guides, and knowledge-base articles',
+        'Rewriting, proofreading, and improving existing content',
+      ],
+    },
+    {
+      category: 'Technical Interests & Focus Areas',
+      skills: ['Web Development', 'web3', 'ethical hacking', 'Social Sciences', 'Remote Working'],
     },
   ],
   coursesCertifications: [
-    'Basic Computer Course (360 Hrs)',
-    'Certified Computer & MS Office Professional',
+    '360-hour computer systems course',
+    'Writing technology guides and solutions since 2018',
+    'Years of independent online work experience',
   ],
   education: [],
   languages: [{ name: 'English', level: 'Proficient' }],
@@ -377,18 +389,19 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
     goodreadsUrl: 'https://www.goodreads.com/mrxshahin',
   },
   verifiedAccounts: [
-    { label: 'LinkedIn', handle: 'mrmahbubur', url: 'https://www.linkedin.com/in/mrmahbubur' },
-    { label: 'GitHub', handle: 'mrmahbubur', url: 'https://github.com/mrmahbubur' },
     { label: 'X', handle: '@Mrshahinx', url: 'https://x.com/Mrshahinx' },
+    { label: 'GitHub', handle: 'mrmahbubur', url: 'https://github.com/mrmahbubur' },
     { label: 'Bluesky', handle: 'mrxshahin.bsky.social', url: 'https://bsky.app/profile/mrxshahin.bsky.social' },
+    { label: 'LinkedIn', handle: 'mrmahbubur', url: 'https://www.linkedin.com/in/mrmahbubur' },
     { label: 'WordPress', handle: 'mrxshahin.wordpress.com', url: 'https://mrxshahin.wordpress.com' },
+    { label: 'Goodreads', handle: 'goodreads.com/mrxshahin', url: 'https://www.goodreads.com/mrxshahin' },
   ],
 };
 
 const DEFAULT_WEBSITES: EcosystemWebsite[] = [
   {
     id: 'proj-mrs-services',
-    name: 'M R S — Professional Automation & Digital Services',
+    name: 'All Services',
     url: 'https://mrs-services.ai.studio/',
     domain: 'mrs-services.ai.studio',
     category: 'Automation & Digital Services Portal',
@@ -402,53 +415,40 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     latestPosts: [],
   },
   {
-    id: 'proj-6-ai-assistant',
-    name: 'M R S Portfolio & AI Concierge',
-    url: 'https://mrxshahin.ai.studio/',
-    domain: 'mrxshahin.ai.studio',
-    category: 'Official Portfolio & AI Concierge',
-    badge: 'AI CONCIERGE',
-    description:
-      'Certified IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management with Interactive AI Concierge.',
-    imageKey: 'flagship',
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
     id: 'proj-3-iptv-web',
-    name: 'M R S IPTV',
+    name: 'IPTV WEB',
     url: 'https://shahin-iptv.ai.studio',
     domain: 'shahin-iptv.ai.studio',
     category: 'Live Streaming & Media Platform',
     badge: 'LIVE WEB APP',
     description:
-      'Live sports and media streaming web application featuring Camellia Stream Doctor, real-time M3U playlist processing, direct m3u8 playback, and TV mode navigation.',
+      'Your World, One Screen — Stream 10,000+ channels of Sports, Movies, Dramas, and News from anywhere.',
     imageKey: 'flagship',
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
+    hasProfileDescription: true,
     latestPosts: [],
   },
   {
-    id: 'proj-4-iptv-apk',
-    name: 'Android TV Apk',
-    url: 'https://www.upload-apk.com/en/0Jr71hMVlsFwN9Y%20',
-    domain: 'upload-apk.com',
-    category: 'Android Package Download',
-    badge: 'DIRECT APK',
+    id: 'proj-6-ai-assistant',
+    name: 'Ai Portfolio',
+    url: 'https://mrxshahin.ai.studio/',
+    domain: 'mrxshahin.ai.studio',
+    category: 'Official Portfolio & AI Concierge',
+    badge: 'AI CONCIERGE',
     description:
-      'Direct M R S IPTV Android APK package download supporting Android TVs, set-top boxes, and mobile devices.',
-    imageKey: 'tech',
+      'M R S Ai Assistant is standing by to introduce you, walk through verified credentials, and give you an interactive experience.',
+    imageKey: 'flagship',
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
+    hasProfileDescription: true,
     latestPosts: [],
   },
   {
     id: 'wordpress-hub',
-    name: 'WordPress Knowledge Portal',
+    name: 'WordPress',
     url: 'https://mrxshahin.wordpress.com',
     domain: 'mrxshahin.wordpress.com',
     category: 'Verified Publication',
@@ -459,6 +459,7 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
+    hasProfileDescription: true,
     feedUrl: 'https://mrxshahin.wordpress.com/feed/',
     latestPosts: [],
   },
@@ -612,12 +613,16 @@ try {
         ...candidate,
         pronouns: '',
         pronunciation: '',
-        coursesCertifications: BASE_ADMIN_PROFILE.coursesCertifications,
+        coursesCertifications: Array.isArray(candidate.coursesCertifications) && candidate.coursesCertifications.length > 0
+          ? candidate.coursesCertifications
+          : BASE_ADMIN_PROFILE.coursesCertifications,
         education: [],
         socials: cleanSocials,
         verifiedAccounts: Array.isArray(candidate.verifiedAccounts)
           ? candidate.verifiedAccounts.filter(
-              (a) => !/blogspot\.|gravatar\.com\//i.test(String(a?.url || ''))
+              (a) =>
+                !/blogspot\.|blogger\.|gravatar\.com\//i.test(String(a?.url || '')) &&
+                (isSocialAccountOnlyUrl(String(a?.url || '')) || /wordpress\.com/i.test(String(a?.url || '')))
             )
           : BASE_ADMIN_PROFILE.verifiedAccounts,
       };
@@ -627,7 +632,8 @@ try {
       ? parsed.websites.filter(
           (s: EcosystemWebsite) =>
             !String(s.domain || '').toLowerCase().includes('blogspot.') &&
-            !String(s.url || '').toLowerCase().includes('blogspot.')
+            !String(s.url || '').toLowerCase().includes('blogspot.') &&
+            !String(s.domain || '').toLowerCase().includes('upload-apk.com')
         )
       : DEFAULT_WEBSITES;
 
@@ -885,6 +891,48 @@ function isSocialAccountOnlyUrl(url: string): boolean {
   );
 }
 
+function isRestrictedProfileUrl(url: string): boolean {
+  const lower = url.toLowerCase();
+  return (
+    lower.includes('gravatar.com/') ||
+    lower.includes('blogspot.') ||
+    lower.includes('blogger.') ||
+    lower.includes('profitableratecpmnetwork.') ||
+    lower.includes('uplcm.com') ||
+    lower.includes('upload-apk.com')
+  );
+}
+
+function isPersonalLocationText(loc: string): boolean {
+  return /sylhet|tajpur|osmaninagar|balaganj|bangladesh\s*\d/i.test(loc);
+}
+
+function cleanProfileDescription(raw: any): string {
+  if (typeof raw !== 'string') return '';
+  const cleaned = cleanMarkdownInline(raw);
+  if (!cleaned || /blogspot\.|blogger\b/i.test(cleaned)) return '';
+  return cleaned;
+}
+
+function extractCertificationFromHighlights(highlights: string[]): string | undefined {
+  for (const hl of highlights) {
+    const m = hl.match(/^certified[:\-\s]+(.+)$/i);
+    if (m?.[1]) return m[1].trim();
+  }
+  return undefined;
+}
+
+function extractEstablishedYearFromHighlights(highlights: string[]): number {
+  for (const hl of highlights) {
+    const m = hl.match(/\bsince\s+(20\d{2})\b/i);
+    if (m?.[1]) {
+      const y = parseInt(m[1], 10);
+      if (y >= 2000 && y <= new Date().getFullYear()) return y;
+    }
+  }
+  return DEFAULT_ESTABLISHED_YEAR;
+}
+
 function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
   const legacyEntry = Array.isArray(legacyJson?.entry) ? legacyJson.entry[0] : null;
   if ((!v3Profile || typeof v3Profile !== 'object') && !legacyEntry) return;
@@ -902,7 +950,22 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       : '';
   const siteName = rawV3Name || rawLegacyName || base.siteName;
 
-  const rawLocation = base.location;
+  const bioMarkdown =
+    (typeof v3Profile?.description === 'string' && v3Profile.description.trim()
+      ? v3Profile.description
+      : '') ||
+    (typeof legacyEntry?.aboutMe === 'string' && legacyEntry.aboutMe.trim()
+      ? legacyEntry.aboutMe
+      : '');
+
+  const parsedBio = parseGravatarBioMarkdown(bioMarkdown);
+
+  const rawV3Location =
+    typeof v3Profile?.location === 'string' && v3Profile.location.trim()
+      ? decodeHtmlEntities(v3Profile.location).trim()
+      : '';
+  const rawLocation =
+    rawV3Location && !isPersonalLocationText(rawV3Location) ? rawV3Location : base.location;
 
   const rawJobTitle =
     typeof v3Profile?.job_title === 'string' && v3Profile.job_title.trim()
@@ -912,10 +975,11 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     typeof v3Profile?.company === 'string' && v3Profile.company.trim()
       ? decodeHtmlEntities(v3Profile.company).trim()
       : '';
+  const tagline = parsedBio.tagline || base.tagline;
   const roleTitle =
     rawJobTitle && rawCompany
       ? `${rawJobTitle} · ${rawCompany}`
-      : rawJobTitle || base.roleTitle;
+      : rawJobTitle || tagline;
 
   const pronouns = '';
   const pronunciation = '';
@@ -939,18 +1003,8 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     ? `${rawAvatar}${rawAvatar.includes('?') ? '&' : '?'}s=512`
     : base.avatarUrl;
 
-  const bioMarkdown =
-    (typeof v3Profile?.description === 'string' && v3Profile.description.trim()
-      ? v3Profile.description
-      : '') ||
-    (typeof legacyEntry?.aboutMe === 'string' && legacyEntry.aboutMe.trim()
-      ? legacyEntry.aboutMe
-      : '');
-
-  const parsedBio = parseGravatarBioMarkdown(bioMarkdown);
-
   // Merge public business channels from v3 + legacy JSON cleanly (excluding personal email/phone & blogspot links)
-  const isBlogspotUrl = (val: string) => /blogspot\./i.test(val);
+  const isBlogspotUrl = (val: string) => /blogspot\.|blogger\./i.test(val);
   const socials = { ...base.socials, email: '', phone: '', gravatarUrl: '' };
 
   if (v3Profile?.contact_info && typeof v3Profile.contact_info === 'object') {
@@ -980,47 +1034,71 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   }
 
-  // Merge verified_accounts, links, urls & accounts (excluding gravatar.com & blogspot links)
-  const mergedAccounts: { label: string; handle: string; url: string }[] = [];
+  // Separate verified social accounts vs website project links cleanly (excluding gravatar.com, blogspot & unlisted links)
+  const verifiedAccountsList: { label: string; handle: string; url: string }[] = [];
   const seenAccountKeys = new Set<string>();
-  const discoveredWebProjects: { label: string; url: string; key: string }[] = [];
+  const discoveredWebProjects: { label: string; url: string; key: string; description: string }[] = [];
   const seenProjectKeys = new Set<string>();
 
-  const pushVerifiedAccount = (rawUrl: any, rawLabel: any, allowAsWebsiteProject = false) => {
+  const registerSocialFields = (u: string) => {
+    const lowerUrl = u.toLowerCase();
+    if (lowerUrl.includes('github.com/') && /^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test(lowerUrl)) {
+      socials.githubUrl = u;
+    }
+    if (lowerUrl.includes('linkedin.com/')) socials.linkedinUrl = u;
+    if (lowerUrl.includes('x.com/') || lowerUrl.includes('twitter.com/')) socials.xUrl = u;
+    if (lowerUrl.includes('bsky.app/')) socials.blueskyUrl = u;
+    if (lowerUrl.includes('wordpress.com')) socials.wordpressUrl = u;
+    if (lowerUrl.includes('goodreads.com')) socials.goodreadsUrl = u;
+  };
+
+  const pushVerifiedAccountOnly = (rawUrl: any, rawLabel: any, includeAsWebsite = false) => {
     const u = String(rawUrl || '').trim();
     if (!u.startsWith('https://') || u.length >= 160 || /[\s<>]/.test(u)) return;
-    if (u.toLowerCase().includes('gravatar.com/') || isBlogspotUrl(u)) return;
+    if (isRestrictedProfileUrl(u)) return;
     const key = normalizeVerifiedUrlKey(u);
-    const label = decodeHtmlEntities(String(rawLabel || 'Website').trim());
+    const label = decodeHtmlEntities(String(rawLabel || 'Account').trim());
 
     if (!seenAccountKeys.has(key)) {
       seenAccountKeys.add(key);
-      const lowerUrl = u.toLowerCase();
-      if (lowerUrl.includes('github.com/') && /^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test(lowerUrl)) {
-        socials.githubUrl = u;
-      }
-      if (lowerUrl.includes('linkedin.com/')) socials.linkedinUrl = u;
-      if (lowerUrl.includes('x.com/') || lowerUrl.includes('twitter.com/')) socials.xUrl = u;
-      if (lowerUrl.includes('bsky.app/')) socials.blueskyUrl = u;
-      if (lowerUrl.includes('wordpress.com')) socials.wordpressUrl = u;
-      if (lowerUrl.includes('goodreads.com')) socials.goodreadsUrl = u;
-
-      mergedAccounts.push({
+      registerSocialFields(u);
+      verifiedAccountsList.push({
         label,
         handle: formatAccountHandle(u),
         url: u,
       });
     }
 
-    if (allowAsWebsiteProject && !isSocialAccountOnlyUrl(u) && !seenProjectKeys.has(key)) {
+    if (includeAsWebsite && !isSocialAccountOnlyUrl(u) && !seenProjectKeys.has(key)) {
       seenProjectKeys.add(key);
-      discoveredWebProjects.push({ label, url: u, key });
+      discoveredWebProjects.push({ label, url: u, key, description: '' });
+    }
+  };
+
+  const pushWebsiteLink = (rawUrl: any, rawLabel: any, rawDescription?: any) => {
+    const u = String(rawUrl || '').trim();
+    if (!u.startsWith('https://') || u.length >= 160 || /[\s<>]/.test(u)) return;
+    if (isRestrictedProfileUrl(u)) return;
+    if (isSocialAccountOnlyUrl(u)) return;
+    const key = normalizeVerifiedUrlKey(u);
+    const label = decodeHtmlEntities(String(rawLabel || 'Website').trim());
+    const desc = cleanProfileDescription(rawDescription);
+
+    if (!seenProjectKeys.has(key)) {
+      seenProjectKeys.add(key);
+      discoveredWebProjects.push({ label, url: u, key, description: desc });
     }
   };
 
   if (Array.isArray(v3Profile?.links)) {
     for (const lnk of v3Profile.links) {
-      pushVerifiedAccount(lnk?.url, lnk?.label || lnk?.title || 'Website', true);
+      pushWebsiteLink(lnk?.url, lnk?.label || lnk?.title || 'Website', lnk?.description);
+    }
+  }
+
+  if (Array.isArray(legacyEntry?.urls)) {
+    for (const lnk of legacyEntry.urls) {
+      pushWebsiteLink(lnk?.value, lnk?.title || 'Website', lnk?.description);
     }
   }
 
@@ -1028,7 +1106,7 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     for (const acc of v3Profile.verified_accounts) {
       if (acc?.is_hidden) continue;
       const accUrl = String(acc?.url || '');
-      pushVerifiedAccount(
+      pushVerifiedAccountOnly(
         accUrl,
         acc?.service_label || acc?.service_type,
         accUrl.toLowerCase().includes('wordpress.com')
@@ -1036,17 +1114,11 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   }
 
-  if (Array.isArray(legacyEntry?.urls)) {
-    for (const lnk of legacyEntry.urls) {
-      pushVerifiedAccount(lnk?.value, lnk?.title || 'Website', true);
-    }
-  }
-
   if (Array.isArray(legacyEntry?.accounts)) {
     for (const acc of legacyEntry.accounts) {
       if (acc?.is_hidden || acc?.verified === false) continue;
       const accUrl = String(acc?.url || '');
-      pushVerifiedAccount(
+      pushVerifiedAccountOnly(
         accUrl,
         acc?.name || acc?.shortname,
         accUrl.toLowerCase().includes('wordpress.com')
@@ -1088,10 +1160,51 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   }
 
+  const backgroundHighlights =
+    parsedBio.backgroundHighlights.length > 0
+      ? parsedBio.backgroundHighlights
+      : base.backgroundHighlights || [];
+  const liveServices =
+    parsedBio.liveServices.length > 0 ? parsedBio.liveServices : base.liveServices;
+  const bioParagraphs =
+    parsedBio.bioParagraphs.length > 0 ? parsedBio.bioParagraphs : base.bioParagraphs;
+  const establishedYear = extractEstablishedYearFromHighlights(backgroundHighlights);
+  const certification =
+    extractCertificationFromHighlights(backgroundHighlights) || base.certification;
+  const coursesCertifications =
+    backgroundHighlights.length > 0
+      ? backgroundHighlights.map((hl) => hl.replace(/^[a-z\s]+:\s*/i, (m) => m))
+      : base.coursesCertifications;
+
   const whatICanHelpWith =
-    parsedBio.liveServices.length > 0
-      ? parsedBio.liveServices.slice(0, 5).map((s) => s.title)
+    liveServices.length > 0
+      ? liveServices.slice(0, 5).map((s) => s.title)
       : base.whatICanHelpWith;
+
+  // Build skillsList dynamically from liveServices + interests (zero leftover static skills)
+  const dynamicSkillsList: { category: string; skills: string[] }[] = liveServices.map((svc) => ({
+    category: svc.title,
+    skills: svc.items,
+  }));
+  if (interests.length > 0) {
+    dynamicSkillsList.push({
+      category: 'Technical Interests & Focus Areas',
+      skills: interests,
+    });
+  }
+
+  // Derive workExperience cleanly from live profile data (no fabricated CV entries)
+  const dynamicWorkExperience = [
+    {
+      role: roleTitle,
+      period: `${establishedYear} – Present`,
+      location: rawLocation,
+      highlights:
+        backgroundHighlights.length > 0
+          ? backgroundHighlights
+          : bioParagraphs.slice(0, 2),
+    },
+  ];
 
   // Dynamically sync profile web project links into websitesState.websites
   let syncedWebsites = websitesState.websites;
@@ -1119,30 +1232,34 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
         // Fallback already set
       }
 
+      const exactName = proj.label || existing?.name || domain;
+      const hasProfileDesc = Boolean(proj.description);
+      const resolvedDescription =
+        proj.description ||
+        existing?.description ||
+        hint?.description ||
+        `${exactName} — verified property of ${siteName}.`;
+
       if (existing) {
         nextSites.push({
           ...existing,
-          name:
-            existing.id === 'wordpress-hub'
-              ? existing.name
-              : existing.id === 'proj-6-ai-assistant'
-                ? existing.name
-                : proj.label || existing.name,
+          name: exactName,
           url: proj.url,
           domain,
+          description: resolvedDescription,
+          hasProfileDescription: hasProfileDesc || existing.hasProfileDescription,
         });
       } else {
         nextSites.push({
           id: `site-profile-${crypto.createHash('sha1').update(proj.key).digest('hex').slice(0, 8)}`,
-          name: proj.label || domain,
+          name: exactName,
           url: proj.url,
           domain,
           category: hint?.category || 'Verified Web Property',
           badge: hint?.badge || 'VERIFIED LINK',
-          description:
-            hint?.description ||
-            `Official web property (${proj.label || domain}) synchronized in real time by ${siteName}.`,
-          imageKey: hint?.imageKey || inferProjectImageKey(proj.url, proj.label),
+          description: resolvedDescription,
+          hasProfileDescription: hasProfileDesc,
+          imageKey: hint?.imageKey || inferProjectImageKey(proj.url, exactName),
           status: 'standby',
           lastChecked: syncedAt,
           isCore: Boolean(hint),
@@ -1152,11 +1269,11 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       }
     }
 
-    // Preserve Android TV APK core item + any user-added custom sites if not already included
+    // Preserve WordPress verified publication + any user-added custom sites if not already included
     for (const site of websitesState.websites) {
       const k = normalizeVerifiedUrlKey(site.url);
-      if (includedKeys.has(k)) continue;
-      if (site.id === 'proj-4-iptv-apk' || site.id === 'wordpress-hub' || site.isCustom) {
+      if (includedKeys.has(k) || isRestrictedProfileUrl(site.url)) continue;
+      if (site.id === 'wordpress-hub' || site.isCustom) {
         includedKeys.add(k);
         nextSites.push(site);
       }
@@ -1182,30 +1299,32 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       ...base,
       siteName,
       roleTitle,
-      tagline: parsedBio.tagline || base.tagline,
+      tagline,
       location: rawLocation,
       avatarUrl,
       avatarAltText,
       pronouns,
       pronunciation,
       lastProfileEdit,
+      certification,
       availabilityNote: parsedBio.availabilityNote || base.availabilityNote,
-      bioParagraphs: parsedBio.bioParagraphs.length > 0 ? parsedBio.bioParagraphs : base.bioParagraphs,
+      bioParagraphs,
       whyWorkWithMe: parsedBio.whyWorkWithMe.length > 0 ? parsedBio.whyWorkWithMe : base.whyWorkWithMe,
-      backgroundHighlights:
-        parsedBio.backgroundHighlights.length > 0
-          ? parsedBio.backgroundHighlights
-          : base.backgroundHighlights,
+      backgroundHighlights,
       whatICanHelpWith,
-      liveServices: parsedBio.liveServices.length > 0 ? parsedBio.liveServices : base.liveServices,
+      liveServices,
+      workExperience: dynamicWorkExperience,
+      skillsList: dynamicSkillsList,
+      coursesCertifications,
+      education: [],
       languages,
       interests,
       socials,
-      verifiedAccounts: mergedAccounts.length > 0 ? mergedAccounts : base.verifiedAccounts,
+      verifiedAccounts: verifiedAccountsList.length > 0 ? verifiedAccountsList : base.verifiedAccounts,
     },
     websites: syncedWebsites,
     lastUpdated: syncedAt,
-    yearlySystem: computeYearlyData(siteName),
+    yearlySystem: computeYearlyData(siteName, establishedYear),
   };
 }
 
@@ -1428,7 +1547,7 @@ async function syncProfileAndFeeds(): Promise<void> {
     };
 
     websitesState.websites = websitesState.websites.map((site) => {
-      if (site.isCore || site.domain === 'mrxshahin.wordpress.com') {
+      if (site.hasProfileDescription || site.isCore || site.domain === 'mrxshahin.wordpress.com') {
         return site;
       }
       const matched = combinedRssItems.find((it) => {
@@ -1446,12 +1565,15 @@ async function syncProfileAndFeeds(): Promise<void> {
   }
 
   const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
+  const activeEstablished = extractEstablishedYearFromHighlights(
+    websitesState.adminProfile.backgroundHighlights || []
+  );
   if (policiesRes.status === 'fulfilled' && policiesRes.value.ok) {
     try {
       const pJson = await policiesRes.value.json();
       if (typeof pJson?.effectiveYear === 'number') {
         websitesState.yearlySystem = {
-          ...computeYearlyData(activeSiteName),
+          ...computeYearlyData(activeSiteName, activeEstablished),
           currentYear: pJson.effectiveYear,
         };
       }
@@ -1525,10 +1647,10 @@ async function probeSingleWebsite(site: EcosystemWebsite): Promise<EcosystemWebs
           liveTitle = meta.title;
         }
         if (
+          !site.hasProfileDescription &&
           meta.description &&
           meta.description.length > 35 &&
-          site.domain !== 'mrxshahin.wordpress.com' &&
-          site.domain !== 'upload-apk.com'
+          site.domain !== 'mrxshahin.wordpress.com'
         ) {
           description = meta.description;
         }

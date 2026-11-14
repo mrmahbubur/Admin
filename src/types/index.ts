@@ -20,6 +20,7 @@ export interface EcosystemWebsite {
   lastChecked: string;
   isCore: boolean;
   isCustom?: boolean;
+  hasProfileDescription?: boolean;
   feedUrl?: string;
   latestPosts: WebsitePostPreview[];
 }

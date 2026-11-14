@@ -33,7 +33,7 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, onToggleDarkMode }) =>
               </div>
             </div>
             <p className="leading-relaxed text-[#64748b] text-[13px]">
-              {adminProfile.roleTitle}. {adminProfile.certification}.
+              {adminProfile.roleTitle} · Certified: {adminProfile.certification}.
             </p>
             <button
               type="button"

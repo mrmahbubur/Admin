@@ -54,7 +54,9 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
               </p>
 
               <p className="text-[15px] sm:text-[16px] text-[#475569] dark:text-[#94a3b8] leading-relaxed max-w-[60ch]">
-                {adminProfile.tagline}. {adminProfile.availabilityNote}
+                {adminProfile.tagline && adminProfile.tagline !== adminProfile.roleTitle
+                  ? `${adminProfile.tagline}. ${adminProfile.availabilityNote}`
+                  : adminProfile.availabilityNote}
               </p>
             </div>
 
@@ -154,11 +156,11 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
           </div>
 
           <div className="p-4 sm:p-5 bg-white dark:bg-[#0c121e]">
-            <div className="font-display text-lg sm:text-2xl font-bold text-[#0f172a] dark:text-white tabular-nums">
-              360 Hours
+            <div className="font-display text-lg sm:text-2xl font-bold text-[#0f172a] dark:text-white tabular-nums truncate">
+              {adminProfile.languages?.[0]?.name || 'English'} · {adminProfile.languages?.[0]?.level || 'Proficient'}
             </div>
-            <div className="text-[12px] sm:text-[12.5px] text-[#64748b] dark:text-[#94a3b8] mt-0.5">
-              Certified Computer &amp; MS Office
+            <div className="text-[12px] sm:text-[12.5px] text-[#64748b] dark:text-[#94a3b8] mt-0.5 truncate">
+              {adminProfile.certification}
             </div>
           </div>
 

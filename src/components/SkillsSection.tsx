@@ -43,7 +43,7 @@ export const SkillsSection: React.FC = () => {
               >
                 <div className="space-y-3">
                   <div className="text-[12px] font-mono tabular-nums text-[#2563eb] dark:text-[#38bdf8] font-semibold">
-                    0{idx + 1}.
+                    {String(idx + 1).padStart(2, '0')}.
                   </div>
                   <h3 className="font-semibold text-[15.5px] text-[#0f172a] dark:text-white leading-snug">
                     {group.category}

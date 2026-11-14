@@ -6,7 +6,7 @@
     "connected": true,
     "sseActive": true,
     "healthStatus": "ok",
-    "lastSyncedAt": "2026-11-14T12:12:35.357Z",
+    "lastSyncedAt": "2026-11-14T12:20:15.990Z",
     "rssItems": [
       {
         "title": "Discover a Trusted Community — Now on a New Secure Domain!",
@@ -17,12 +17,12 @@
       }
     ],
     "authenticated": true,
-    "rateLimitRemaining": 851,
+    "rateLimitRemaining": 783,
     "rssBuildDate": "Wed, 01 Oct 2025 10:11:41 +0000"
   },
   "adminProfile": {
     "siteName": "M R S",
-    "roleTitle": "IT Support Professional | Remote Admin & Documentation Specialist | Web Manager",
+    "roleTitle": "Available for Remote IT Support, Virtual Assistance & Administrative Work",
     "tagline": "Available for Remote IT Support, Virtual Assistance & Administrative Work",
     "location": "Global / Remote",
     "avatarUrl": "https://1.gravatar.com/avatar/79cb903b47ada0af52e9962551bab25e563cc0a515939789f348aaa0ca135946?s=512",
@@ -30,7 +30,7 @@
     "pronouns": "",
     "pronunciation": "",
     "lastProfileEdit": "2026-11-13T18:37:10Z",
-    "certification": "360-Hour Certified Computer Specialist & MS Office Professional",
+    "certification": "360-hour computer systems course",
     "availabilityNote": "Whether you need a remote IT support assistant, virtual assistant, website content manager, technical writer, online researcher, or general digital operations support, I am open to discussing how I can help. I am happy to consider both ongoing support arrangements and clearly defined, project-based tasks that match my skills.",
     "bioParagraphs": [
       "I help businesses, entrepreneurs, and individuals simplify their daily operations, solve technical problems, manage digital tasks, and stay productive — without the overhead of hiring a full-time employee.",
@@ -134,60 +134,110 @@
     ],
     "workExperience": [
       {
-        "role": "Independent IT Support Specialist & Web Manager",
+        "role": "Available for Remote IT Support, Virtual Assistance & Administrative Work",
         "period": "2018 – Present",
         "location": "Global / Remote",
         "highlights": [
-          "Providing end-to-end remote IT administration, Windows & Android OS troubleshooting, hardware diagnostics, and WiFi network configuration for diverse clients.",
-          "Structuring, formatting, and proofreading high-stakes documentation, official correspondence, and job applications with precision and rapid turnaround.",
-          "Managing content, architecture, and live operations for web platforms, tech blogs, and streaming web services."
+          "Certified: 360-hour computer systems course",
+          "Technical writing: Writing technology guides and solutions since 2018",
+          "Remote work: Years of independent online work experience",
+          "Work style: Self-directed, detail-oriented, adaptable, and comfortable across time zones"
         ]
       }
     ],
     "skillsList": [
       {
-        "category": "IT Support & Administration",
+        "category": "IT Support & Technical Troubleshooting",
         "skills": [
-          "System Troubleshooting",
-          "Microsoft 365 & Office Suite",
-          "Document Management",
-          "Professional Correspondence",
-          "User Hardware & Network Diagnostics"
+          "Windows PC troubleshooting and basic system maintenance",
+          "Android device support and app-related troubleshooting",
+          "Browser, internet connectivity, Wi-Fi, and common software issues",
+          "Software installation, configuration, and basic technical guidance",
+          "Step-by-step technical documentation and user support"
         ]
       },
       {
-        "category": "Web & Digital Management",
+        "category": "Virtual Assistance & Administrative Support",
         "skills": [
-          "WordPress & Web CMS",
-          "Web Architecture",
-          "Domain & DNS Management",
-          "SEO & Analytics",
-          "Content Strategy"
+          "Data entry, data organization, and document formatting",
+          "Microsoft Word, Excel, PowerPoint, and office productivity tasks",
+          "Email management, professional correspondence, and inbox organization",
+          "Online research, information collection, and data verification",
+          "Form filling, job application assistance, and document preparation",
+          "File organization, record keeping, and digital documentation",
+          "Task coordination and routine administrative assistance"
         ]
       },
       {
-        "category": "Digital Operations & Interactive Systems",
+        "category": "Website Management & Digital Content",
         "skills": [
-          "Digital Interactive Concierge Systems",
-          "Workflow Automation",
-          "Autonomous Systems Management",
-          "E-Commerce Operations",
-          "Remote Team Collaboration"
+          "Website content updates and basic website administration",
+          "Blog post publishing and content formatting",
+          "WordPress and CMS content management",
+          "SEO-friendly article writing and on-page content optimization",
+          "Website testing, troubleshooting, and basic usability checks",
+          "Web research, content planning, and topic development",
+          "AI-assisted content creation, editing, and proofreading"
         ]
       },
       {
-        "category": "Core Competencies & Digital Skills",
+        "category": "Technical Writing & Documentation",
         "skills": [
-          "Remote Work Autonomy",
-          "Data Organization",
-          "Technical Writing",
-          "Client Communication"
+          "Writing technology guides, tutorials, and how-to articles",
+          "Creating step-by-step troubleshooting instructions",
+          "Explaining websites, apps, and digital tools in simple language",
+          "Preparing FAQs, user guides, and knowledge-base articles",
+          "Rewriting, proofreading, and improving existing content",
+          "Creating informative articles about software, websites, apps, and online services"
+        ]
+      },
+      {
+        "category": "Online Research & Digital Problem-Solving",
+        "skills": [
+          "Finding and evaluating online resources",
+          "Researching websites, apps, and technology solutions",
+          "Comparing digital tools and identifying practical alternatives",
+          "Organizing research findings into clear, useful reports",
+          "Testing online services and documenting user experiences",
+          "Identifying workflow improvements and opportunities for automation"
+        ]
+      },
+      {
+        "category": "AI Tools & Productivity Assistance",
+        "skills": [
+          "Using AI tools to support research, writing, and content development",
+          "Improving repetitive workflows with practical digital tools",
+          "Assisting with AI-generated content review and refinement",
+          "Developing detailed prompts for writing, research, and creative tasks",
+          "Exploring no-code and low-code solutions for everyday business needs"
+        ]
+      },
+      {
+        "category": "Social Media & Online Business Support",
+        "skills": [
+          "Preparing social media posts, captions, and content descriptions",
+          "Managing content schedules and organizing publishing materials",
+          "Creating promotional copy for websites, apps, and digital services",
+          "Assisting with basic online brand and content management",
+          "Supporting digital projects through research, documentation, and coordination"
+        ]
+      },
+      {
+        "category": "Technical Interests & Focus Areas",
+        "skills": [
+          "Web Development",
+          "web3",
+          "ethical hacking",
+          "Social Sciences",
+          "Remote Working"
         ]
       }
     ],
     "coursesCertifications": [
-      "Basic Computer Course (360 Hrs)",
-      "Certified Computer & MS Office Professional"
+      "Certified: 360-hour computer systems course",
+      "Technical writing: Writing technology guides and solutions since 2018",
+      "Remote work: Years of independent online work experience",
+      "Work style: Self-directed, detail-oriented, adaptable, and comfortable across time zones"
     ],
     "education": [],
     "languages": [
@@ -217,51 +267,6 @@
       "goodreadsUrl": "https://www.goodreads.com/mrxshahin"
     },
     "verifiedAccounts": [
-      {
-        "label": "All Services",
-        "handle": "mrs-services.ai.studio",
-        "url": "https://mrs-services.ai.studio/"
-      },
-      {
-        "label": "IPTV WEB",
-        "handle": "shahin-iptv.ai.studio",
-        "url": "https://shahin-iptv.ai.studio"
-      },
-      {
-        "label": "Apps Store",
-        "handle": "mrmahbubur.github.io/APPS-STORE",
-        "url": "https://mrmahbubur.github.io/APPS-STORE/"
-      },
-      {
-        "label": "Private C N",
-        "handle": "mrs-pcn.ai.studio",
-        "url": "https://mrs-pcn.ai.studio/"
-      },
-      {
-        "label": "Camellia Shop",
-        "handle": "mrmahbubur.github.io/Camellia-Shop",
-        "url": "https://mrmahbubur.github.io/Camellia-Shop/"
-      },
-      {
-        "label": "Charity Project",
-        "handle": "mrmahbubur.github.io/Charity-Foundation",
-        "url": "https://mrmahbubur.github.io/Charity-Foundation/"
-      },
-      {
-        "label": "Camellia Ai",
-        "handle": "mrmahbubur.github.io/Camellia-Ai",
-        "url": "https://mrmahbubur.github.io/Camellia-Ai/"
-      },
-      {
-        "label": "Cloud",
-        "handle": "mrmahbubur.github.io/Admin",
-        "url": "https://mrmahbubur.github.io/Admin/"
-      },
-      {
-        "label": "Ai Portfolio",
-        "handle": "mrxshahin.ai.studio",
-        "url": "https://mrxshahin.ai.studio/"
-      },
       {
         "label": "X",
         "handle": "@Mrshahinx",
@@ -305,11 +310,11 @@
       "description": "Automate. Deliver. Grow. Browse professional technical and digital solutions, request quotes, Client ID & PIN portal access, and verified payment processing.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.543Z",
+      "lastChecked": "2026-11-14T12:20:16.197Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 186,
+      "latencyMs": 207,
       "liveTitle": "M R S — Professional Automation & Digital Services"
     },
     {
@@ -319,15 +324,13 @@
       "domain": "shahin-iptv.ai.studio",
       "category": "Live Streaming & Media Platform",
       "badge": "LIVE WEB APP",
-      "description": "A premium Android-style live sports streaming application featuring Camellia Stream Doctor, real-time M3U playlist processing, direct m3u8 playback, and TV mode navigation.",
+      "description": "Your World, One Screen — Stream 10,000+ channels of Sports, Movies, Dramas, and News from anywhere.",
       "imageKey": "flagship",
-      "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.575Z",
+      "status": "standby",
+      "lastChecked": "2026-11-14T12:20:20.494Z",
       "isCore": true,
-      "latestPosts": [],
-      "httpCode": 200,
-      "latencyMs": 215,
-      "liveTitle": "M R S IPTV"
+      "hasProfileDescription": true,
+      "latestPosts": []
     },
     {
       "id": "site-profile-a7b60340",
@@ -337,13 +340,14 @@
       "category": "Official IPTV & APK Store",
       "badge": "APPS STORE",
       "description": "Download verified M R S IPTV Android and M R S IPTV TV APKs directly with SHA-256 verification, real user reviews, and inbuilt developer app publishing.",
+      "hasProfileDescription": false,
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.471Z",
+      "lastChecked": "2026-11-14T12:20:16.123Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 109,
+      "latencyMs": 126,
       "liveTitle": "MRS App Store - Official IPTV Network"
     },
     {
@@ -354,13 +358,14 @@
       "category": "Private Communication Network",
       "badge": "PRIVATE APP",
       "description": "Production-ready private communication network featuring end-to-end encrypted messaging, authenticated private file attachments, and secure WebRTC audio and video calling.",
+      "hasProfileDescription": false,
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.555Z",
+      "lastChecked": "2026-11-14T12:20:16.196Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 195,
+      "latencyMs": 200,
       "liveTitle": "M R S — Private Communication Network"
     },
     {
@@ -371,13 +376,14 @@
       "category": "Workspace Electronics & Hardware Store",
       "badge": "E-COMMERCE",
       "description": "Shop curated workspace electronics, computer hardware, audio gear, and direct Amazon Prime and Shopz BD products at Camellia Shop.",
+      "hasProfileDescription": false,
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.472Z",
+      "lastChecked": "2026-11-14T12:20:16.119Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 110,
+      "latencyMs": 119,
       "liveTitle": "Camellia Shop | Workspace Electronics & Hardware Store"
     },
     {
@@ -388,13 +394,14 @@
       "category": "Humanitarian & Community Initiative",
       "badge": "CHARITY",
       "description": "M R S Charity Foundation - A Project of M R S. Transforming lives by offering healthcare, education, and essential necessities to individuals experiencing poverty.",
+      "hasProfileDescription": false,
       "imageKey": "charity",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.480Z",
+      "lastChecked": "2026-11-14T12:20:16.137Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 115,
+      "latencyMs": 138,
       "liveTitle": "M R S Charity Foundation | Poverty Ends With Us"
     },
     {
@@ -405,13 +412,14 @@
       "category": "Multi-Provider AI Assistant",
       "badge": "AI TOOL",
       "description": "Camellia AI, the interactive assistant of M R S — multi-provider SSE streaming across Gemini, Anthropic, and OpenRouter with live search grounding, math, code, and voice.",
+      "hasProfileDescription": false,
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.480Z",
+      "lastChecked": "2026-11-14T12:20:16.121Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 115,
+      "latencyMs": 118,
       "liveTitle": "Camellia AI — Assistant of M R S"
     },
     {
@@ -422,35 +430,37 @@
       "category": "Official Admin Hub Portal",
       "badge": "ADMIN HUB",
       "description": "Official M R S portfolio & live websites showcase. Certified IT Support Professional, Remote Admin & Documentation Specialist, and Web Manager.",
+      "hasProfileDescription": false,
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.474Z",
+      "lastChecked": "2026-11-14T12:20:16.124Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 109,
+      "latencyMs": 122,
       "liveTitle": "M R S — Certified IT Support Professional & Web Manager"
     },
     {
       "id": "proj-6-ai-assistant",
-      "name": "M R S Portfolio & AI Concierge",
+      "name": "Ai Portfolio",
       "url": "https://mrxshahin.ai.studio/",
       "domain": "mrxshahin.ai.studio",
       "category": "Official Portfolio & AI Concierge",
       "badge": "AI CONCIERGE",
-      "description": "Certified IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management. Interactive AI Concierge & Portfolio for M R S.",
+      "description": "M R S Ai Assistant is standing by to introduce you, walk through verified credentials, and give you an interactive experience.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.572Z",
+      "lastChecked": "2026-11-14T12:20:16.070Z",
       "isCore": true,
+      "hasProfileDescription": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 208,
+      "latencyMs": 67,
       "liveTitle": "M R S Portfolio · Certified IT Support Professional & Web Manager"
     },
     {
       "id": "wordpress-hub",
-      "name": "WordPress Knowledge Portal",
+      "name": "WordPress",
       "url": "https://mrxshahin.wordpress.com",
       "domain": "mrxshahin.wordpress.com",
       "category": "Verified Publication",
@@ -458,8 +468,9 @@
       "description": "Solutions crafted for you — verified WordPress publication sharing technical guides and digital documentation by M R S.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T12:12:35.581Z",
+      "lastChecked": "2026-11-14T12:20:16.207Z",
       "isCore": true,
+      "hasProfileDescription": true,
       "feedUrl": "https://mrxshahin.wordpress.com/feed/",
       "latestPosts": [
         {
@@ -469,25 +480,8 @@
         }
       ],
       "httpCode": 200,
-      "latencyMs": 20,
+      "latencyMs": 19,
       "liveTitle": "Solutions crafted for you"
-    },
-    {
-      "id": "proj-4-iptv-apk",
-      "name": "Android TV Apk",
-      "url": "https://www.upload-apk.com/en/0Jr71hMVlsFwN9Y%20",
-      "domain": "upload-apk.com",
-      "category": "Android Package Download",
-      "badge": "DIRECT APK",
-      "description": "Direct M R S IPTV Android APK package download supporting Android TVs, set-top boxes, and mobile devices.",
-      "imageKey": "tech",
-      "status": "online",
-      "lastChecked": "2026-11-14T12:12:36.083Z",
-      "isCore": true,
-      "latestPosts": [],
-      "httpCode": 200,
-      "latencyMs": 714,
-      "liveTitle": "Upload APK — Download — _Mrs__IPTV_.apk"
     }
   ],
   "servicesCatalog": [
@@ -1101,11 +1095,11 @@
     "url": "https://mrs-services.ai.studio/",
     "status": "online",
     "httpCode": 200,
-    "latencyMs": 190,
-    "lastChecked": "2026-11-14T12:12:35.556Z"
+    "latencyMs": 198,
+    "lastChecked": "2026-11-14T12:20:16.201Z"
   },
-  "lastUpdated": "2026-11-14T12:12:36.083Z",
-  "syncCycle": 2,
+  "lastUpdated": "2026-11-14T12:20:20.494Z",
+  "syncCycle": 1,
   "yearlySystem": {
     "currentYear": 2026,
     "establishedYear": 2018,
