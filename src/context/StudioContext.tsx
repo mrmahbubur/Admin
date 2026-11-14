@@ -95,7 +95,7 @@ const defaultAdminProfile: AdminProfileData = {
       items: [
         'Website content updates and basic website administration',
         'Blog post publishing and content formatting',
-        'WordPress and Blogger content management',
+        'WordPress and web CMS content management',
         'SEO-friendly article writing and on-page content optimization',
         'Website testing, troubleshooting, and basic usability checks',
         'Web research, content planning, and topic development',
@@ -171,7 +171,7 @@ const defaultAdminProfile: AdminProfileData = {
     {
       category: 'Web & Digital Management',
       skills: [
-        'Blogspot & WordPress CMS',
+        'WordPress & Web CMS',
         'Web Architecture',
         'Domain & DNS Management',
         'SEO & Analytics',
@@ -233,7 +233,7 @@ const defaultAdminProfile: AdminProfileData = {
     blueskyUrl: 'https://bsky.app/profile/mrxshahin.bsky.social',
     wordpressUrl: 'https://mrxshahin.wordpress.com',
     calendlyUrl: 'https://calendly.com/mrxshahin',
-    contactForm: 'https://mrsadmin.blogspot.com/p/contact-us.html?m=1',
+    contactForm: 'https://mrxshahin.wordpress.com',
     goodreadsUrl: 'https://www.goodreads.com/mrxshahin',
   },
   verifiedAccounts: [
@@ -259,38 +259,6 @@ const fallbackWebsites: EcosystemWebsite[] = [
     status: 'online',
     lastChecked: new Date().toISOString(),
     isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'proj-1-cloud',
-    name: 'Cloud (MRS ADMIN Web Hub)',
-    url: 'https://mrsadmin.blogspot.com/?m=1',
-    domain: 'mrsadmin.blogspot.com',
-    category: 'Portfolio & Web Hub',
-    badge: 'CENTRAL HUB',
-    description:
-      'Central portfolio and web hub for M R S covering IT administration, web management, and digital projects since 2018.',
-    imageKey: 'admin',
-    status: 'online',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    feedUrl: 'https://mrsadmin.blogspot.com/feeds/posts/default?alt=json&max-results=3',
-    latestPosts: [],
-  },
-  {
-    id: 'proj-2-blogger',
-    name: 'BLOGGER (mrxshahin Tech Blog)',
-    url: 'https://mrxshahin.blogspot.com/',
-    domain: 'mrxshahin.blogspot.com',
-    category: 'Tech Blog',
-    badge: 'TECH BLOG',
-    description:
-      'Practical fixes and step-by-step guides for everyday tech problems covering Windows, Android, WiFi, and browsers.',
-    imageKey: 'tech',
-    status: 'online',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    feedUrl: 'https://mrxshahin.blogspot.com/feeds/posts/default?alt=json&max-results=3',
     latestPosts: [],
   },
   {
@@ -324,22 +292,6 @@ const fallbackWebsites: EcosystemWebsite[] = [
     latestPosts: [],
   },
   {
-    id: 'proj-5-charity',
-    name: 'M R S Charity Foundation',
-    url: 'https://mrscharityfoundation.blogspot.com/?m',
-    domain: 'mrscharityfoundation.blogspot.com',
-    category: 'Humanitarian Non-Profit',
-    badge: 'FOUNDATION',
-    description:
-      'Humanitarian initiative dedicated to healthcare, education, shelter, and community empowerment.',
-    imageKey: 'charity',
-    status: 'online',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    feedUrl: 'https://mrscharityfoundation.blogspot.com/feeds/posts/default?alt=json&max-results=3',
-    latestPosts: [],
-  },
-  {
     id: 'wordpress-hub',
     name: 'WordPress Knowledge Portal',
     url: 'https://mrxshahin.wordpress.com',
@@ -352,6 +304,7 @@ const fallbackWebsites: EcosystemWebsite[] = [
     status: 'online',
     lastChecked: new Date().toISOString(),
     isCore: true,
+    feedUrl: 'https://mrxshahin.wordpress.com/feed/',
     latestPosts: [],
   },
 ];
@@ -375,76 +328,6 @@ const fallbackHubState: WebsitesHubState = {
   yearlySystem: initialYearly,
   websites: fallbackWebsites,
 };
-
-function fetchBloggerJsonp(domain: string): Promise<WebsitePostPreview[]> {
-  return new Promise((resolve) => {
-    if (!domain.endsWith('.blogspot.com') || typeof document === 'undefined') {
-      resolve([]);
-      return;
-    }
-
-    const cbName = `__mrsFeed_${domain.replace(/[^a-zA-Z0-9]/g, '_')}_${Date.now()}`;
-    const script = document.createElement('script');
-    let settled = false;
-
-    const cleanup = () => {
-      try {
-        delete (window as any)[cbName];
-      } catch {
-        (window as any)[cbName] = undefined;
-      }
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
-
-    const timer = setTimeout(() => {
-      if (settled) return;
-      settled = true;
-      cleanup();
-      resolve([]);
-    }, 4500);
-
-    (window as any)[cbName] = (json: any) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      cleanup();
-
-      const entries = json?.feed?.entry;
-      if (!Array.isArray(entries)) {
-        resolve([]);
-        return;
-      }
-
-      const posts: WebsitePostPreview[] = entries.slice(0, 3).map((entry: any) => {
-        const title = String(entry?.title?.$t || 'Latest Post').trim();
-        const altLink = Array.isArray(entry?.link)
-          ? entry.link.find((l: any) => l.rel === 'alternate')?.href
-          : undefined;
-        const published = typeof entry?.published?.$t === 'string' ? entry.published.$t.slice(0, 10) : '';
-        return {
-          title,
-          url: altLink || `https://${domain}`,
-          published,
-        };
-      });
-      resolve(posts);
-    };
-
-    script.src = `https://${domain}/feeds/posts/default?alt=json-in-script&max-results=3&callback=${cbName}`;
-    script.async = true;
-    script.onerror = () => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timer);
-      cleanup();
-      resolve([]);
-    };
-
-    document.body.appendChild(script);
-  });
-}
 
 async function parseJsonIfAvailable(res: Response): Promise<any | null> {
   const ct = res.headers.get('content-type') || '';
@@ -478,28 +361,13 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [selectedInquiryTopic, setSelectedInquiryTopic] = useState('General Inquiry');
 
   const runClientSideSync = async () => {
-    const updatedSites = await Promise.all(
-      hubState.websites.map(async (site) => {
-        if (site.domain.endsWith('.blogspot.com')) {
-          const posts = await fetchBloggerJsonp(site.domain);
-          return {
-            ...site,
-            status: 'online' as const,
-            latestPosts: posts.length > 0 ? posts : site.latestPosts,
-            lastChecked: new Date().toISOString(),
-          };
-        }
-        return {
-          ...site,
-          lastChecked: new Date().toISOString(),
-        };
-      })
-    );
-
     setHubState((prev) => ({
       ...prev,
       siteName: prev.adminProfile.siteName || prev.siteName,
-      websites: updatedSites,
+      websites: prev.websites.map((site) => ({
+        ...site,
+        lastChecked: new Date().toISOString(),
+      })),
       lastUpdated: new Date().toISOString(),
       syncCycle: prev.syncCycle + 1,
     }));
@@ -507,7 +375,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const fetchWebsites = async (): Promise<boolean> => {
     try {
-      const res = await fetch('./api/websites', { cache: 'no-store' });
+      const res = await fetch(`./api/websites?_t=${Date.now()}`, { cache: 'no-store' });
       const json = await parseJsonIfAvailable(res);
       if (json?.success && json?.data) {
         setHubState(json.data);
@@ -576,7 +444,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       if (!mounted) return;
       if (hasBackend) {
         connectSSE();
-        pollInterval = setInterval(fetchWebsites, 45000);
+        pollInterval = setInterval(fetchWebsites, 15000);
       } else {
         await runClientSideSync();
         pollInterval = setInterval(runClientSideSync, 60000);

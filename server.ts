@@ -27,14 +27,13 @@ const GRAVATAR_API_KEY = (
   process.env.GRAVATAR_KEY ||
   process.env.GRAVATAR_TOKEN ||
   process.env.GRAVATAR ||
+  process.env.GRAVATAR_SECRET ||
   ''
 ).trim();
 const GRAVATAR_V3_PROFILE_URL = `https://api.gravatar.com/v3/profiles/${encodeURIComponent(GRAVATAR_USERNAME)}`;
 const GRAVATAR_PUBLIC_JSON_URL = `https://gravatar.com/${encodeURIComponent(GRAVATAR_USERNAME)}.json`;
 
 const UPSTREAM_BASE = (process.env.UPSTREAM_SOURCE_URL || 'https://mrxshahin.ai.studio').replace(/\/$/, '');
-const UPSTREAM_GRAVATAR_API = `${UPSTREAM_BASE}/api/gravatar?username=${encodeURIComponent(GRAVATAR_USERNAME)}&email=mr216873@gmail.com`;
-const UPSTREAM_GRAVATAR_STREAM = `${UPSTREAM_BASE}/api/gravatar/stream?username=${encodeURIComponent(GRAVATAR_USERNAME)}&email=mr216873@gmail.com`;
 const UPSTREAM_RSS_URL = `${UPSTREAM_BASE}/rss.xml`;
 const UPSTREAM_POLICIES_URL = `${UPSTREAM_BASE}/api/policies/current`;
 
@@ -226,7 +225,7 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
       items: [
         'Website content updates and basic website administration',
         'Blog post publishing and content formatting',
-        'WordPress and Blogger content management',
+        'WordPress and web CMS content management',
         'SEO-friendly article writing and on-page content optimization',
         'Website testing, troubleshooting, and basic usability checks',
         'Web research, content planning, and topic development',
@@ -302,7 +301,7 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
     {
       category: 'Web & Digital Management',
       skills: [
-        'Blogspot & WordPress CMS',
+        'WordPress & Web CMS',
         'Web Architecture',
         'Domain & DNS Management',
         'SEO & Analytics',
@@ -357,14 +356,14 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
   socials: {
     email: 'mr216873@gmail.com',
     phone: '+8809611056361',
-    gravatarUrl: 'https://gravatar.com/mrxshahin',
+    gravatarUrl: '',
     githubUrl: 'https://github.com/mrmahbubur',
     linkedinUrl: 'https://www.linkedin.com/in/mrmahbubur',
     xUrl: 'https://x.com/Mrshahinx',
     blueskyUrl: 'https://bsky.app/profile/mrxshahin.bsky.social',
     wordpressUrl: 'https://mrxshahin.wordpress.com',
     calendlyUrl: 'https://calendly.com/mrxshahin',
-    contactForm: 'https://mrsadmin.blogspot.com/p/contact-us.html?m=1',
+    contactForm: 'https://mrxshahin.wordpress.com',
     goodreadsUrl: 'https://www.goodreads.com/mrxshahin',
   },
   verifiedAccounts: [
@@ -390,38 +389,6 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'proj-1-cloud',
-    name: 'Cloud (MRS ADMIN Web Hub)',
-    url: 'https://mrsadmin.blogspot.com/?m=1',
-    domain: 'mrsadmin.blogspot.com',
-    category: 'Portfolio & Web Hub',
-    badge: 'CENTRAL HUB',
-    description:
-      'Central portfolio and web hub for M R S covering IT administration, web management, and digital projects since 2018.',
-    imageKey: 'admin',
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    feedUrl: 'https://mrsadmin.blogspot.com/feeds/posts/default?alt=json&max-results=3',
-    latestPosts: [],
-  },
-  {
-    id: 'proj-2-blogger',
-    name: 'BLOGGER (mrxshahin Tech Blog)',
-    url: 'https://mrxshahin.blogspot.com/',
-    domain: 'mrxshahin.blogspot.com',
-    category: 'Tech Blog',
-    badge: 'TECH BLOG',
-    description:
-      'Practical fixes and step-by-step guides for everyday tech problems covering Windows, Android, WiFi, and browsers.',
-    imageKey: 'tech',
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    feedUrl: 'https://mrxshahin.blogspot.com/feeds/posts/default?alt=json&max-results=3',
     latestPosts: [],
   },
   {
@@ -455,22 +422,6 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     latestPosts: [],
   },
   {
-    id: 'proj-5-charity',
-    name: 'M R S Charity Foundation',
-    url: 'https://mrscharityfoundation.blogspot.com/?m',
-    domain: 'mrscharityfoundation.blogspot.com',
-    category: 'Humanitarian Non-Profit',
-    badge: 'FOUNDATION',
-    description:
-      'Humanitarian initiative dedicated to healthcare, education, shelter, and community empowerment.',
-    imageKey: 'charity',
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    feedUrl: 'https://mrscharityfoundation.blogspot.com/feeds/posts/default?alt=json&max-results=3',
-    latestPosts: [],
-  },
-  {
     id: 'wordpress-hub',
     name: 'WordPress Knowledge Portal',
     url: 'https://mrxshahin.wordpress.com',
@@ -483,6 +434,7 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
+    feedUrl: 'https://mrxshahin.wordpress.com/feed/',
     latestPosts: [],
   },
 ];
@@ -536,11 +488,16 @@ try {
   if (fs.existsSync(WEBSITES_CACHE_FILE)) {
     const parsed = JSON.parse(fs.readFileSync(WEBSITES_CACHE_FILE, 'utf-8'));
     if (Array.isArray(parsed?.websites)) {
-      const customSites = parsed.websites.filter((s: EcosystemWebsite) => !s.isCore);
+      const customSites = parsed.websites.filter(
+        (s: EcosystemWebsite) =>
+          !s.isCore &&
+          !String(s.domain || '').toLowerCase().includes('blogspot.') &&
+          !String(s.url || '').toLowerCase().includes('blogspot.')
+      );
       websitesState = {
         ...websitesState,
         websites: [...DEFAULT_WEBSITES, ...customSites],
-        yearlySystem: computeYearlyData(),
+        yearlySystem: computeYearlyData(websitesState.adminProfile.siteName),
       };
     }
   }
@@ -709,33 +666,19 @@ function formatAccountHandle(url: string): string {
   return handle;
 }
 
-function applyUpstreamProfilePayload(payload: any) {
-  const remoteProfile = payload?.profile;
-  if (!remoteProfile || typeof remoteProfile !== 'object') return;
+function stripHtmlTags(raw: string): string {
+  return decodeHtmlEntities(raw.replace(/<[^>]*>/g, ' '))
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
-  const prev = websitesState.adminProfile;
-
-  // Normalize interests when provided
-  let interests = prev.interests;
-  if (Array.isArray(remoteProfile.interests) && remoteProfile.interests.length > 0) {
-    const normalized = remoteProfile.interests
-      .map((item: any) => (typeof item === 'string' ? item.trim() : String(item?.name || '').trim()))
-      .filter(Boolean);
-    if (normalized.length > 0) {
-      interests = normalized;
-    }
+function formatRssDate(rawDate: string): string {
+  if (!rawDate) return '';
+  const parsed = new Date(rawDate);
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed.toISOString().slice(0, 10);
   }
-
-  websitesState = {
-    ...websitesState,
-    siteName: prev.siteName,
-    sourceUrl: '',
-    adminProfile: {
-      ...prev,
-      siteName: prev.siteName,
-      interests,
-    },
-  };
+  return rawDate.slice(0, 16);
 }
 
 function parseRssXml(xml: string): { buildDate?: string; items: RssFeedItem[] } {
@@ -745,17 +688,17 @@ function parseRssXml(xml: string): { buildDate?: string; items: RssFeedItem[] } 
 
   const readTag = (block: string, tag: string) => {
     const m = block.match(new RegExp(`<${tag}[^>]*>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?<\\/${tag}>`, 'i'));
-    return m?.[1] ? decodeHtmlEntities(m[1]).trim() : '';
+    return m?.[1] ? stripHtmlTags(m[1]) : '';
   };
 
   for (const match of itemMatches) {
     const block = match[1];
     const title = readTag(block, 'title');
     const link = readTag(block, 'link');
-    const description = readTag(block, 'description');
+    const description = readTag(block, 'description').slice(0, 260);
     const category = readTag(block, 'category');
     const pubDate = readTag(block, 'pubDate');
-    if (title && link) {
+    if (title && link && !/blogspot\./i.test(link) && !/blogspot\./i.test(title)) {
       items.push({ title, link, description, category, pubDate });
     }
   }
@@ -826,15 +769,23 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
 
   const parsedBio = parseGravatarBioMarkdown(bioMarkdown);
 
-  // Merge contact info from v3 + legacy JSON
+  // Merge contact info from v3 + legacy JSON (excluding any blogspot links)
+  const isBlogspotUrl = (val: string) => /blogspot\./i.test(val);
   const socials = { ...prev.socials, gravatarUrl: '' };
+  if (isBlogspotUrl(socials.contactForm)) {
+    socials.contactForm = prev.socials.wordpressUrl || '';
+  }
 
   if (v3Profile?.contact_info && typeof v3Profile.contact_info === 'object') {
     const ci = v3Profile.contact_info;
     if (typeof ci.email === 'string' && ci.email.includes('@')) socials.email = ci.email.trim();
     if (typeof ci.cell_phone === 'string' && ci.cell_phone.trim()) socials.phone = ci.cell_phone.trim();
     if (typeof ci.calendar === 'string' && ci.calendar.startsWith('https://')) socials.calendlyUrl = ci.calendar.trim();
-    if (typeof ci.contact_form === 'string' && ci.contact_form.startsWith('https://')) {
+    if (
+      typeof ci.contact_form === 'string' &&
+      ci.contact_form.startsWith('https://') &&
+      !isBlogspotUrl(ci.contact_form)
+    ) {
       socials.contactForm = ci.contact_form.trim();
     }
   }
@@ -858,20 +809,20 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       if (kind === 'calendar' && val.startsWith('https://') && !socials.calendlyUrl) {
         socials.calendlyUrl = val;
       }
-      if (kind === 'contactform' && val.startsWith('https://') && !socials.contactForm) {
+      if (kind === 'contactform' && val.startsWith('https://') && !isBlogspotUrl(val)) {
         socials.contactForm = val;
       }
     }
   }
 
-  // Merge verified_accounts (v3) + accounts (legacy JSON), excluding gravatar.com links
+  // Merge verified_accounts (v3) + accounts (legacy JSON), excluding gravatar.com & blogspot links
   const mergedAccounts: { label: string; handle: string; url: string }[] = [];
   const seenAccountKeys = new Set<string>();
 
   const pushVerifiedAccount = (rawUrl: any, rawLabel: any) => {
     const u = String(rawUrl || '').trim();
     if (!u.startsWith('https://') || u.length >= 160 || /[\s<>]/.test(u)) return;
-    if (u.toLowerCase().includes('gravatar.com/')) return;
+    if (u.toLowerCase().includes('gravatar.com/') || isBlogspotUrl(u)) return;
     const key = normalizeVerifiedUrlKey(u);
     if (seenAccountKeys.has(key)) return;
     seenAccountKeys.add(key);
@@ -891,10 +842,22 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     });
   };
 
+  if (Array.isArray(v3Profile?.links)) {
+    for (const lnk of v3Profile.links) {
+      pushVerifiedAccount(lnk?.url, lnk?.label || lnk?.title || 'Website');
+    }
+  }
+
   if (Array.isArray(v3Profile?.verified_accounts)) {
     for (const acc of v3Profile.verified_accounts) {
       if (acc?.is_hidden) continue;
       pushVerifiedAccount(acc?.url, acc?.service_label || acc?.service_type);
+    }
+  }
+
+  if (Array.isArray(legacyEntry?.urls)) {
+    for (const lnk of legacyEntry.urls) {
+      pushVerifiedAccount(lnk?.value, lnk?.title || 'Website');
     }
   }
 
@@ -1032,11 +995,28 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
       }
     }
 
+    const syncedAt = new Date().toISOString();
     if (v3Json || legacyJson) {
       applyGravatarDirectPayload(v3Json, legacyJson);
+      websitesState.upstreamStatus = {
+        ...websitesState.upstreamStatus,
+        sourceUrl: '',
+        connected: true,
+        sseActive: true,
+        healthStatus: 'ok',
+        lastSyncedAt: syncedAt,
+      };
       lastGravatarSyncMs = Date.now();
       return true;
     }
+
+    websitesState.upstreamStatus = {
+      ...websitesState.upstreamStatus,
+      sourceUrl: '',
+      connected: false,
+      healthStatus: 'standby',
+      lastSyncedAt: syncedAt,
+    };
     return false;
   })().finally(() => {
     gravatarSyncInFlight = null;
@@ -1045,71 +1025,82 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
   return gravatarSyncInFlight;
 }
 
-async function syncFromMrxshahinBackend(): Promise<void> {
-  const [gravatarOk, profileRes, rssRes, policiesRes] = await Promise.allSettled([
+async function syncProfileAndFeeds(): Promise<void> {
+  const [gravatarOk, rssRes, wpRssRes, policiesRes] = await Promise.allSettled([
     syncGravatarProfileLive(true),
-    fetch(UPSTREAM_GRAVATAR_API, {
-      signal: AbortSignal.timeout(5000),
-      headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0', Accept: 'application/json' },
-    }),
     fetch(UPSTREAM_RSS_URL, {
       signal: AbortSignal.timeout(6000),
       headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0', Accept: 'application/xml,text/xml' },
+      cache: 'no-store',
+    }),
+    fetch('https://mrxshahin.wordpress.com/feed/', {
+      signal: AbortSignal.timeout(6000),
+      headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0', Accept: 'application/xml,text/xml' },
+      cache: 'no-store',
     }),
     fetch(UPSTREAM_POLICIES_URL, {
       signal: AbortSignal.timeout(4500),
       headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0' },
+      cache: 'no-store',
     }),
   ]);
 
-  let upstreamOk = gravatarOk.status === 'fulfilled' && gravatarOk.value;
+  const gravatarConnected = gravatarOk.status === 'fulfilled' && gravatarOk.value;
+  const combinedRssItems: RssFeedItem[] = [];
+  const seenRssLinks = new Set<string>();
+  let rssBuildDate = websitesState.upstreamStatus.rssBuildDate;
 
-  if (profileRes.status === 'fulfilled' && profileRes.value.ok) {
-    try {
-      const json = await profileRes.value.json();
-      applyUpstreamProfilePayload(json);
-    } catch {
-      // Ignore parse warning
-    }
-  }
-
-  if (rssRes.status === 'fulfilled' && rssRes.value.ok) {
-    try {
-      const xml = await rssRes.value.text();
-      const parsed = parseRssXml(xml);
-      websitesState.upstreamStatus = {
-        ...websitesState.upstreamStatus,
-        sourceUrl: '',
-        rssBuildDate: parsed.buildDate,
-        rssItems: parsed.items,
-      };
-
-      // Update website descriptions dynamically when RSS items match
-      websitesState.websites = websitesState.websites.map((site) => {
-        const matched = parsed.items.find((it) => {
-          try {
-            return new URL(it.link).hostname === site.domain && !it.link.includes('#cv-download');
-          } catch {
-            return false;
-          }
-        });
-        if (matched && matched.description) {
-          return { ...site, description: matched.description };
+  for (const feedPromise of [wpRssRes, rssRes]) {
+    if (feedPromise.status === 'fulfilled' && feedPromise.value.ok) {
+      try {
+        const xml = await feedPromise.value.text();
+        const parsed = parseRssXml(xml);
+        if (parsed.buildDate && !rssBuildDate) {
+          rssBuildDate = parsed.buildDate;
         }
-        return site;
-      });
-      upstreamOk = true;
-    } catch {
-      // Ignore RSS parse warning
+        for (const item of parsed.items) {
+          if (/blogspot\./i.test(item.link) || /blogspot\./i.test(item.title)) continue;
+          const norm = normalizeVerifiedUrlKey(item.link);
+          if (seenRssLinks.has(norm)) continue;
+          seenRssLinks.add(norm);
+          combinedRssItems.push(item);
+        }
+      } catch {
+        // Ignore RSS parse warning
+      }
     }
   }
 
+  if (combinedRssItems.length > 0) {
+    websitesState.upstreamStatus = {
+      ...websitesState.upstreamStatus,
+      sourceUrl: '',
+      rssBuildDate,
+      rssItems: combinedRssItems.slice(0, 12),
+    };
+
+    websitesState.websites = websitesState.websites.map((site) => {
+      const matched = combinedRssItems.find((it) => {
+        try {
+          return new URL(it.link).hostname === site.domain && !it.link.includes('#cv-download');
+        } catch {
+          return false;
+        }
+      });
+      if (matched && matched.description) {
+        return { ...site, description: matched.description };
+      }
+      return site;
+    });
+  }
+
+  const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
   if (policiesRes.status === 'fulfilled' && policiesRes.value.ok) {
     try {
       const pJson = await policiesRes.value.json();
       if (typeof pJson?.effectiveYear === 'number') {
         websitesState.yearlySystem = {
-          ...computeYearlyData(),
+          ...computeYearlyData(activeSiteName),
           currentYear: pJson.effectiveYear,
         };
       }
@@ -1121,104 +1112,32 @@ async function syncFromMrxshahinBackend(): Promise<void> {
   websitesState.upstreamStatus = {
     ...websitesState.upstreamStatus,
     sourceUrl: '',
-    connected: upstreamOk || websitesState.upstreamStatus.sseActive,
+    connected: gravatarConnected,
+    sseActive: gravatarConnected,
+    healthStatus: gravatarConnected ? 'ok' : 'standby',
     lastSyncedAt: new Date().toISOString(),
   };
 }
 
-// Persistent real-time SSE bridge for upstream events
-async function connectUpstreamSseBridge() {
-  while (true) {
-    try {
-      const res = await fetch(UPSTREAM_GRAVATAR_STREAM, {
-        headers: {
-          Accept: 'text/event-stream',
-          'User-Agent': 'MRS-Realtime-Bridge/1.0',
-        },
-      });
-
-      if (!res.ok || !res.body) {
-        throw new Error(`Upstream SSE HTTP ${res.status}`);
-      }
-
-      websitesState.upstreamStatus = {
-        ...websitesState.upstreamStatus,
-        connected: true,
-        sseActive: true,
-      };
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const events = buffer.split('\n\n');
-        buffer = events.pop() || '';
-
-        for (const rawEvent of events) {
-          const dataLines = rawEvent
-            .split('\n')
-            .filter((line) => line.startsWith('data:'))
-            .map((line) => line.slice(5).trim());
-
-          if (dataLines.length === 0) continue;
-          try {
-            const payload = JSON.parse(dataLines.join('\n'));
-            if (payload?.profile) {
-              applyUpstreamProfilePayload(payload);
-              websitesState.upstreamStatus = {
-                ...websitesState.upstreamStatus,
-                connected: true,
-                sseActive: true,
-                healthStatus: 'ok',
-              };
-              saveWebsitesCache();
-              broadcastWebsitesUpdate('websites_update', websitesState);
-            }
-          } catch {
-            // Ignore heartbeat or partial JSON frames
-          }
-        }
-      }
-    } catch {
-      websitesState.upstreamStatus = {
-        ...websitesState.upstreamStatus,
-        sseActive: false,
-      };
-    }
-
-    await new Promise((r) => setTimeout(r, 12000));
-  }
-}
-
-async function fetchBloggerPosts(feedUrl: string): Promise<WebsitePostPreview[]> {
+async function fetchRssPosts(feedUrl: string): Promise<WebsitePostPreview[]> {
+  if (/blogspot\./i.test(feedUrl)) return [];
   try {
     const res = await fetch(feedUrl, {
-      signal: AbortSignal.timeout(4500),
-      headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0' },
+      signal: AbortSignal.timeout(5000),
+      headers: {
+        'User-Agent': 'MRS-Realtime-Bridge/1.0',
+        Accept: 'application/rss+xml,application/xml,text/xml',
+      },
+      cache: 'no-store',
     });
     if (!res.ok) return [];
-    const json = await res.json();
-    const entries = json?.feed?.entry;
-    if (!Array.isArray(entries)) return [];
-
-    return entries.slice(0, 3).map((entry: any) => {
-      const rawTitle = entry?.title?.$t || 'Untitled Post';
-      const alternateLink = Array.isArray(entry?.link)
-        ? entry.link.find((l: any) => l.rel === 'alternate')?.href
-        : undefined;
-      const publishedRaw = entry?.published?.$t || '';
-      const published = publishedRaw ? publishedRaw.slice(0, 10) : '';
-      return {
-        title: decodeHtmlEntities(rawTitle).trim(),
-        url: alternateLink || feedUrl.replace('/feeds/posts/default?alt=json&max-results=3', ''),
-        published,
-      };
-    });
+    const xml = await res.text();
+    const parsed = parseRssXml(xml);
+    return parsed.items.slice(0, 3).map((item) => ({
+      title: item.title,
+      url: item.link,
+      published: formatRssDate(item.pubDate),
+    }));
   } catch {
     return [];
   }
@@ -1240,6 +1159,7 @@ async function probeSingleWebsite(site: EcosystemWebsite): Promise<EcosystemWebs
         'User-Agent': 'MRS-Realtime-Bridge/1.0',
         Accept: 'text/html,application/xhtml+xml',
       },
+      cache: 'no-store',
     });
     latencyMs = Date.now() - start;
     httpCode = res.status;
@@ -1262,14 +1182,8 @@ async function probeSingleWebsite(site: EcosystemWebsite): Promise<EcosystemWebs
     status = 'standby';
   }
 
-  const effectiveFeedUrl =
-    site.feedUrl ||
-    (site.domain.endsWith('.blogspot.com')
-      ? `https://${site.domain}/feeds/posts/default?alt=json&max-results=3`
-      : undefined);
-
-  if (effectiveFeedUrl) {
-    const posts = await fetchBloggerPosts(effectiveFeedUrl);
+  if (site.feedUrl) {
+    const posts = await fetchRssPosts(site.feedUrl);
     if (posts.length > 0) {
       latestPosts = posts;
     }
@@ -1294,7 +1208,7 @@ async function syncAllWebsites(): Promise<WebsitesHubState> {
 
   probeInFlight = (async () => {
     try {
-      await syncFromMrxshahinBackend();
+      await syncProfileAndFeeds();
       const updatedSites = await Promise.all(websitesState.websites.map((s) => probeSingleWebsite(s)));
       const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
       websitesState = {
@@ -1317,7 +1231,7 @@ async function syncAllWebsites(): Promise<WebsitesHubState> {
   return probeInFlight;
 }
 
-const GRAVATAR_REALTIME_INTERVAL_MS = 15 * 1000;
+const GRAVATAR_REALTIME_INTERVAL_MS = 10 * 1000;
 const PROBE_INTERVAL_MS = 45 * 1000;
 const YEARLY_CHECK_INTERVAL_MS = 60 * 60 * 1000;
 const SSE_PING_INTERVAL_MS = 25 * 1000;
@@ -1334,8 +1248,9 @@ app.get(['/health', '/api/health'], (_req, res) => {
 });
 
 app.get('/api/websites', async (_req, res) => {
-  await syncGravatarProfileLive(false).catch(() => false);
-  websitesState.yearlySystem = computeYearlyData();
+  await syncGravatarProfileLive(true).catch(() => false);
+  const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
+  websitesState.yearlySystem = computeYearlyData(activeSiteName);
   res.setHeader('Cache-Control', 'no-store');
   res.json({
     success: true,
@@ -1364,10 +1279,11 @@ app.get('/api/websites/stream', async (req, res) => {
     sseClients.delete(res);
   });
 
-  await syncGravatarProfileLive(false).catch(() => false);
+  await syncGravatarProfileLive(true).catch(() => false);
   if (req.destroyed || !sseClients.has(res)) return;
 
-  websitesState.yearlySystem = computeYearlyData();
+  const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
+  websitesState.yearlySystem = computeYearlyData(activeSiteName);
   res.write(`data: ${JSON.stringify({ type: 'initial', data: websitesState })}\n\n`);
 });
 
@@ -1434,12 +1350,13 @@ app.post('/api/websites', async (req, res) => {
     };
 
     const probedSite = await probeSingleWebsite(draftSite);
+    const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
     websitesState = {
       ...websitesState,
       websites: [...websitesState.websites, probedSite],
       lastUpdated: new Date().toISOString(),
       syncCycle: websitesState.syncCycle + 1,
-      yearlySystem: computeYearlyData(),
+      yearlySystem: computeYearlyData(activeSiteName),
     };
     saveWebsitesCache();
     broadcastWebsitesUpdate('websites_update', websitesState);
@@ -1464,12 +1381,13 @@ app.delete('/api/websites/:id', (req, res) => {
     return res.status(400).json({ success: false, error: 'Core M R S portfolio websites cannot be removed.' });
   }
 
+  const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
   websitesState = {
     ...websitesState,
     websites: websitesState.websites.filter((s) => s.id !== id),
     lastUpdated: new Date().toISOString(),
     syncCycle: websitesState.syncCycle + 1,
-    yearlySystem: computeYearlyData(),
+    yearlySystem: computeYearlyData(activeSiteName),
   };
   saveWebsitesCache();
   broadcastWebsitesUpdate('websites_update', websitesState);
@@ -1530,9 +1448,10 @@ app.post('/api/inquiries', (req, res) => {
 });
 
 app.get('/api/system/yearly', (_req, res) => {
+  const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
   res.json({
     success: true,
-    data: computeYearlyData(),
+    data: computeYearlyData(activeSiteName),
   });
 });
 
@@ -1606,11 +1525,10 @@ async function startServer() {
 
   const httpServer = app.listen(PORT, '0.0.0.0', () => {
     const hostDisplay = APP_URL || `http://0.0.0.0:${PORT}`;
-    console.log(`[Server] M R S backend running at ${hostDisplay} (port ${PORT})`);
+    console.log(`[Server] ${websitesState.siteName} backend running at ${hostDisplay} (port ${PORT})`);
 
-    // Start background sync and upstream SSE bridge after port 3000 is bound
+    // Start immediate live profile & website sync after port 3000 is bound
     syncAllWebsites().catch(() => {});
-    connectUpstreamSseBridge().catch(() => {});
 
     setInterval(async () => {
       const beforeSnapshot = JSON.stringify(websitesState.adminProfile);
@@ -1626,7 +1544,8 @@ async function startServer() {
     }, PROBE_INTERVAL_MS);
 
     setInterval(() => {
-      const yearly = computeYearlyData();
+      const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
+      const yearly = computeYearlyData(activeSiteName);
       if (yearly.currentYear !== websitesState.yearlySystem.currentYear) {
         websitesState = {
           ...websitesState,

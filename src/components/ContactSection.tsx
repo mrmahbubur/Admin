@@ -149,7 +149,7 @@ export const ContactSection: React.FC = () => {
               </a>
 
               <a
-                href={adminProfile.socials.contactForm}
+                href={adminProfile.socials.wordpressUrl || 'https://mrxshahin.wordpress.com'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
@@ -157,9 +157,9 @@ export const ContactSection: React.FC = () => {
                 <div className="flex items-center gap-3.5 min-w-0">
                   <Globe className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
                   <div className="min-w-0">
-                    <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">Web Portal</div>
+                    <div className="text-[11.5px] text-[#64748b] dark:text-[#94a3b8]">WordPress Portal</div>
                     <div className="text-[13.5px] font-semibold text-[#0f172a] dark:text-white truncate">
-                      mrsadmin.blogspot
+                      mrxshahin.wordpress.com
                     </div>
                   </div>
                 </div>
