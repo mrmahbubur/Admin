@@ -108,6 +108,8 @@ export interface AdminProfileData {
   roleTitle: string;
   tagline: string;
   location: string;
+  timezone?: string;
+  headerImage?: string;
   avatarUrl: string;
   avatarAltText?: string;
   pronouns?: string;
@@ -150,7 +152,6 @@ export interface AdminProfileData {
     linkedinUrl: string;
     xUrl: string;
     blueskyUrl: string;
-    wordpressUrl: string;
     calendlyUrl: string;
     contactForm: string;
     goodreadsUrl: string;
@@ -201,6 +202,8 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
   roleTitle: 'Available for Remote IT Support, Virtual Assistance & Administrative Work',
   tagline: 'Available for Remote IT Support, Virtual Assistance & Administrative Work',
   location: 'Global / Remote',
+  timezone: 'GMT+06:00',
+  headerImage: 'https://1.gravatar.com/userimage/140624186/eb80b95de8da05aca3d1b6e47836f736?size=1024',
   avatarUrl: './mrs_profile_avatar.jpg',
   avatarAltText: 'M R S official profile portrait',
   pronouns: '',
@@ -259,7 +262,7 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
       items: [
         'Website content updates and basic website administration',
         'Blog post publishing and content formatting',
-        'WordPress and CMS content management',
+        'CMS and web content management',
         'SEO-friendly article writing and on-page content optimization',
         'Website testing, troubleshooting, and basic usability checks',
         'Web research, content planning, and topic development',
@@ -347,7 +350,7 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
       category: 'Website Management & Digital Content',
       skills: [
         'Website content updates and basic website administration',
-        'WordPress and CMS content management',
+        'CMS and web content management',
         'SEO-friendly article writing and on-page content optimization',
         'Website testing, troubleshooting, and basic usability checks',
         'AI-assisted content creation, editing, and proofreading',
@@ -383,9 +386,8 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
     linkedinUrl: 'https://www.linkedin.com/in/mrmahbubur',
     xUrl: 'https://x.com/Mrshahinx',
     blueskyUrl: 'https://bsky.app/profile/mrxshahin.bsky.social',
-    wordpressUrl: 'https://mrxshahin.wordpress.com',
     calendlyUrl: 'https://calendly.com/mrxshahin',
-    contactForm: 'https://mrxshahin.wordpress.com',
+    contactForm: 'https://mrs-services.ai.studio/',
     goodreadsUrl: 'https://www.goodreads.com/mrxshahin',
   },
   verifiedAccounts: [
@@ -393,7 +395,6 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
     { label: 'GitHub', handle: 'mrmahbubur', url: 'https://github.com/mrmahbubur' },
     { label: 'Bluesky', handle: 'mrxshahin.bsky.social', url: 'https://bsky.app/profile/mrxshahin.bsky.social' },
     { label: 'LinkedIn', handle: 'mrmahbubur', url: 'https://www.linkedin.com/in/mrmahbubur' },
-    { label: 'WordPress', handle: 'mrxshahin.wordpress.com', url: 'https://mrxshahin.wordpress.com' },
     { label: 'Goodreads', handle: 'goodreads.com/mrxshahin', url: 'https://www.goodreads.com/mrxshahin' },
   ],
 };
@@ -427,7 +428,6 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
-    hasProfileDescription: true,
     latestPosts: [],
   },
   {
@@ -443,24 +443,6 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
-    hasProfileDescription: true,
-    latestPosts: [],
-  },
-  {
-    id: 'wordpress-hub',
-    name: 'WordPress',
-    url: 'https://mrxshahin.wordpress.com',
-    domain: 'mrxshahin.wordpress.com',
-    category: 'Verified Publication',
-    badge: 'WORDPRESS',
-    description:
-      'Solutions crafted for you — verified WordPress publication sharing technical guides and digital documentation by M R S.',
-    imageKey: 'admin',
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    hasProfileDescription: true,
-    feedUrl: 'https://mrxshahin.wordpress.com/feed/',
     latestPosts: [],
   },
 ];
@@ -473,7 +455,7 @@ const CURATED_PROJECT_HINTS: Record<
     category: 'Official Portfolio & AI Concierge',
     badge: 'AI CONCIERGE',
     description:
-      'Certified IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management with Interactive AI Concierge.',
+      'M R S Ai Assistant is standing by to introduce you, walk through verified credentials, and give you an interactive experience.',
     imageKey: 'flagship',
   },
   'mrs-services.ai.studio': {
@@ -530,13 +512,6 @@ const CURATED_PROJECT_HINTS: Record<
     badge: 'ADMIN HUB',
     description:
       'Centralized M R S operations hub and live websites showcase for remote IT support, documentation workflows, and web management.',
-    imageKey: 'admin',
-  },
-  'mrxshahin.wordpress.com': {
-    category: 'Verified Publication',
-    badge: 'WORDPRESS',
-    description:
-      'Solutions crafted for you — verified WordPress publication sharing technical guides and digital documentation by M R S.',
     imageKey: 'admin',
   },
 };
@@ -605,8 +580,8 @@ try {
         phone: '',
         gravatarUrl: '',
       };
-      if (/blogspot\./i.test(cleanSocials.contactForm || '')) {
-        cleanSocials.contactForm = cleanSocials.wordpressUrl || BASE_ADMIN_PROFILE.socials.wordpressUrl;
+      if (/blogspot\.|blogger\.|wordpress\./i.test(cleanSocials.contactForm || '')) {
+        cleanSocials.contactForm = BASE_ADMIN_PROFILE.socials.contactForm;
       }
       restoredProfile = {
         ...BASE_ADMIN_PROFILE,
@@ -621,8 +596,8 @@ try {
         verifiedAccounts: Array.isArray(candidate.verifiedAccounts)
           ? candidate.verifiedAccounts.filter(
               (a) =>
-                !/blogspot\.|blogger\.|gravatar\.com\//i.test(String(a?.url || '')) &&
-                (isSocialAccountOnlyUrl(String(a?.url || '')) || /wordpress\.com/i.test(String(a?.url || '')))
+                !/blogspot\.|blogger\.|wordpress\.|gravatar\.com\//i.test(String(a?.url || '')) &&
+                isSocialAccountOnlyUrl(String(a?.url || ''))
             )
           : BASE_ADMIN_PROFILE.verifiedAccounts,
       };
@@ -633,6 +608,8 @@ try {
           (s: EcosystemWebsite) =>
             !String(s.domain || '').toLowerCase().includes('blogspot.') &&
             !String(s.url || '').toLowerCase().includes('blogspot.') &&
+            !String(s.domain || '').toLowerCase().includes('wordpress.') &&
+            !String(s.url || '').toLowerCase().includes('wordpress.') &&
             !String(s.domain || '').toLowerCase().includes('upload-apk.com')
         )
       : DEFAULT_WEBSITES;
@@ -682,7 +659,10 @@ function cleanMarkdownInline(text: string): string {
     .replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0F\s]+/gu, '')
     .replace(/\*\*(.+?)\*\*/g, '$1')
     .replace(/__(.+?)__/g, '$1')
-    .replace(/\bWordPress and Blogger\b/gi, 'WordPress and CMS')
+    .replace(/\bWordPress\s*(?:and|&|\/)\s*Blogger\b/gi, 'CMS and web')
+    .replace(/\bWordPress\s*(?:and|&|\/)\s*CMS\b/gi, 'CMS and web')
+    .replace(/\bWordPress\b/gi, 'CMS')
+    .replace(/\bBlogger\b/gi, 'CMS')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -853,7 +833,12 @@ function parseRssXml(xml: string): { buildDate?: string; items: RssFeedItem[] } 
     const description = readTag(block, 'description').slice(0, 260);
     const category = readTag(block, 'category');
     const pubDate = readTag(block, 'pubDate');
-    if (title && link && !/blogspot\./i.test(link) && !/blogspot\./i.test(title)) {
+    if (
+      title &&
+      link &&
+      !/blogspot\.|wordpress\./i.test(link) &&
+      !/blogspot|wordpress/i.test(title)
+    ) {
       items.push({ title, link, description, category, pubDate });
     }
   }
@@ -870,7 +855,7 @@ function inferProjectImageKey(
 ): EcosystemWebsite['imageKey'] {
   const hay = `${url} ${label}`.toLowerCase();
   if (hay.includes('charity') || hay.includes('foundation')) return 'charity';
-  if (hay.includes('shop') || hay.includes('service') || hay.includes('cloud') || hay.includes('admin') || hay.includes('wordpress')) {
+  if (hay.includes('shop') || hay.includes('service') || hay.includes('cloud') || hay.includes('admin')) {
     return 'admin';
   }
   if (hay.includes('app') || hay.includes('apk') || hay.includes('ai') || hay.includes('pcn')) {
@@ -887,6 +872,7 @@ function isSocialAccountOnlyUrl(url: string): boolean {
     lower.includes('linkedin.com/') ||
     lower.includes('bsky.app/') ||
     lower.includes('goodreads.com/') ||
+    lower.includes('calendly.com/') ||
     /^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test(lower)
   );
 }
@@ -897,6 +883,7 @@ function isRestrictedProfileUrl(url: string): boolean {
     lower.includes('gravatar.com/') ||
     lower.includes('blogspot.') ||
     lower.includes('blogger.') ||
+    lower.includes('wordpress.') ||
     lower.includes('profitableratecpmnetwork.') ||
     lower.includes('uplcm.com') ||
     lower.includes('upload-apk.com')
@@ -910,7 +897,7 @@ function isPersonalLocationText(loc: string): boolean {
 function cleanProfileDescription(raw: any): string {
   if (typeof raw !== 'string') return '';
   const cleaned = cleanMarkdownInline(raw);
-  if (!cleaned || /blogspot\.|blogger\b/i.test(cleaned)) return '';
+  if (!cleaned || /blogspot\.|blogger\b|wordpress\.|\bwordpress\b/i.test(cleaned)) return '';
   return cleaned;
 }
 
@@ -933,9 +920,75 @@ function extractEstablishedYearFromHighlights(highlights: string[]): number {
   return DEFAULT_ESTABLISHED_YEAR;
 }
 
-function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
+function extractBackgroundImageUrl(raw: any): string | undefined {
+  if (typeof raw !== 'string' || !raw.trim()) return undefined;
+  const m = raw.match(/https:\/\/[^\s'")]+/i);
+  return m?.[0];
+}
+
+function formatTimezoneLabel(tzRaw: any, htmlTz?: string): string {
+  if (htmlTz && /^GMT[+-]\d{2}:\d{2}$/i.test(htmlTz)) return htmlTz;
+  const tz = typeof tzRaw === 'string' ? tzRaw.trim() : '';
+  if (!tz) return 'GMT+06:00';
+  try {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz,
+      timeZoneName: 'longOffset',
+    }).formatToParts(new Date());
+    const offset = parts.find((p) => p.type === 'timeZoneName')?.value;
+    if (offset && offset.startsWith('GMT')) return offset;
+  } catch {
+    // Fallback below
+  }
+  return tz.includes('Dhaka') ? 'GMT+06:00' : 'Remote / Async';
+}
+
+function parseGravatarHtmlProfile(html: string): {
+  links: { label: string; url: string; description: string }[];
+  timezone?: string;
+} {
+  const links: { label: string; url: string; description: string }[] = [];
+  const seen = new Set<string>();
+  const linksSectionMatch = html.match(/>Links<\/h2>([\s\S]*?)(?:<h2[^>]*class="g-profile-card__card-title"|$)/i);
+  const linksSection = linksSectionMatch?.[1] || '';
+  const cardBlocks = linksSection.split(/class="g-profile-card__card-item\s+card-item/i).slice(1);
+  for (const rawBlock of cardBlocks) {
+    const block = rawBlock.slice(0, 1800);
+    const linkMatch =
+      block.match(/<a[^>]+class="card-item__link"[^>]+href="(https?:\/\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/i) ||
+      block.match(/href="(https?:\/\/[^"]+)"[^>]*title="([^"]+)"/i);
+    if (!linkMatch) continue;
+    const url = decodeHtmlEntities(linkMatch[1]).trim();
+    if (!url.startsWith('https://') || isRestrictedProfileUrl(url) || isSocialAccountOnlyUrl(url)) continue;
+    const key = normalizeVerifiedUrlKey(url);
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    const rawLabel = decodeHtmlEntities(linkMatch[2].replace(/<[^>]+>/g, ' ').replace(/[↗]/g, '').trim());
+    const pMatch = block.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+    let desc = '';
+    if (pMatch?.[1]) {
+      const candidate = cleanProfileDescription(pMatch[1].replace(/<[^>]+>/g, ' '));
+      if (candidate && !candidate.endsWith('...') && !candidate.endsWith('…')) {
+        desc = candidate;
+      }
+    }
+    links.push({ label: rawLabel || url, url, description: desc });
+  }
+  const tzMatch = html.match(/Time:\s*\d{1,2}:\d{2}\s*\((GMT[+-]\d{2}:\d{2})\)/i);
+  return {
+    links,
+    timezone: tzMatch?.[1] || undefined,
+  };
+}
+
+function applyGravatarDirectPayload(
+  v3Profile: any,
+  legacyJson?: any,
+  htmlProfile?: { links: { label: string; url: string; description: string }[]; timezone?: string } | null
+) {
   const legacyEntry = Array.isArray(legacyJson?.entry) ? legacyJson.entry[0] : null;
-  if ((!v3Profile || typeof v3Profile !== 'object') && !legacyEntry) return;
+  if ((!v3Profile || typeof v3Profile !== 'object') && !legacyEntry && !htmlProfile) return;
 
   const syncedAt = new Date().toISOString();
   const base = BASE_ADMIN_PROFILE;
@@ -1003,8 +1056,17 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     ? `${rawAvatar}${rawAvatar.includes('?') ? '&' : '?'}s=512`
     : base.avatarUrl;
 
-  // Merge public business channels from v3 + legacy JSON cleanly (excluding personal email/phone & blogspot links)
-  const isBlogspotUrl = (val: string) => /blogspot\.|blogger\./i.test(val);
+  const headerImage =
+    extractBackgroundImageUrl(v3Profile?.header_image) ||
+    extractBackgroundImageUrl(legacyEntry?.header_image) ||
+    extractBackgroundImageUrl(legacyEntry?.profileBackground?.url) ||
+    websitesState.adminProfile.headerImage ||
+    base.headerImage;
+
+  const timezone = formatTimezoneLabel(v3Profile?.timezone, htmlProfile?.timezone);
+
+  // Merge public business channels from v3 + legacy JSON cleanly (excluding personal email/phone & restricted links)
+  const isExcludedExternalUrl = (val: string) => /blogspot\.|blogger\.|wordpress\./i.test(val);
   const socials = { ...base.socials, email: '', phone: '', gravatarUrl: '' };
 
   if (v3Profile?.contact_info && typeof v3Profile.contact_info === 'object') {
@@ -1015,7 +1077,7 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     if (
       typeof ci.contact_form === 'string' &&
       ci.contact_form.startsWith('https://') &&
-      !isBlogspotUrl(ci.contact_form)
+      !isExcludedExternalUrl(ci.contact_form)
     ) {
       socials.contactForm = ci.contact_form.trim();
     }
@@ -1028,13 +1090,13 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       if (kind === 'calendar' && val.startsWith('https://')) {
         socials.calendlyUrl = val;
       }
-      if (kind === 'contactform' && val.startsWith('https://') && !isBlogspotUrl(val)) {
+      if (kind === 'contactform' && val.startsWith('https://') && !isExcludedExternalUrl(val)) {
         socials.contactForm = val;
       }
     }
   }
 
-  // Separate verified social accounts vs website project links cleanly (excluding gravatar.com, blogspot & unlisted links)
+  // Separate verified social accounts vs website project links cleanly (excluding gravatar.com, blogspot, wordpress & unlisted links)
   const verifiedAccountsList: { label: string; handle: string; url: string }[] = [];
   const seenAccountKeys = new Set<string>();
   const discoveredWebProjects: { label: string; url: string; key: string; description: string }[] = [];
@@ -1048,7 +1110,6 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     if (lowerUrl.includes('linkedin.com/')) socials.linkedinUrl = u;
     if (lowerUrl.includes('x.com/') || lowerUrl.includes('twitter.com/')) socials.xUrl = u;
     if (lowerUrl.includes('bsky.app/')) socials.blueskyUrl = u;
-    if (lowerUrl.includes('wordpress.com')) socials.wordpressUrl = u;
     if (lowerUrl.includes('goodreads.com')) socials.goodreadsUrl = u;
   };
 
@@ -1075,6 +1136,13 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   };
 
+  const htmlLinksByKey = new Map<string, { label: string; url: string; description: string }>();
+  if (htmlProfile?.links) {
+    for (const hl of htmlProfile.links) {
+      htmlLinksByKey.set(normalizeVerifiedUrlKey(hl.url), hl);
+    }
+  }
+
   const pushWebsiteLink = (rawUrl: any, rawLabel: any, rawDescription?: any) => {
     const u = String(rawUrl || '').trim();
     if (!u.startsWith('https://') || u.length >= 160 || /[\s<>]/.test(u)) return;
@@ -1082,7 +1150,8 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     if (isSocialAccountOnlyUrl(u)) return;
     const key = normalizeVerifiedUrlKey(u);
     const label = decodeHtmlEntities(String(rawLabel || 'Website').trim());
-    const desc = cleanProfileDescription(rawDescription);
+    const htmlMatch = htmlLinksByKey.get(key);
+    const desc = cleanProfileDescription(rawDescription) || htmlMatch?.description || '';
 
     if (!seenProjectKeys.has(key)) {
       seenProjectKeys.add(key);
@@ -1102,15 +1171,17 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   }
 
+  if (htmlProfile?.links) {
+    for (const hl of htmlProfile.links) {
+      pushWebsiteLink(hl.url, hl.label, hl.description);
+    }
+  }
+
   if (Array.isArray(v3Profile?.verified_accounts)) {
     for (const acc of v3Profile.verified_accounts) {
       if (acc?.is_hidden) continue;
       const accUrl = String(acc?.url || '');
-      pushVerifiedAccountOnly(
-        accUrl,
-        acc?.service_label || acc?.service_type,
-        accUrl.toLowerCase().includes('wordpress.com')
-      );
+      pushVerifiedAccountOnly(accUrl, acc?.service_label || acc?.service_type, false);
     }
   }
 
@@ -1118,16 +1189,12 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     for (const acc of legacyEntry.accounts) {
       if (acc?.is_hidden || acc?.verified === false) continue;
       const accUrl = String(acc?.url || '');
-      pushVerifiedAccountOnly(
-        accUrl,
-        acc?.name || acc?.shortname,
-        accUrl.toLowerCase().includes('wordpress.com')
-      );
+      pushVerifiedAccountOnly(accUrl, acc?.name || acc?.shortname, false);
     }
   }
 
-  if (isBlogspotUrl(socials.contactForm)) {
-    socials.contactForm = socials.wordpressUrl || base.socials.wordpressUrl;
+  if (isExcludedExternalUrl(socials.contactForm)) {
+    socials.contactForm = base.socials.contactForm;
   }
 
   // Interests (authenticated v3 profile or legacy JSON)
@@ -1263,17 +1330,16 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
           status: 'standby',
           lastChecked: syncedAt,
           isCore: Boolean(hint),
-          feedUrl: proj.key === 'mrxshahin.wordpress.com' ? 'https://mrxshahin.wordpress.com/feed/' : undefined,
           latestPosts: [],
         });
       }
     }
 
-    // Preserve WordPress verified publication + any user-added custom sites if not already included
+    // Preserve user-added custom sites if not already included
     for (const site of websitesState.websites) {
       const k = normalizeVerifiedUrlKey(site.url);
       if (includedKeys.has(k) || isRestrictedProfileUrl(site.url)) continue;
-      if (site.id === 'wordpress-hub' || site.isCustom) {
+      if (site.isCustom) {
         includedKeys.add(k);
         nextSites.push(site);
       }
@@ -1301,6 +1367,8 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       roleTitle,
       tagline,
       location: rawLocation,
+      timezone,
+      headerImage,
       avatarUrl,
       avatarAltText,
       pronouns,
@@ -1458,9 +1526,32 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
       }
     }
 
+    // Fetch public HTML profile card links (captures link-card descriptions + timezone offset cleanly)
+    let htmlProfile: { links: { label: string; url: string; description: string }[]; timezone?: string } | null =
+      null;
+    if (force || legacyPayloadChanged || websitesState.syncCycle === 0) {
+      try {
+        const htmlRes = await fetch(`https://gravatar.com/${encodeURIComponent(GRAVATAR_IDENTIFIER)}${cacheBust}`, {
+          signal: AbortSignal.timeout(6000),
+          headers: {
+            'User-Agent': 'MRS-Portfolio-Sync/1.0',
+            Accept: 'text/html',
+            'Cache-Control': 'no-cache, no-store, max-age=0',
+          },
+          cache: 'no-store',
+        });
+        if (htmlRes.ok) {
+          const html = await htmlRes.text();
+          htmlProfile = parseGravatarHtmlProfile(html);
+        }
+      } catch {
+        // Ignore transient HTML fetch issue
+      }
+    }
+
     const syncedAt = new Date().toISOString();
-    if (v3Json || legacyJson) {
-      applyGravatarDirectPayload(v3Json, legacyJson);
+    if (v3Json || legacyJson || htmlProfile) {
+      applyGravatarDirectPayload(v3Json, legacyJson, htmlProfile);
       websitesState.upstreamStatus = {
         ...websitesState.upstreamStatus,
         sourceUrl: '',
@@ -1493,14 +1584,9 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
 }
 
 async function syncProfileAndFeeds(): Promise<void> {
-  const [gravatarOk, rssRes, wpRssRes, policiesRes] = await Promise.allSettled([
+  const [gravatarOk, rssRes, policiesRes] = await Promise.allSettled([
     syncGravatarProfileLive(true),
     fetch(UPSTREAM_RSS_URL, {
-      signal: AbortSignal.timeout(6000),
-      headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0', Accept: 'application/xml,text/xml' },
-      cache: 'no-store',
-    }),
-    fetch('https://mrxshahin.wordpress.com/feed/', {
       signal: AbortSignal.timeout(6000),
       headers: { 'User-Agent': 'MRS-Realtime-Bridge/1.0', Accept: 'application/xml,text/xml' },
       cache: 'no-store',
@@ -1517,37 +1603,35 @@ async function syncProfileAndFeeds(): Promise<void> {
   const seenRssLinks = new Set<string>();
   let rssBuildDate = websitesState.upstreamStatus.rssBuildDate;
 
-  for (const feedPromise of [wpRssRes, rssRes]) {
-    if (feedPromise.status === 'fulfilled' && feedPromise.value.ok) {
-      try {
-        const xml = await feedPromise.value.text();
-        const parsed = parseRssXml(xml);
-        if (parsed.buildDate && !rssBuildDate) {
-          rssBuildDate = parsed.buildDate;
-        }
-        for (const item of parsed.items) {
-          if (/blogspot\./i.test(item.link) || /blogspot\./i.test(item.title)) continue;
-          const norm = normalizeVerifiedUrlKey(item.link);
-          if (seenRssLinks.has(norm)) continue;
-          seenRssLinks.add(norm);
-          combinedRssItems.push(item);
-        }
-      } catch {
-        // Ignore RSS parse warning
+  if (rssRes.status === 'fulfilled' && rssRes.value.ok) {
+    try {
+      const xml = await rssRes.value.text();
+      const parsed = parseRssXml(xml);
+      if (parsed.buildDate && !rssBuildDate) {
+        rssBuildDate = parsed.buildDate;
       }
+      for (const item of parsed.items) {
+        if (/blogspot\.|wordpress\./i.test(item.link) || /blogspot|wordpress/i.test(item.title)) continue;
+        const norm = normalizeVerifiedUrlKey(item.link);
+        if (seenRssLinks.has(norm)) continue;
+        seenRssLinks.add(norm);
+        combinedRssItems.push(item);
+      }
+    } catch {
+      // Ignore RSS parse warning
     }
   }
 
-  if (combinedRssItems.length > 0) {
-    websitesState.upstreamStatus = {
-      ...websitesState.upstreamStatus,
-      sourceUrl: '',
-      rssBuildDate,
-      rssItems: combinedRssItems.slice(0, 12),
-    };
+  websitesState.upstreamStatus = {
+    ...websitesState.upstreamStatus,
+    sourceUrl: '',
+    rssBuildDate,
+    rssItems: combinedRssItems.slice(0, 12),
+  };
 
+  if (combinedRssItems.length > 0) {
     websitesState.websites = websitesState.websites.map((site) => {
-      if (site.hasProfileDescription || site.isCore || site.domain === 'mrxshahin.wordpress.com') {
+      if (site.hasProfileDescription || site.isCore) {
         return site;
       }
       const matched = combinedRssItems.find((it) => {
@@ -1593,7 +1677,7 @@ async function syncProfileAndFeeds(): Promise<void> {
 }
 
 async function fetchRssPosts(feedUrl: string): Promise<WebsitePostPreview[]> {
-  if (/blogspot\./i.test(feedUrl)) return [];
+  if (/blogspot\.|wordpress\./i.test(feedUrl)) return [];
   try {
     const res = await fetch(feedUrl, {
       signal: AbortSignal.timeout(5000),
@@ -1649,8 +1733,7 @@ async function probeSingleWebsite(site: EcosystemWebsite): Promise<EcosystemWebs
         if (
           !site.hasProfileDescription &&
           meta.description &&
-          meta.description.length > 35 &&
-          site.domain !== 'mrxshahin.wordpress.com'
+          meta.description.length > 35
         ) {
           description = meta.description;
         }

@@ -90,7 +90,7 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
     serviceId: 'S-MRS-03',
     slug: 'website-management',
     category: 'M R S Services',
-    name: 'Website Management (WordPress & CMS)',
+    name: 'Website Management & CMS',
     shortDescription:
       'Full CMS administration, Core Web Vitals optimization, on-page SEO, speed hardening, and rapid bug troubleshooting.',
     inclusions: [
@@ -115,7 +115,7 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
     samples: [
       {
         id: 'smp-web-1',
-        title: 'WordPress Speed & Core Web Vitals Overhaul',
+        title: 'CMS Speed & Core Web Vitals Overhaul',
         description: 'Reduced LCP from 5.4s to 1.1s on high-traffic content portal.',
         results: 'Mobile PageSpeed score increased from 38 to 96.',
       },
@@ -123,7 +123,7 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
     faq: [
       {
         question: 'Which CMS platforms do you manage?',
-        answer: 'We manage WordPress themes/builders, headless CMS deployments, and custom static or full-stack web portals.',
+        answer: 'We manage modern CMS platforms, headless CMS deployments, and custom static or full-stack web portals.',
       },
     ],
     portalUrl: SERVICES_PORTAL_URL,
@@ -432,107 +432,6 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
       {
         question: 'Can these materials be used for commercial courses?',
         answer: 'Yes, full commercial ownership rights transfer upon verified payment.',
-      },
-    ],
-    portalUrl: SERVICES_PORTAL_URL,
-  },
-  {
-    id: 'identity-consultation',
-    serviceId: 'S-GRV-01',
-    slug: 'identity-consultation',
-    category: 'Identity & Profile',
-    name: 'Professional Identity Consultation',
-    shortDescription:
-      'Comprehensive global digital identity audit, cryptographic email avatar hash linkage, and cross-platform profile optimization.',
-    inclusions: [
-      'Primary & secondary email hash mapping analysis',
-      'Cross-platform verification links (GitHub, LinkedIn, WordPress)',
-      'Cryptographic PGP / public key linkage guidance',
-      'Strategic identity report with verified bio recommendations',
-    ],
-    typicalTurnaround: '24 hours',
-    priceType: 'fixed',
-    rateUSD: '$25 USD',
-    rateBDT: '2,500 TK',
-    depositPercent: 100,
-    revisionsIncluded: 1,
-    guarantee: 'Work matches the agreed scope or we fix it free.',
-    clientMustProvide: ['Target emails, professional links, and desired avatar portrait'],
-    notIncluded: ['Managing client private passwords'],
-    samples: [
-      {
-        id: 'smp-grv-1',
-        title: 'Executive Founder Global Identity Audit',
-        description: 'Linked 6 company domains with verified SHA-256 avatar hashes.',
-        results: 'Instant verified presence across GitHub, Stack Overflow, and WordPress portals.',
-      },
-    ],
-    faq: [
-      {
-        question: 'Why does global identity linking matter?',
-        answer: 'Unified hash-based identity powers consistent developer avatars and verified ownership across WordPress, GitHub, and enterprise tools.',
-      },
-    ],
-    portalUrl: SERVICES_PORTAL_URL,
-  },
-  {
-    id: 'profile-personalization',
-    serviceId: 'S-GRV-02',
-    slug: 'profile-personalization',
-    category: 'Identity & Profile',
-    name: 'Profile Personalization',
-    shortDescription:
-      'Custom executive bio crafting, branding color palette harmonization, contact card optimization, and social links architecture.',
-    inclusions: [
-      'Search-optimized 160-character executive biography',
-      'Visual avatar color-toning and high-res asset formatting',
-      'Structured contact link hierarchy and verified accounts',
-      'Custom vanity URL slug verification',
-    ],
-    typicalTurnaround: '24 hours',
-    priceType: 'quote',
-    rateUSD: '$10 – $20 USD',
-    rateBDT: '1,000 – 2,000 TK',
-    depositPercent: 100,
-    revisionsIncluded: 2,
-    guarantee: 'Work matches the agreed scope or we fix it free.',
-    clientMustProvide: ['Existing identity profile details or delegated invite'],
-    notIncluded: ['Third-party account verification disputes'],
-    faq: [
-      {
-        question: 'Will my profile changes propagate quickly?',
-        answer: 'Connected profile updates reflect across synchronized platforms automatically within minutes.',
-      },
-    ],
-    portalUrl: SERVICES_PORTAL_URL,
-  },
-  {
-    id: 'custom-domain-mapping',
-    serviceId: 'S-GRV-03',
-    slug: 'custom-domain-mapping',
-    category: 'Identity & Profile',
-    name: 'Custom Domain Mapping',
-    shortDescription:
-      'Technical DNS CNAME mapping and TLS/SSL verification to route your personal domain or subdomain directly to your unified web profile.',
-    inclusions: [
-      'CNAME DNS record configuration and propagation verification',
-      'Automatic SSL/TLS certificate binding',
-      'Root domain redirection / subdomain routing (e.g. me.yourdomain.com)',
-      'Testing across global DNS resolvers',
-    ],
-    typicalTurnaround: '12–24 hours',
-    priceType: 'quote',
-    rateUSD: '$15 – $30 USD',
-    rateBDT: '1,500 – 3,000 TK',
-    depositPercent: 100,
-    revisionsIncluded: 2,
-    guarantee: 'Work matches the agreed scope or we fix it free.',
-    clientMustProvide: ['Domain registrar DNS management access'],
-    notIncluded: ['Domain purchase fees'],
-    faq: [
-      {
-        question: 'Can I use a subdomain like identity.myname.com?',
-        answer: 'Yes, both root domains and subdomains are fully supported.',
       },
     ],
     portalUrl: SERVICES_PORTAL_URL,

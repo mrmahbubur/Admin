@@ -23,6 +23,12 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
             <span className="font-mono font-semibold text-[#2563eb] dark:text-[#38bdf8]">Verified Profile</span>
             <span aria-hidden="true">·</span>
             <span>{adminProfile.location}</span>
+            {adminProfile.timezone && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span className="font-mono tabular-nums">{adminProfile.timezone}</span>
+              </>
+            )}
             <span aria-hidden="true">·</span>
             <span className="font-mono tabular-nums">Since {yearly.establishedYear}</span>
           </div>
@@ -83,61 +89,77 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
 
           {/* Right Admin Technical Dossier Card */}
           <div className="lg:col-span-5 flex">
-            <div className="w-full flex flex-col justify-between p-6 sm:p-7 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white/95 dark:bg-[#0c121e]/95 backdrop-blur-sm tech-surface">
-              <div className="flex items-center gap-4 pb-5 border-b border-[#dbe3ee] dark:border-[#1c273b]">
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#2563eb]/80 dark:border-[#38bdf8]/80 bg-[#070b14] shrink-0 flex items-center justify-center text-white font-display font-bold text-lg">
+            <div className="w-full flex flex-col justify-between overflow-hidden rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white/95 dark:bg-[#0c121e]/95 backdrop-blur-sm tech-surface">
+              {adminProfile.headerImage && (
+                <div className="relative h-20 w-full overflow-hidden border-b border-[#dbe3ee] dark:border-[#1c273b] bg-[#070b14]">
                   <img
-                    src={adminProfile.avatarUrl}
-                    alt={adminProfile.avatarAltText || adminProfile.siteName}
+                    src={adminProfile.headerImage}
+                    alt={`${adminProfile.siteName} banner`}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover opacity-80"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b14]/80 via-[#070b14]/30 to-transparent" />
                 </div>
-                <div className="min-w-0">
-                  <div className="font-display text-xl font-bold text-[#0f172a] dark:text-white leading-tight">
-                    {adminProfile.siteName}
+              )}
+              <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                <div className="flex items-center gap-4 pb-5 border-b border-[#dbe3ee] dark:border-[#1c273b]">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#2563eb]/80 dark:border-[#38bdf8]/80 bg-[#070b14] shrink-0 flex items-center justify-center text-white font-display font-bold text-lg">
+                    <img
+                      src={adminProfile.avatarUrl}
+                      alt={adminProfile.avatarAltText || adminProfile.siteName}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <div className="text-[12.5px] font-medium text-[#2563eb] dark:text-[#38bdf8] mt-0.5 leading-snug">
-                    {adminProfile.certification}
+                  <div className="min-w-0">
+                    <div className="font-display text-xl font-bold text-[#0f172a] dark:text-white leading-tight">
+                      {adminProfile.siteName}
+                    </div>
+                    <div className="text-[12.5px] font-medium text-[#2563eb] dark:text-[#38bdf8] mt-0.5 leading-snug">
+                      {adminProfile.certification}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="divide-y divide-[#dbe3ee] dark:divide-[#1c273b] text-[13px] pt-1">
-                <div className="py-3 flex items-center justify-between gap-4">
-                  <span className="text-[#64748b] dark:text-[#94a3b8]">Operating Base</span>
-                  <span className="font-semibold text-[#0f172a] dark:text-[#f1f5f9] text-right">{adminProfile.location}</span>
-                </div>
-                <div className="py-3 flex items-center justify-between gap-4">
-                  <span className="text-[#64748b] dark:text-[#94a3b8]">Services Portal</span>
-                  <a
-                    href="https://mrs-services.ai.studio/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-[12.5px] font-medium text-[#0f172a] dark:text-[#f1f5f9] hover:text-[#2563eb] dark:hover:text-[#38bdf8] truncate"
-                  >
-                    mrs-services.ai.studio
-                  </a>
-                </div>
-                <div className="py-3 flex items-center justify-between gap-4">
-                  <span className="text-[#64748b] dark:text-[#94a3b8]">Scheduling</span>
-                  <a
-                    href={adminProfile.socials.calendlyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-[12.5px] font-medium text-[#0f172a] dark:text-[#f1f5f9] hover:text-[#2563eb] dark:hover:text-[#38bdf8] truncate"
-                  >
-                    calendly.com/mrxshahin
-                  </a>
-                </div>
-                <div className="pt-3 flex items-center justify-between gap-4">
-                  <span className="text-[#64748b] dark:text-[#94a3b8]">Availability</span>
-                  <a
-                    href="#contact-section"
-                    className="font-medium text-[#2563eb] dark:text-[#38bdf8] hover:underline underline-offset-4 text-right"
-                  >
-                    Remote &amp; Contract
-                  </a>
+                <div className="divide-y divide-[#dbe3ee] dark:divide-[#1c273b] text-[13px] pt-1">
+                  <div className="py-3 flex items-center justify-between gap-4">
+                    <span className="text-[#64748b] dark:text-[#94a3b8]">Operating Base</span>
+                    <span className="font-semibold text-[#0f172a] dark:text-[#f1f5f9] text-right">
+                      {adminProfile.location}
+                      {adminProfile.timezone ? ` (${adminProfile.timezone})` : ''}
+                    </span>
+                  </div>
+                  <div className="py-3 flex items-center justify-between gap-4">
+                    <span className="text-[#64748b] dark:text-[#94a3b8]">Services Portal</span>
+                    <a
+                      href="https://mrs-services.ai.studio/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-[12.5px] font-medium text-[#0f172a] dark:text-[#f1f5f9] hover:text-[#2563eb] dark:hover:text-[#38bdf8] truncate"
+                    >
+                      mrs-services.ai.studio
+                    </a>
+                  </div>
+                  <div className="py-3 flex items-center justify-between gap-4">
+                    <span className="text-[#64748b] dark:text-[#94a3b8]">Scheduling</span>
+                    <a
+                      href={adminProfile.socials.calendlyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-[12.5px] font-medium text-[#0f172a] dark:text-[#f1f5f9] hover:text-[#2563eb] dark:hover:text-[#38bdf8] truncate"
+                    >
+                      calendly.com/mrxshahin
+                    </a>
+                  </div>
+                  <div className="pt-3 flex items-center justify-between gap-4">
+                    <span className="text-[#64748b] dark:text-[#94a3b8]">Availability</span>
+                    <a
+                      href="#contact-section"
+                      className="font-medium text-[#2563eb] dark:text-[#38bdf8] hover:underline underline-offset-4 text-right"
+                    >
+                      Remote &amp; Contract
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

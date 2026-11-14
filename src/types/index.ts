@@ -55,6 +55,8 @@ export interface AdminProfileData {
   roleTitle: string;
   tagline: string;
   location: string;
+  timezone?: string;
+  headerImage?: string;
   avatarUrl: string;
   avatarAltText?: string;
   pronouns?: string;
@@ -92,12 +94,10 @@ export interface AdminProfileData {
   socials: {
     email: string;
     phone: string;
-    gravatarUrl: string;
     githubUrl: string;
     linkedinUrl: string;
     xUrl: string;
     blueskyUrl: string;
-    wordpressUrl: string;
     calendlyUrl: string;
     contactForm: string;
     goodreadsUrl: string;
@@ -132,7 +132,7 @@ export interface CatalogServiceItem {
   id: string;
   serviceId: string;
   slug: string;
-  category: 'M R S Services' | 'Identity & Profile' | 'M R S IPTV';
+  category: 'M R S Services' | 'M R S IPTV';
   name: string;
   shortDescription: string;
   inclusions: string[];

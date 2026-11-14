@@ -76,7 +76,8 @@ function MainLayout() {
 
   useEffect(() => {
     const exactSiteName = adminProfile.siteName || 'M R S';
-    const nextTitle = `${exactSiteName} — Certified IT Support Professional & Web Manager`;
+    const roleSubtitle = adminProfile.roleTitle || 'Remote IT Support, Virtual Assistance & Digital Operations';
+    const nextTitle = `${exactSiteName} — ${roleSubtitle}`;
     document.title = nextTitle;
 
     const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -90,7 +91,7 @@ function MainLayout() {
 
     const authorMeta = document.querySelector('meta[name="author"]');
     if (authorMeta) authorMeta.setAttribute('content', exactSiteName);
-  }, [adminProfile.siteName]);
+  }, [adminProfile.siteName, adminProfile.roleTitle]);
 
   useEffect(() => {
     if (darkMode) {

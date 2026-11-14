@@ -36,13 +36,11 @@ export const ServicesCatalogSection: React.FC = () => {
     const counts: Record<CategoryFilter, number> = {
       All: servicesCatalog.length,
       'M R S Services': servicesCatalog.filter((s) => s.category === 'M R S Services').length,
-      'Identity & Profile': servicesCatalog.filter((s) => s.category === 'Identity & Profile').length,
       'M R S IPTV': servicesCatalog.filter((s) => s.category === 'M R S IPTV').length,
     };
     return [
       { id: 'All' as const, label: 'All Services', count: counts.All },
       { id: 'M R S Services' as const, label: 'Technical & Admin', count: counts['M R S Services'] },
-      { id: 'Identity & Profile' as const, label: 'Digital Identity', count: counts['Identity & Profile'] },
       { id: 'M R S IPTV' as const, label: 'IPTV Plans', count: counts['M R S IPTV'] },
     ];
   }, [servicesCatalog]);
@@ -92,7 +90,7 @@ export const ServicesCatalogSection: React.FC = () => {
               {adminProfile.siteName} Professional Services
             </h2>
             <p className="text-[15px] text-[#475569] dark:text-[#94a3b8] leading-relaxed">
-              Complete technical support, automation, CMS administration, identity setup, and media solutions with transparent USD and BDT pricing.
+              Complete technical support, automation, CMS administration, documentation, and media solutions with transparent USD and BDT pricing.
             </p>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12.5px] font-mono text-[#64748b] dark:text-[#94a3b8] pt-0.5 tabular-nums">
               <span>{servicesCatalog.length} Active Services</span>

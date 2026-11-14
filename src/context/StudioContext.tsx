@@ -53,6 +53,8 @@ const defaultAdminProfile: AdminProfileData = {
   roleTitle: ADMIN_SITE_CONFIG.roleTitle,
   tagline: ADMIN_SITE_CONFIG.tagline,
   location: ADMIN_SITE_CONFIG.location,
+  timezone: 'GMT+06:00',
+  headerImage: 'https://1.gravatar.com/userimage/140624186/eb80b95de8da05aca3d1b6e47836f736?size=1024',
   avatarUrl: ADMIN_SITE_CONFIG.avatarUrl,
   avatarAltText: 'M R S official profile portrait',
   pronouns: '',
@@ -110,7 +112,7 @@ const defaultAdminProfile: AdminProfileData = {
       items: [
         'Website content updates and basic website administration',
         'Blog post publishing and content formatting',
-        'WordPress and CMS content management',
+        'CMS and web content management',
         'SEO-friendly article writing and on-page content optimization',
         'Website testing, troubleshooting, and basic usability checks',
         'Web research, content planning, and topic development',
@@ -198,7 +200,7 @@ const defaultAdminProfile: AdminProfileData = {
       category: 'Website Management & Digital Content',
       skills: [
         'Website content updates and basic website administration',
-        'WordPress and CMS content management',
+        'CMS and web content management',
         'SEO-friendly article writing and on-page content optimization',
         'Website testing, troubleshooting, and basic usability checks',
         'AI-assisted content creation, editing, and proofreading',
@@ -220,14 +222,12 @@ const defaultAdminProfile: AdminProfileData = {
   socials: {
     email: '',
     phone: '',
-    gravatarUrl: '',
     githubUrl: 'https://github.com/mrmahbubur',
     linkedinUrl: 'https://www.linkedin.com/in/mrmahbubur',
     xUrl: 'https://x.com/Mrshahinx',
     blueskyUrl: 'https://bsky.app/profile/mrxshahin.bsky.social',
-    wordpressUrl: 'https://mrxshahin.wordpress.com',
     calendlyUrl: 'https://calendly.com/mrxshahin',
-    contactForm: 'https://mrxshahin.wordpress.com',
+    contactForm: 'https://mrs-services.ai.studio/',
     goodreadsUrl: 'https://www.goodreads.com/mrxshahin',
   },
   verifiedAccounts: [
@@ -235,7 +235,6 @@ const defaultAdminProfile: AdminProfileData = {
     { label: 'GitHub', handle: 'mrmahbubur', url: 'https://github.com/mrmahbubur' },
     { label: 'Bluesky', handle: 'mrxshahin.bsky.social', url: 'https://bsky.app/profile/mrxshahin.bsky.social' },
     { label: 'LinkedIn', handle: 'mrmahbubur', url: 'https://www.linkedin.com/in/mrmahbubur' },
-    { label: 'WordPress', handle: 'mrxshahin.wordpress.com', url: 'https://mrxshahin.wordpress.com' },
     { label: 'Goodreads', handle: 'goodreads.com/mrxshahin', url: 'https://www.goodreads.com/mrxshahin' },
   ],
 };
@@ -269,7 +268,6 @@ const fallbackWebsites: EcosystemWebsite[] = [
     status: 'online',
     lastChecked: new Date().toISOString(),
     isCore: true,
-    hasProfileDescription: true,
     latestPosts: [],
   },
   {
@@ -285,24 +283,6 @@ const fallbackWebsites: EcosystemWebsite[] = [
     status: 'online',
     lastChecked: new Date().toISOString(),
     isCore: true,
-    hasProfileDescription: true,
-    latestPosts: [],
-  },
-  {
-    id: 'wordpress-hub',
-    name: 'WordPress',
-    url: 'https://mrxshahin.wordpress.com',
-    domain: 'mrxshahin.wordpress.com',
-    category: 'Verified Publication',
-    badge: 'WORDPRESS',
-    description:
-      'Verified WordPress publication sharing technical solutions, digital guides, and documentation crafted by M R S.',
-    imageKey: 'admin',
-    status: 'online',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    hasProfileDescription: true,
-    feedUrl: 'https://mrxshahin.wordpress.com/feed/',
     latestPosts: [],
   },
 ];
