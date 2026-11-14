@@ -19,6 +19,7 @@ export interface EcosystemWebsite {
   latencyMs?: number;
   lastChecked: string;
   isCore: boolean;
+  isCustom?: boolean;
   feedUrl?: string;
   latestPosts: WebsitePostPreview[];
 }
@@ -54,9 +55,14 @@ export interface AdminProfileData {
   tagline: string;
   location: string;
   avatarUrl: string;
+  avatarAltText?: string;
+  pronouns?: string;
+  pronunciation?: string;
+  lastProfileEdit?: string;
   certification: string;
   availabilityNote: string;
   bioParagraphs: string[];
+  whyWorkWithMe?: string[];
   backgroundHighlights?: string[];
   whatICanHelpWith: string[];
   liveServices: LiveServiceCategory[];

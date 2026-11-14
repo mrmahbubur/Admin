@@ -72,6 +72,7 @@ export interface EcosystemWebsite {
   latencyMs?: number;
   lastChecked: string;
   isCore: boolean;
+  isCustom?: boolean;
   feedUrl?: string;
   latestPosts: WebsitePostPreview[];
 }
@@ -93,6 +94,8 @@ export interface UpstreamConnectionStatus {
   sourceUrl: string;
   connected: boolean;
   sseActive: boolean;
+  authenticated?: boolean;
+  rateLimitRemaining?: number;
   healthStatus: string;
   lastSyncedAt: string;
   rssBuildDate?: string;
@@ -105,9 +108,14 @@ export interface AdminProfileData {
   tagline: string;
   location: string;
   avatarUrl: string;
+  avatarAltText?: string;
+  pronouns?: string;
+  pronunciation?: string;
+  lastProfileEdit?: string;
   certification: string;
   availabilityNote: string;
   bioParagraphs: string[];
+  whyWorkWithMe?: string[];
   backgroundHighlights?: string[];
   whatICanHelpWith: string[];
   liveServices: LiveServiceCategory[];
@@ -190,15 +198,24 @@ function computeYearlyData(siteName = 'M R S'): YearlySystemData {
 const BASE_ADMIN_PROFILE: AdminProfileData = {
   siteName: 'M R S',
   roleTitle: 'IT Support Professional | Remote Admin & Documentation Specialist | Web Manager',
-  tagline: 'Helping businesses run smoother, one ticket at a time',
+  tagline: 'Available for Remote IT Support, Virtual Assistance & Administrative Work',
   location: 'Global / Remote',
   avatarUrl: './mrs_profile_avatar.jpg',
+  avatarAltText: 'M R S official profile portrait',
+  pronouns: '',
+  pronunciation: '',
+  lastProfileEdit: '',
   certification: '360-Hour Certified Computer Specialist & MS Office Professional',
-  availabilityNote: 'Open to remote contract, freelance, and part-time opportunities.',
+  availabilityNote:
+    'Whether you need a remote IT support assistant, virtual assistant, website content manager, technical writer, online researcher, or general digital operations support, I am open to discussing how I can help.',
   bioParagraphs: [
-    "I'm an IT support and administrative professional with a track record of solving technical problems reliably, remotely, and with precision. My core strengths are Microsoft Office systems, document management, job application processing, and professional correspondence — backed by a 360-hour certified computer course and hands-on system troubleshooting experience.",
-    "I've spent years working independently across remote platforms, building a reputation for adaptability and consistent, high-quality delivery without the structure of a traditional office. That means I show up, communicate clearly, and get things done — no hand-holding required.",
-    'Alongside client work, I run a small portfolio of digital projects (web management, content, tech media, and humanitarian initiatives), which keeps me sharp on emerging tech — from web development to Web3 to cybersecurity defense — sharing tech fixes and guides since 2018.',
+    'I help businesses, entrepreneurs, and individuals simplify their daily operations, solve technical problems, manage digital tasks, and stay productive — without the overhead of hiring a full-time employee.',
+    'With years of independent online work experience and a strong interest in technology, web solutions, and digital productivity, I can support a wide range of technical, administrative, and content-related tasks remotely.',
+  ],
+  whyWorkWithMe: [
+    'I value accuracy, reliability, clear communication, and independent problem-solving. I am comfortable working remotely, handling asynchronous tasks, and organizing my workload around agreed deadlines.',
+    'I focus on understanding the desired outcome, finding a practical way to achieve it, and delivering organized work with minimal unnecessary back-and-forth.',
+    'I am particularly interested in opportunities where technology, administration, research, writing, and digital solutions come together.',
   ],
   backgroundHighlights: [
     'Certified: 360-hour computer systems course',
@@ -363,12 +380,8 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
       gpa: 'GPA: 3.39',
     },
   ],
-  languages: [
-    { name: 'English', level: 'Conversational' },
-    { name: 'Bengali', level: 'Native' },
-    { name: 'Hindi', level: 'Basic' },
-  ],
-  interests: ['Web Development', 'Web3', 'Cybersecurity & IT Defense', 'Social Sciences', 'Remote Working'],
+  languages: [{ name: 'English', level: 'Proficient' }],
+  interests: ['Web Development', 'web3', 'ethical hacking', 'Social Sciences', 'Remote Working'],
   socials: {
     email: 'mr216873@gmail.com',
     phone: '+8809611056361',
@@ -402,6 +415,21 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     description:
       'Official portfolio of M R S featuring verified credentials, live projects, and an interactive multimodal AI concierge.',
     imageKey: 'flagship',
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+    isCore: true,
+    latestPosts: [],
+  },
+  {
+    id: 'proj-mrs-services',
+    name: 'All Services Portal',
+    url: 'https://mrs-services.ai.studio/',
+    domain: 'mrs-services.ai.studio',
+    category: 'Services & Rate Catalog',
+    badge: 'SERVICES',
+    description:
+      'Official M R S remote IT support, WordPress CMS, documentation, identity setup, and IPTV services directory.',
+    imageKey: 'admin',
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
@@ -454,6 +482,82 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     latestPosts: [],
   },
 ];
+
+const CURATED_PROJECT_HINTS: Record<
+  string,
+  { category: string; badge: string; description: string; imageKey: EcosystemWebsite['imageKey'] }
+> = {
+  'mrxshahin.ai.studio': {
+    category: 'Official Portfolio & AI Concierge',
+    badge: 'AI CONCIERGE',
+    description:
+      'Official portfolio of M R S featuring verified credentials, live projects, and an interactive multimodal AI concierge.',
+    imageKey: 'flagship',
+  },
+  'mrs-services.ai.studio': {
+    category: 'Services & Rate Catalog',
+    badge: 'SERVICES',
+    description:
+      'Official M R S remote IT support, WordPress CMS, documentation, identity setup, and IPTV services directory.',
+    imageKey: 'admin',
+  },
+  'shahin-iptv.ai.studio': {
+    category: 'Live Streaming & Media Platform',
+    badge: 'LIVE WEB APP',
+    description:
+      'Web streaming platform delivering 10,000+ live international channels spanning Sports, Movies, Dramas, and News.',
+    imageKey: 'flagship',
+  },
+  'mrs-pcn.ai.studio': {
+    category: 'Private Communications Network',
+    badge: 'PRIVATE APP',
+    description:
+      'Dedicated private web application environment engineered and administered under the M R S digital suite.',
+    imageKey: 'tech',
+  },
+  'mrmahbubur.github.io/apps-store': {
+    category: 'Web & Mobile Apps Directory',
+    badge: 'APPS STORE',
+    description:
+      'Curated Android and web software repository maintaining verified utility packages and tools.',
+    imageKey: 'tech',
+  },
+  'mrmahbubur.github.io/camellia-shop': {
+    category: 'Digital Storefront & E-Commerce',
+    badge: 'E-COMMERCE',
+    description:
+      'Streamlined online commerce storefront showcasing digital catalog structure and front-end web administration.',
+    imageKey: 'admin',
+  },
+  'mrmahbubur.github.io/charity-foundation': {
+    category: 'Humanitarian & Community Initiative',
+    badge: 'CHARITY',
+    description:
+      'Humanitarian charity web portal supporting community outreach, transparent initiatives, and digital coordination.',
+    imageKey: 'charity',
+  },
+  'mrmahbubur.github.io/camellia-ai': {
+    category: 'AI Productivity Interface',
+    badge: 'AI TOOL',
+    description:
+      'Interactive AI web assistant interface built to streamline research, drafting, and automated workflows.',
+    imageKey: 'tech',
+  },
+  'mrmahbubur.github.io/admin': {
+    category: 'Cloud Administration Console',
+    badge: 'CLOUD ADMIN',
+    description:
+      'Centralized cloud management workspace and remote operational console for digital resources.',
+    imageKey: 'admin',
+  },
+  'mrxshahin.wordpress.com': {
+    category: 'Verified Publication',
+    badge: 'WORDPRESS',
+    description:
+      'Verified WordPress publication sharing technical solutions, digital guides, and documentation crafted by M R S.',
+    imageKey: 'admin',
+  },
+};
 
 let websitesState: WebsitesHubState = {
   siteName: 'M R S',
@@ -509,19 +613,40 @@ try {
   }
   if (fs.existsSync(WEBSITES_CACHE_FILE)) {
     const parsed = JSON.parse(fs.readFileSync(WEBSITES_CACHE_FILE, 'utf-8'));
-    if (Array.isArray(parsed?.websites)) {
-      const customSites = parsed.websites.filter(
-        (s: EcosystemWebsite) =>
-          !s.isCore &&
-          !String(s.domain || '').toLowerCase().includes('blogspot.') &&
-          !String(s.url || '').toLowerCase().includes('blogspot.')
-      );
-      websitesState = {
-        ...websitesState,
-        websites: [...DEFAULT_WEBSITES, ...customSites],
-        yearlySystem: computeYearlyData(websitesState.adminProfile.siteName),
+    let restoredProfile = websitesState.adminProfile;
+    if (parsed?.adminProfile && typeof parsed.adminProfile === 'object') {
+      const candidate = parsed.adminProfile as AdminProfileData;
+      const cleanSocials = { ...BASE_ADMIN_PROFILE.socials, ...(candidate.socials || {}), gravatarUrl: '' };
+      if (/blogspot\./i.test(cleanSocials.contactForm || '')) {
+        cleanSocials.contactForm = cleanSocials.wordpressUrl || BASE_ADMIN_PROFILE.socials.wordpressUrl;
+      }
+      restoredProfile = {
+        ...BASE_ADMIN_PROFILE,
+        ...candidate,
+        socials: cleanSocials,
+        verifiedAccounts: Array.isArray(candidate.verifiedAccounts)
+          ? candidate.verifiedAccounts.filter(
+              (a) => !/blogspot\.|gravatar\.com\//i.test(String(a?.url || ''))
+            )
+          : BASE_ADMIN_PROFILE.verifiedAccounts,
       };
     }
+
+    const restoredSites = Array.isArray(parsed?.websites)
+      ? parsed.websites.filter(
+          (s: EcosystemWebsite) =>
+            !String(s.domain || '').toLowerCase().includes('blogspot.') &&
+            !String(s.url || '').toLowerCase().includes('blogspot.')
+        )
+      : DEFAULT_WEBSITES;
+
+    websitesState = {
+      ...websitesState,
+      siteName: restoredProfile.siteName || websitesState.siteName,
+      adminProfile: restoredProfile,
+      websites: restoredSites.length > 0 ? restoredSites : DEFAULT_WEBSITES,
+      yearlySystem: computeYearlyData(restoredProfile.siteName || websitesState.siteName),
+    };
   }
 } catch {
   // Use defaults
@@ -560,6 +685,7 @@ function cleanMarkdownInline(text: string): string {
     .replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\uFE0F\s]+/gu, '')
     .replace(/\*\*(.+?)\*\*/g, '$1')
     .replace(/__(.+?)__/g, '$1')
+    .replace(/\bWordPress and Blogger\b/gi, 'WordPress and CMS')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -567,12 +693,13 @@ function cleanMarkdownInline(text: string): string {
 function parseGravatarBioMarkdown(rawBio: string): {
   tagline?: string;
   bioParagraphs: string[];
+  whyWorkWithMe: string[];
   backgroundHighlights: string[];
   liveServices: LiveServiceCategory[];
   availabilityNote?: string;
 } {
   if (!rawBio || typeof rawBio !== 'string') {
-    return { bioParagraphs: [], backgroundHighlights: [], liveServices: [] };
+    return { bioParagraphs: [], whyWorkWithMe: [], backgroundHighlights: [], liveServices: [] };
   }
 
   const normalized = decodeHtmlEntities(rawBio);
@@ -674,10 +801,10 @@ function parseGravatarBioMarkdown(rawBio: string): {
     liveServices.push(currentService);
   }
 
-  const combinedParagraphs = [...introParagraphs, ...whyParagraphs].slice(0, 8);
   return {
     tagline,
-    bioParagraphs: combinedParagraphs,
+    bioParagraphs: introParagraphs.slice(0, 6),
+    whyWorkWithMe: whyParagraphs.slice(0, 6),
     backgroundHighlights,
     liveServices,
     availabilityNote: availabilityParagraphs.length > 0 ? availabilityParagraphs.join(' ') : undefined,
@@ -740,12 +867,39 @@ function parseRssXml(xml: string): { buildDate?: string; items: RssFeedItem[] } 
   };
 }
 
+function inferProjectImageKey(
+  url: string,
+  label: string
+): EcosystemWebsite['imageKey'] {
+  const hay = `${url} ${label}`.toLowerCase();
+  if (hay.includes('charity') || hay.includes('foundation')) return 'charity';
+  if (hay.includes('shop') || hay.includes('service') || hay.includes('cloud') || hay.includes('admin') || hay.includes('wordpress')) {
+    return 'admin';
+  }
+  if (hay.includes('app') || hay.includes('apk') || hay.includes('ai') || hay.includes('pcn')) {
+    return 'tech';
+  }
+  return 'flagship';
+}
+
+function isSocialAccountOnlyUrl(url: string): boolean {
+  const lower = url.toLowerCase();
+  return (
+    lower.includes('x.com/') ||
+    lower.includes('twitter.com/') ||
+    lower.includes('linkedin.com/') ||
+    lower.includes('bsky.app/') ||
+    lower.includes('goodreads.com/') ||
+    /^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test(lower)
+  );
+}
+
 function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
   const legacyEntry = Array.isArray(legacyJson?.entry) ? legacyJson.entry[0] : null;
   if ((!v3Profile || typeof v3Profile !== 'object') && !legacyEntry) return;
 
   const syncedAt = new Date().toISOString();
-  const prev = websitesState.adminProfile;
+  const base = BASE_ADMIN_PROFILE;
 
   const rawV3Name =
     typeof v3Profile?.display_name === 'string' && v3Profile.display_name.trim()
@@ -759,7 +913,7 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     typeof legacyEntry?.displayName === 'string' && legacyEntry.displayName.trim()
       ? decodeHtmlEntities(legacyEntry.displayName).trim()
       : '';
-  const siteName = rawV3Name || rawFullName || rawLegacyName || prev.siteName;
+  const siteName = rawV3Name || rawFullName || rawLegacyName || base.siteName;
 
   const rawLocation =
     (typeof v3Profile?.location === 'string' && v3Profile.location.trim()
@@ -768,7 +922,7 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     (typeof legacyEntry?.currentLocation === 'string' && legacyEntry.currentLocation.trim()
       ? decodeHtmlEntities(legacyEntry.currentLocation).trim()
       : '') ||
-    prev.location;
+    base.location;
 
   const rawJobTitle =
     typeof v3Profile?.job_title === 'string' && v3Profile.job_title.trim()
@@ -781,7 +935,22 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
   const roleTitle =
     rawJobTitle && rawCompany
       ? `${rawJobTitle} · ${rawCompany}`
-      : rawJobTitle || prev.roleTitle;
+      : rawJobTitle || base.roleTitle;
+
+  const pronouns =
+    typeof v3Profile?.pronouns === 'string' ? decodeHtmlEntities(v3Profile.pronouns).trim() : '';
+  const pronunciation =
+    typeof v3Profile?.pronunciation === 'string'
+      ? decodeHtmlEntities(v3Profile.pronunciation).trim()
+      : '';
+  const avatarAltText =
+    typeof v3Profile?.avatar_alt_text === 'string' && v3Profile.avatar_alt_text.trim()
+      ? decodeHtmlEntities(v3Profile.avatar_alt_text).trim()
+      : base.avatarAltText;
+  const lastProfileEdit =
+    typeof v3Profile?.last_profile_edit === 'string'
+      ? v3Profile.last_profile_edit.trim()
+      : websitesState.adminProfile.lastProfileEdit || '';
 
   const rawAvatar =
     (typeof v3Profile?.avatar_url === 'string' && v3Profile.avatar_url.startsWith('https://')
@@ -792,7 +961,7 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       : '');
   const avatarUrl = rawAvatar
     ? `${rawAvatar}${rawAvatar.includes('?') ? '&' : '?'}s=512`
-    : prev.avatarUrl;
+    : base.avatarUrl;
 
   const bioMarkdown =
     (typeof v3Profile?.description === 'string' && v3Profile.description.trim()
@@ -804,18 +973,17 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
 
   const parsedBio = parseGravatarBioMarkdown(bioMarkdown);
 
-  // Merge contact info from v3 + legacy JSON (excluding any blogspot links)
+  // Merge contact info from v3 + legacy JSON cleanly (excluding any blogspot links)
   const isBlogspotUrl = (val: string) => /blogspot\./i.test(val);
-  const socials = { ...prev.socials, gravatarUrl: '' };
-  if (isBlogspotUrl(socials.contactForm)) {
-    socials.contactForm = prev.socials.wordpressUrl || '';
-  }
+  const socials = { ...base.socials, gravatarUrl: '' };
 
   if (v3Profile?.contact_info && typeof v3Profile.contact_info === 'object') {
     const ci = v3Profile.contact_info;
     if (typeof ci.email === 'string' && ci.email.includes('@')) socials.email = ci.email.trim();
     if (typeof ci.cell_phone === 'string' && ci.cell_phone.trim()) socials.phone = ci.cell_phone.trim();
-    if (typeof ci.calendar === 'string' && ci.calendar.startsWith('https://')) socials.calendlyUrl = ci.calendar.trim();
+    if (typeof ci.calendar === 'string' && ci.calendar.startsWith('https://')) {
+      socials.calendlyUrl = ci.calendar.trim();
+    }
     if (
       typeof ci.contact_form === 'string' &&
       ci.contact_form.startsWith('https://') &&
@@ -827,13 +995,13 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
 
   if (Array.isArray(legacyEntry?.emails)) {
     const primaryEmail = legacyEntry.emails.find((e: any) => e?.value)?.value;
-    if (typeof primaryEmail === 'string' && primaryEmail.includes('@') && !socials.email) {
+    if (typeof primaryEmail === 'string' && primaryEmail.includes('@')) {
       socials.email = primaryEmail.trim();
     }
   }
   if (Array.isArray(legacyEntry?.phoneNumbers)) {
     const primaryPhone = legacyEntry.phoneNumbers.find((p: any) => p?.value)?.value;
-    if (typeof primaryPhone === 'string' && primaryPhone.trim() && !socials.phone) {
+    if (typeof primaryPhone === 'string' && primaryPhone.trim()) {
       socials.phone = primaryPhone.trim();
     }
   }
@@ -841,7 +1009,7 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     for (const item of legacyEntry.contactInfo) {
       const val = String(item?.value || '').trim();
       const kind = String(item?.type || '').toLowerCase();
-      if (kind === 'calendar' && val.startsWith('https://') && !socials.calendlyUrl) {
+      if (kind === 'calendar' && val.startsWith('https://')) {
         socials.calendlyUrl = val;
       }
       if (kind === 'contactform' && val.startsWith('https://') && !isBlogspotUrl(val)) {
@@ -850,61 +1018,86 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   }
 
-  // Merge verified_accounts (v3) + accounts (legacy JSON), excluding gravatar.com & blogspot links
+  // Merge verified_accounts, links, urls & accounts (excluding gravatar.com & blogspot links)
   const mergedAccounts: { label: string; handle: string; url: string }[] = [];
   const seenAccountKeys = new Set<string>();
+  const discoveredWebProjects: { label: string; url: string; key: string }[] = [];
+  const seenProjectKeys = new Set<string>();
 
-  const pushVerifiedAccount = (rawUrl: any, rawLabel: any) => {
+  const pushVerifiedAccount = (rawUrl: any, rawLabel: any, allowAsWebsiteProject = false) => {
     const u = String(rawUrl || '').trim();
     if (!u.startsWith('https://') || u.length >= 160 || /[\s<>]/.test(u)) return;
     if (u.toLowerCase().includes('gravatar.com/') || isBlogspotUrl(u)) return;
     const key = normalizeVerifiedUrlKey(u);
-    if (seenAccountKeys.has(key)) return;
-    seenAccountKeys.add(key);
+    const label = decodeHtmlEntities(String(rawLabel || 'Website').trim());
 
-    const label = String(rawLabel || 'Profile').trim();
-    const lowerUrl = u.toLowerCase();
-    if (lowerUrl.includes('github.com/')) socials.githubUrl = u;
-    if (lowerUrl.includes('linkedin.com/')) socials.linkedinUrl = u;
-    if (lowerUrl.includes('x.com/') || lowerUrl.includes('twitter.com/')) socials.xUrl = u;
-    if (lowerUrl.includes('bsky.app/')) socials.blueskyUrl = u;
-    if (lowerUrl.includes('wordpress.com')) socials.wordpressUrl = u;
+    if (!seenAccountKeys.has(key)) {
+      seenAccountKeys.add(key);
+      const lowerUrl = u.toLowerCase();
+      if (lowerUrl.includes('github.com/') && /^https?:\/\/(www\.)?github\.com\/[^/]+\/?$/.test(lowerUrl)) {
+        socials.githubUrl = u;
+      }
+      if (lowerUrl.includes('linkedin.com/')) socials.linkedinUrl = u;
+      if (lowerUrl.includes('x.com/') || lowerUrl.includes('twitter.com/')) socials.xUrl = u;
+      if (lowerUrl.includes('bsky.app/')) socials.blueskyUrl = u;
+      if (lowerUrl.includes('wordpress.com')) socials.wordpressUrl = u;
+      if (lowerUrl.includes('goodreads.com')) socials.goodreadsUrl = u;
 
-    mergedAccounts.push({
-      label,
-      handle: formatAccountHandle(u),
-      url: u,
-    });
+      mergedAccounts.push({
+        label,
+        handle: formatAccountHandle(u),
+        url: u,
+      });
+    }
+
+    if (allowAsWebsiteProject && !isSocialAccountOnlyUrl(u) && !seenProjectKeys.has(key)) {
+      seenProjectKeys.add(key);
+      discoveredWebProjects.push({ label, url: u, key });
+    }
   };
 
   if (Array.isArray(v3Profile?.links)) {
     for (const lnk of v3Profile.links) {
-      pushVerifiedAccount(lnk?.url, lnk?.label || lnk?.title || 'Website');
+      pushVerifiedAccount(lnk?.url, lnk?.label || lnk?.title || 'Website', true);
     }
   }
 
   if (Array.isArray(v3Profile?.verified_accounts)) {
     for (const acc of v3Profile.verified_accounts) {
       if (acc?.is_hidden) continue;
-      pushVerifiedAccount(acc?.url, acc?.service_label || acc?.service_type);
+      const accUrl = String(acc?.url || '');
+      pushVerifiedAccount(
+        accUrl,
+        acc?.service_label || acc?.service_type,
+        accUrl.toLowerCase().includes('wordpress.com')
+      );
     }
   }
 
   if (Array.isArray(legacyEntry?.urls)) {
     for (const lnk of legacyEntry.urls) {
-      pushVerifiedAccount(lnk?.value, lnk?.title || 'Website');
+      pushVerifiedAccount(lnk?.value, lnk?.title || 'Website', true);
     }
   }
 
   if (Array.isArray(legacyEntry?.accounts)) {
     for (const acc of legacyEntry.accounts) {
       if (acc?.is_hidden || acc?.verified === false) continue;
-      pushVerifiedAccount(acc?.url, acc?.name || acc?.shortname);
+      const accUrl = String(acc?.url || '');
+      pushVerifiedAccount(
+        accUrl,
+        acc?.name || acc?.shortname,
+        accUrl.toLowerCase().includes('wordpress.com')
+      );
     }
   }
 
+  if (isBlogspotUrl(socials.contactForm)) {
+    socials.contactForm = socials.wordpressUrl || base.socials.wordpressUrl;
+  }
+
   // Interests (authenticated v3 profile or legacy JSON)
-  let interests = prev.interests;
+  let interests = base.interests;
   const rawInterests = Array.isArray(v3Profile?.interests)
     ? v3Profile.interests
     : Array.isArray(legacyEntry?.interests)
@@ -919,8 +1112,8 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     }
   }
 
-  // Languages (when populated on Gravatar authenticated API)
-  let languages = prev.languages;
+  // Languages (when populated on authenticated API)
+  let languages = base.languages;
   if (Array.isArray(v3Profile?.languages) && v3Profile.languages.length > 0) {
     const parsedLangs = v3Profile.languages
       .map((l: any) => ({
@@ -936,7 +1129,79 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
   const whatICanHelpWith =
     parsedBio.liveServices.length > 0
       ? parsedBio.liveServices.slice(0, 5).map((s) => s.title)
-      : prev.whatICanHelpWith;
+      : base.whatICanHelpWith;
+
+  // Dynamically sync profile web project links into websitesState.websites
+  let syncedWebsites = websitesState.websites;
+  if (discoveredWebProjects.length > 0) {
+    const prevByKey = new Map<string, EcosystemWebsite>();
+    for (const site of websitesState.websites) {
+      prevByKey.set(normalizeVerifiedUrlKey(site.url), site);
+    }
+    const defaultByKey = new Map<string, EcosystemWebsite>();
+    for (const site of DEFAULT_WEBSITES) {
+      defaultByKey.set(normalizeVerifiedUrlKey(site.url), site);
+    }
+
+    const nextSites: EcosystemWebsite[] = [];
+    const includedKeys = new Set<string>();
+
+    for (const proj of discoveredWebProjects) {
+      includedKeys.add(proj.key);
+      const existing = prevByKey.get(proj.key) || defaultByKey.get(proj.key);
+      const hint = CURATED_PROJECT_HINTS[proj.key];
+      let domain = proj.key.split('/')[0];
+      try {
+        domain = new URL(proj.url).hostname;
+      } catch {
+        // Fallback already set
+      }
+
+      if (existing) {
+        nextSites.push({
+          ...existing,
+          name:
+            existing.id === 'wordpress-hub'
+              ? existing.name
+              : existing.id === 'proj-6-ai-assistant'
+                ? existing.name
+                : proj.label || existing.name,
+          url: proj.url,
+          domain,
+        });
+      } else {
+        nextSites.push({
+          id: `site-profile-${crypto.createHash('sha1').update(proj.key).digest('hex').slice(0, 8)}`,
+          name: proj.label || domain,
+          url: proj.url,
+          domain,
+          category: hint?.category || 'Verified Web Property',
+          badge: hint?.badge || 'VERIFIED LINK',
+          description:
+            hint?.description ||
+            `Official web property (${proj.label || domain}) synchronized in real time by ${siteName}.`,
+          imageKey: hint?.imageKey || inferProjectImageKey(proj.url, proj.label),
+          status: 'standby',
+          lastChecked: syncedAt,
+          isCore: Boolean(hint),
+          feedUrl: proj.key === 'mrxshahin.wordpress.com' ? 'https://mrxshahin.wordpress.com/feed/' : undefined,
+          latestPosts: [],
+        });
+      }
+    }
+
+    // Preserve Android TV APK core item + any user-added custom sites if not already included
+    for (const site of websitesState.websites) {
+      const k = normalizeVerifiedUrlKey(site.url);
+      if (includedKeys.has(k)) continue;
+      if (site.id === 'proj-4-iptv-apk' || site.id === 'wordpress-hub' || site.isCustom) {
+        includedKeys.add(k);
+        nextSites.push(site);
+      }
+    }
+
+    syncedWebsites = nextSites;
+  }
 
   websitesState = {
     ...websitesState,
@@ -946,29 +1211,37 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       ...websitesState.upstreamStatus,
       sourceUrl: '',
       connected: true,
+      authenticated: Boolean(GRAVATAR_API_KEY),
+      rateLimitRemaining: gravatarRateState.remaining,
       healthStatus: 'ok',
       lastSyncedAt: syncedAt,
     },
     adminProfile: {
-      ...prev,
+      ...base,
       siteName,
       roleTitle,
-      tagline: parsedBio.tagline || prev.tagline,
+      tagline: parsedBio.tagline || base.tagline,
       location: rawLocation,
       avatarUrl,
-      availabilityNote: parsedBio.availabilityNote || prev.availabilityNote,
-      bioParagraphs: parsedBio.bioParagraphs.length > 0 ? parsedBio.bioParagraphs : prev.bioParagraphs,
+      avatarAltText,
+      pronouns,
+      pronunciation,
+      lastProfileEdit,
+      availabilityNote: parsedBio.availabilityNote || base.availabilityNote,
+      bioParagraphs: parsedBio.bioParagraphs.length > 0 ? parsedBio.bioParagraphs : base.bioParagraphs,
+      whyWorkWithMe: parsedBio.whyWorkWithMe.length > 0 ? parsedBio.whyWorkWithMe : base.whyWorkWithMe,
       backgroundHighlights:
         parsedBio.backgroundHighlights.length > 0
           ? parsedBio.backgroundHighlights
-          : prev.backgroundHighlights,
+          : base.backgroundHighlights,
       whatICanHelpWith,
-      liveServices: parsedBio.liveServices.length > 0 ? parsedBio.liveServices : prev.liveServices,
+      liveServices: parsedBio.liveServices.length > 0 ? parsedBio.liveServices : base.liveServices,
       languages,
       interests,
       socials,
-      verifiedAccounts: mergedAccounts.length > 0 ? mergedAccounts : prev.verifiedAccounts,
+      verifiedAccounts: mergedAccounts.length > 0 ? mergedAccounts : base.verifiedAccounts,
     },
+    websites: syncedWebsites,
     lastUpdated: syncedAt,
     yearlySystem: computeYearlyData(siteName),
   };
@@ -977,6 +1250,8 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
 let lastGravatarSyncMs = 0;
 let lastV3SyncMs = 0;
 let lastLegacyModifiedHeader = '';
+let lastLegacyBodyHash = '';
+let lastV3BodyHash = '';
 let lastGravatarEditStamp = '';
 let gravatarSyncInFlight: Promise<boolean> | null = null;
 const gravatarRateState = {
@@ -997,7 +1272,7 @@ function computeNextGravatarPollMs(): number {
   if (gravatarRateState.remaining <= 8 && gravatarRateState.resetAtMs > now) {
     return Math.min(Math.max(gravatarRateState.resetAtMs - now + 2000, 30000), 180000);
   }
-  return 15 * 1000;
+  return 12 * 1000;
 }
 
 async function syncGravatarProfileLive(force = false): Promise<boolean> {
@@ -1011,9 +1286,9 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
     const reqNow = Date.now();
     const cacheBust = `?_t=${reqNow}`;
 
-    // Always probe lightweight public JSON (supports Last-Modified + no hourly rate cap)
+    // Always probe lightweight public JSON (zero hourly rate cap + full entry hash comparison)
     let legacyJson: any = null;
-    let legacyModifiedChanged = false;
+    let legacyPayloadChanged = false;
     try {
       const legacyRes = await fetch(`${GRAVATAR_PUBLIC_JSON_URL}${cacheBust}`, {
         signal: AbortSignal.timeout(6000),
@@ -1028,22 +1303,32 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
       if (legacyRes.ok) {
         const modHeader = legacyRes.headers.get('last-modified') || '';
         if (modHeader && modHeader !== lastLegacyModifiedHeader) {
-          legacyModifiedChanged = true;
+          legacyPayloadChanged = true;
           lastLegacyModifiedHeader = modHeader;
         }
         legacyJson = await legacyRes.json();
+        const entryHash = crypto
+          .createHash('sha256')
+          .update(JSON.stringify(legacyJson?.entry?.[0] || {}))
+          .digest('hex');
+        if (entryHash !== lastLegacyBodyHash) {
+          if (lastLegacyBodyHash !== '') {
+            legacyPayloadChanged = true;
+          }
+          lastLegacyBodyHash = entryHash;
+        }
       }
     } catch {
       // Transient legacy fetch issue handled below
     }
 
-    // Decide whether to fetch v3 REST API directly while respecting Gravatar hourly quota 24/7
+    // Fetch v3 REST API cleanly (immediate when authenticated, hash-triggered or paced when unauthenticated)
     const v3BackoffActive = gravatarRateState.backoffUntilMs > reqNow;
     const lowQuotaWait =
       !force &&
       gravatarRateState.limit <= 100 &&
-      !legacyModifiedChanged &&
-      reqNow - lastV3SyncMs < 45 * 1000;
+      !legacyPayloadChanged &&
+      reqNow - lastV3SyncMs < 50 * 1000;
     const reserveExhausted =
       gravatarRateState.remaining <= (force ? 1 : 6) &&
       gravatarRateState.resetAtMs > reqNow;
@@ -1085,6 +1370,7 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
           if (typeof v3Json?.last_profile_edit === 'string') {
             lastGravatarEditStamp = v3Json.last_profile_edit;
           }
+          lastV3BodyHash = crypto.createHash('sha256').update(JSON.stringify(v3Json || {})).digest('hex');
         }
       } catch {
         // Ignore transient network error; legacyJson or cached v3 state keeps service resilient 24/7
@@ -1099,6 +1385,8 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
         sourceUrl: '',
         connected: true,
         sseActive: true,
+        authenticated: Boolean(GRAVATAR_API_KEY),
+        rateLimitRemaining: gravatarRateState.remaining,
         healthStatus: 'ok',
         lastSyncedAt: syncedAt,
       };
@@ -1110,6 +1398,8 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
       ...websitesState.upstreamStatus,
       sourceUrl: '',
       connected: Boolean(GRAVATAR_API_KEY || websitesState.adminProfile.siteName),
+      authenticated: Boolean(GRAVATAR_API_KEY),
+      rateLimitRemaining: gravatarRateState.remaining,
       healthStatus: 'standby',
       lastSyncedAt: syncedAt,
     };
@@ -1504,6 +1794,7 @@ app.post('/api/websites', async (req, res) => {
       status: 'probing',
       lastChecked: new Date().toISOString(),
       isCore: false,
+      isCustom: true,
       latestPosts: [],
     };
 
@@ -1696,14 +1987,18 @@ async function startServer() {
         try {
           const beforeSnapshot = JSON.stringify({
             profile: websitesState.adminProfile,
+            websiteUrls: websitesState.websites.map((w) => ({ id: w.id, name: w.name, url: w.url })),
             editStamp: lastGravatarEditStamp,
             modified: lastLegacyModifiedHeader,
+            v3Hash: lastV3BodyHash,
           });
           const updated = await syncGravatarProfileLive(false).catch(() => false);
           const afterSnapshot = JSON.stringify({
             profile: websitesState.adminProfile,
+            websiteUrls: websitesState.websites.map((w) => ({ id: w.id, name: w.name, url: w.url })),
             editStamp: lastGravatarEditStamp,
             modified: lastLegacyModifiedHeader,
+            v3Hash: lastV3BodyHash,
           });
           if (updated && afterSnapshot !== beforeSnapshot) {
             saveWebsitesCache();

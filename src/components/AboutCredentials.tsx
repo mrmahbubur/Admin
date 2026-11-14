@@ -42,6 +42,20 @@ export const AboutCredentials: React.FC = () => {
                   </p>
                 ))}
               </div>
+              {adminProfile.whyWorkWithMe && adminProfile.whyWorkWithMe.length > 0 && (
+                <div className="pt-4 space-y-3 max-w-[65ch]">
+                  <h4 className="font-display text-base font-bold text-[#0f172a] dark:text-white">
+                    Why Work With {adminProfile.siteName}
+                  </h4>
+                  <div className="space-y-3">
+                    {adminProfile.whyWorkWithMe.map((para, idx) => (
+                      <p key={idx} className="text-[14.5px] text-[#475569] dark:text-[#94a3b8] leading-[1.7]">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              )}
               {adminProfile.backgroundHighlights && adminProfile.backgroundHighlights.length > 0 && (
                 <ul className="pt-2 space-y-2 max-w-[65ch]">
                   {adminProfile.backgroundHighlights.map((note) => (

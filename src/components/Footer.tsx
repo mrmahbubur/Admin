@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, onToggleDarkMode }) =>
             <div className="flex items-center gap-3">
               <img
                 src={adminProfile.avatarUrl}
-                alt={adminProfile.siteName}
+                alt={adminProfile.avatarAltText || adminProfile.siteName}
                 referrerPolicy="no-referrer"
                 className="w-10 h-10 rounded-full object-cover border-2 border-[#38bdf8]/75 bg-[#0c121e]"
               />

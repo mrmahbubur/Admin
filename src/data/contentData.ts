@@ -2,11 +2,12 @@ export const ADMIN_SITE_CONFIG = {
   siteName: 'M R S',
   sourceUrl: '',
   roleTitle: 'IT Support Professional | Remote Admin & Documentation Specialist | Web Manager',
-  tagline: 'Helping businesses run smoother, one ticket at a time',
+  tagline: 'Available for Remote IT Support, Virtual Assistance & Administrative Work',
   location: 'Global / Remote',
   avatarUrl: './mrs_profile_avatar.jpg',
   certification: '360-Hour Certified Computer Specialist & MS Office Professional',
-  availabilityNote: 'Open to remote contract, freelance, and part-time opportunities.',
+  availabilityNote:
+    'Whether you need a remote IT support assistant, virtual assistant, website content manager, technical writer, online researcher, or general digital operations support, I am open to discussing how I can help.',
 };
 
 export const ESTABLISHED_YEAR = 2018;

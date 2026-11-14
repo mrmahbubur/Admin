@@ -54,12 +54,20 @@ const defaultAdminProfile: AdminProfileData = {
   tagline: ADMIN_SITE_CONFIG.tagline,
   location: ADMIN_SITE_CONFIG.location,
   avatarUrl: ADMIN_SITE_CONFIG.avatarUrl,
+  avatarAltText: 'M R S official profile portrait',
+  pronouns: '',
+  pronunciation: '',
+  lastProfileEdit: '',
   certification: ADMIN_SITE_CONFIG.certification,
   availabilityNote: ADMIN_SITE_CONFIG.availabilityNote,
   bioParagraphs: [
-    "I'm an IT support and administrative professional with a track record of solving technical problems reliably, remotely, and with precision. My core strengths are Microsoft Office systems, document management, job application processing, and professional correspondence — backed by a 360-hour certified computer course and hands-on system troubleshooting experience.",
-    "I've spent years working independently across remote platforms, building a reputation for adaptability and consistent, high-quality delivery without the structure of a traditional office. That means I show up, communicate clearly, and get things done — no hand-holding required.",
-    'Alongside client work, I run a small portfolio of digital projects (web management, content, tech media, and humanitarian initiatives), which keeps me sharp on emerging tech — from web development to Web3 to cybersecurity defense — sharing tech fixes and guides since 2018.',
+    'I help businesses, entrepreneurs, and individuals simplify their daily operations, solve technical problems, manage digital tasks, and stay productive — without the overhead of hiring a full-time employee.',
+    'With years of independent online work experience and a strong interest in technology, web solutions, and digital productivity, I can support a wide range of technical, administrative, and content-related tasks remotely.',
+  ],
+  whyWorkWithMe: [
+    'I value accuracy, reliability, clear communication, and independent problem-solving. I am comfortable working remotely, handling asynchronous tasks, and organizing my workload around agreed deadlines.',
+    'I focus on understanding the desired outcome, finding a practical way to achieve it, and delivering organized work with minimal unnecessary back-and-forth.',
+    'I am particularly interested in opportunities where technology, administration, research, writing, and digital solutions come together.',
   ],
   backgroundHighlights: [
     'Certified: 360-hour computer systems course',
@@ -224,12 +232,8 @@ const defaultAdminProfile: AdminProfileData = {
       gpa: 'GPA: 3.39',
     },
   ],
-  languages: [
-    { name: 'English', level: 'Conversational' },
-    { name: 'Bengali', level: 'Native' },
-    { name: 'Hindi', level: 'Basic' },
-  ],
-  interests: ['Web Development', 'Web3', 'Cybersecurity & IT Defense', 'Social Sciences', 'Remote Working'],
+  languages: [{ name: 'English', level: 'Proficient' }],
+  interests: ['Web Development', 'web3', 'ethical hacking', 'Social Sciences', 'Remote Working'],
   socials: {
     email: 'mr216873@gmail.com',
     phone: '+8809611056361',

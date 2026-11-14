@@ -23,6 +23,12 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
             <span className="font-mono font-semibold text-[#2563eb] dark:text-[#38bdf8]">Verified Profile</span>
             <span aria-hidden="true">·</span>
             <span>{adminProfile.location}</span>
+            {adminProfile.pronouns && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>{adminProfile.pronouns}</span>
+              </>
+            )}
             <span aria-hidden="true">·</span>
             <span className="font-mono tabular-nums">Since {yearly.establishedYear}</span>
           </div>
@@ -86,7 +92,7 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
                 <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#2563eb]/80 dark:border-[#38bdf8]/80 bg-[#070b14] shrink-0 flex items-center justify-center text-white font-display font-bold text-lg">
                   <img
                     src={adminProfile.avatarUrl}
-                    alt={adminProfile.siteName}
+                    alt={adminProfile.avatarAltText || adminProfile.siteName}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover"
                   />
@@ -95,6 +101,11 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onToggleDarkMode }) => {
                   <div className="font-display text-xl font-bold text-[#0f172a] dark:text-white leading-tight">
                     {adminProfile.siteName}
                   </div>
+                  {adminProfile.pronunciation && (
+                    <div className="text-[11.5px] font-mono text-[#64748b] dark:text-[#94a3b8]">
+                      /{adminProfile.pronunciation}/
+                    </div>
+                  )}
                   <div className="text-[12.5px] font-medium text-[#2563eb] dark:text-[#38bdf8] mt-0.5 leading-snug">
                     {adminProfile.certification}
                   </div>
