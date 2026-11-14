@@ -70,6 +70,12 @@ var defaultAdminProfile = {
 		"I've spent years working independently across remote platforms, building a reputation for adaptability and consistent, high-quality delivery without the structure of a traditional office. That means I show up, communicate clearly, and get things done — no hand-holding required.",
 		"Alongside client work, I run a small portfolio of digital projects (web management, content, tech media, and humanitarian initiatives), which keeps me sharp on emerging tech — from web development to Web3 to cybersecurity defense — sharing tech fixes and guides since 2018."
 	],
+	backgroundHighlights: [
+		"Certified: 360-hour computer systems course",
+		"Technical writing: Writing technology guides and solutions since 2018",
+		"Remote work: Years of independent online work experience",
+		"Work style: Self-directed, detail-oriented, adaptable, and comfortable across time zones"
+	],
 	whatICanHelpWith: [
 		"Document management & formatting",
 		"Professional email & correspondence handling",
@@ -1604,16 +1610,26 @@ var AboutCredentials = () => {
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "space-y-4",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-								className: "font-display text-xl font-bold text-[#0f172a] dark:text-white",
-								children: "Background & Overview"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "space-y-4 max-w-[65ch]",
-								children: adminProfile.bioParagraphs.map((para, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-[15.5px] text-[#475569] dark:text-[#94a3b8] leading-[1.7]",
-									children: para
-								}, idx))
-							})]
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									className: "font-display text-xl font-bold text-[#0f172a] dark:text-white",
+									children: "Background & Overview"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "space-y-4 max-w-[65ch]",
+									children: adminProfile.bioParagraphs.map((para, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "text-[15.5px] text-[#475569] dark:text-[#94a3b8] leading-[1.7]",
+										children: para
+									}, idx))
+								}),
+								adminProfile.backgroundHighlights && adminProfile.backgroundHighlights.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+									className: "pt-2 space-y-2 max-w-[65ch]",
+									children: adminProfile.backgroundHighlights.map((note) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+										className: "flex items-start gap-2.5 text-[14px] text-[#1e293b] dark:text-[#cbd5e1] leading-snug",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0 mt-0.5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: note })]
+									}, note))
+								})
+							]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "pt-8 border-t border-[#dbe3ee] dark:border-[#1c273b] space-y-5",

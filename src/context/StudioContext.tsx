@@ -54,6 +54,12 @@ const defaultAdminProfile: AdminProfileData = {
     "I've spent years working independently across remote platforms, building a reputation for adaptability and consistent, high-quality delivery without the structure of a traditional office. That means I show up, communicate clearly, and get things done — no hand-holding required.",
     'Alongside client work, I run a small portfolio of digital projects (web management, content, tech media, and humanitarian initiatives), which keeps me sharp on emerging tech — from web development to Web3 to cybersecurity defense — sharing tech fixes and guides since 2018.',
   ],
+  backgroundHighlights: [
+    'Certified: 360-hour computer systems course',
+    'Technical writing: Writing technology guides and solutions since 2018',
+    'Remote work: Years of independent online work experience',
+    'Work style: Self-directed, detail-oriented, adaptable, and comfortable across time zones',
+  ],
   whatICanHelpWith: [
     'Document management & formatting',
     'Professional email & correspondence handling',

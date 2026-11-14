@@ -57,6 +57,7 @@ export interface AdminProfileData {
   certification: string;
   availabilityNote: string;
   bioParagraphs: string[];
+  backgroundHighlights?: string[];
   whatICanHelpWith: string[];
   liveServices: LiveServiceCategory[];
   workExperience: {

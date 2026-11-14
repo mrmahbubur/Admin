@@ -42,6 +42,19 @@ export const AboutCredentials: React.FC = () => {
                   </p>
                 ))}
               </div>
+              {adminProfile.backgroundHighlights && adminProfile.backgroundHighlights.length > 0 && (
+                <ul className="pt-2 space-y-2 max-w-[65ch]">
+                  {adminProfile.backgroundHighlights.map((note) => (
+                    <li
+                      key={note}
+                      className="flex items-start gap-2.5 text-[14px] text-[#1e293b] dark:text-[#cbd5e1] leading-snug"
+                    >
+                      <Check className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0 mt-0.5" />
+                      <span>{note}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <div className="pt-8 border-t border-[#dbe3ee] dark:border-[#1c273b] space-y-5">

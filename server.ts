@@ -95,6 +95,7 @@ export interface AdminProfileData {
   certification: string;
   availabilityNote: string;
   bioParagraphs: string[];
+  backgroundHighlights?: string[];
   whatICanHelpWith: string[];
   liveServices: LiveServiceCategory[];
   workExperience: {
@@ -183,6 +184,12 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
     "I'm an IT support and administrative professional with a track record of solving technical problems reliably, remotely, and with precision. My core strengths are Microsoft Office systems, document management, job application processing, and professional correspondence — backed by a 360-hour certified computer course and hands-on system troubleshooting experience.",
     "I've spent years working independently across remote platforms, building a reputation for adaptability and consistent, high-quality delivery without the structure of a traditional office. That means I show up, communicate clearly, and get things done — no hand-holding required.",
     'Alongside client work, I run a small portfolio of digital projects (web management, content, tech media, and humanitarian initiatives), which keeps me sharp on emerging tech — from web development to Web3 to cybersecurity defense — sharing tech fixes and guides since 2018.',
+  ],
+  backgroundHighlights: [
+    'Certified: 360-hour computer systems course',
+    'Technical writing: Writing technology guides and solutions since 2018',
+    'Remote work: Years of independent online work experience',
+    'Work style: Self-directed, detail-oriented, adaptable, and comfortable across time zones',
   ],
   whatICanHelpWith: [
     'Document management & formatting',
@@ -579,19 +586,23 @@ function cleanMarkdownInline(text: string): string {
 }
 
 function parseGravatarBioMarkdown(rawBio: string): {
+  tagline?: string;
   bioParagraphs: string[];
+  backgroundHighlights: string[];
   liveServices: LiveServiceCategory[];
   availabilityNote?: string;
 } {
   if (!rawBio || typeof rawBio !== 'string') {
-    return { bioParagraphs: [], liveServices: [] };
+    return { bioParagraphs: [], backgroundHighlights: [], liveServices: [] };
   }
 
   const normalized = decodeHtmlEntities(rawBio);
   const lines = normalized.split(/\r?\n/);
 
+  let tagline: string | undefined;
   const introParagraphs: string[] = [];
   const whyParagraphs: string[] = [];
+  const backgroundHighlights: string[] = [];
   const availabilityParagraphs: string[] = [];
   const liveServices: LiveServiceCategory[] = [];
 
@@ -639,8 +650,11 @@ function parseGravatarBioMarkdown(rawBio: string): {
     }
 
     if (mode === 'intro') {
-      // Skip the leading emoji/bold availability banner line in intro paragraphs
       if (/^[🖥️💻🚀✅🔹📌💼]/.test(line)) {
+        const cleanedHeadline = cleanMarkdownInline(line);
+        if (!tagline && cleanedHeadline.length > 10) {
+          tagline = cleanedHeadline;
+        }
         continue;
       }
       const cleaned = cleanMarkdownInline(line);
@@ -651,6 +665,14 @@ function parseGravatarBioMarkdown(rawBio: string): {
     if (mode === 'why') {
       const cleaned = cleanMarkdownInline(line);
       if (cleaned.length > 20) whyParagraphs.push(cleaned);
+      continue;
+    }
+
+    if (mode === 'background') {
+      if (line.startsWith('* ') || line.startsWith('- ')) {
+        const cleaned = cleanMarkdownInline(line.slice(2));
+        if (cleaned.length > 8) backgroundHighlights.push(cleaned);
+      }
       continue;
     }
 
@@ -666,9 +688,11 @@ function parseGravatarBioMarkdown(rawBio: string): {
 
   const combinedParagraphs = [...introParagraphs, ...whyParagraphs].slice(0, 5);
   return {
+    tagline,
     bioParagraphs: combinedParagraphs,
+    backgroundHighlights,
     liveServices,
-    availabilityNote: availabilityParagraphs[0],
+    availabilityNote: availabilityParagraphs.length > 0 ? availabilityParagraphs.join(' ') : undefined,
   };
 }
 
@@ -772,7 +796,14 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     typeof v3Profile?.job_title === 'string' && v3Profile.job_title.trim()
       ? decodeHtmlEntities(v3Profile.job_title).trim()
       : '';
-  const roleTitle = rawJobTitle || prev.roleTitle;
+  const rawCompany =
+    typeof v3Profile?.company === 'string' && v3Profile.company.trim()
+      ? decodeHtmlEntities(v3Profile.company).trim()
+      : '';
+  const roleTitle =
+    rawJobTitle && rawCompany
+      ? `${rawJobTitle} · ${rawCompany}`
+      : rawJobTitle || prev.roleTitle;
 
   const rawAvatar =
     (typeof v3Profile?.avatar_url === 'string' && v3Profile.avatar_url.startsWith('https://')
@@ -924,10 +955,15 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
       ...prev,
       siteName,
       roleTitle,
+      tagline: parsedBio.tagline || prev.tagline,
       location: rawLocation,
       avatarUrl,
       availabilityNote: parsedBio.availabilityNote || prev.availabilityNote,
       bioParagraphs: parsedBio.bioParagraphs.length > 0 ? parsedBio.bioParagraphs : prev.bioParagraphs,
+      backgroundHighlights:
+        parsedBio.backgroundHighlights.length > 0
+          ? parsedBio.backgroundHighlights
+          : prev.backgroundHighlights,
       whatICanHelpWith,
       liveServices: parsedBio.liveServices.length > 0 ? parsedBio.liveServices : prev.liveServices,
       languages,
