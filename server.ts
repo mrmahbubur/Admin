@@ -1,6 +1,7 @@
 import express, { type Response } from 'express';
 import path from 'path';
 import fs from 'fs';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
@@ -21,7 +22,18 @@ const WEBSITES_CACHE_FILE = path.join(DATA_DIR, 'websites_cache.json');
 const INQUIRIES_FILE = path.join(DATA_DIR, 'inquiries.json');
 const LOGO_FILE = path.join(__dirname, 'public', 'site_logo.svg');
 
-const GRAVATAR_USERNAME = (process.env.GRAVATAR_USERNAME || 'mrxshahin').trim();
+function resolveGravatarIdentifier(raw: string): string {
+  const cleaned = raw.trim();
+  if (!cleaned) return 'mrxshahin';
+  if (cleaned.includes('@')) {
+    return crypto.createHash('sha256').update(cleaned.toLowerCase()).digest('hex');
+  }
+  return cleaned;
+}
+
+const GRAVATAR_IDENTIFIER = resolveGravatarIdentifier(
+  process.env.GRAVATAR_USERNAME || process.env.GRAVATAR_EMAIL || 'mrxshahin'
+);
 const GRAVATAR_API_KEY = (
   process.env.GRAVATAR_API_KEY ||
   process.env.GRAVATAR_KEY ||
@@ -30,8 +42,8 @@ const GRAVATAR_API_KEY = (
   process.env.GRAVATAR_SECRET ||
   ''
 ).trim();
-const GRAVATAR_V3_PROFILE_URL = `https://api.gravatar.com/v3/profiles/${encodeURIComponent(GRAVATAR_USERNAME)}`;
-const GRAVATAR_PUBLIC_JSON_URL = `https://gravatar.com/${encodeURIComponent(GRAVATAR_USERNAME)}.json`;
+const GRAVATAR_V3_PROFILE_URL = `https://api.gravatar.com/v3/profiles/${encodeURIComponent(GRAVATAR_IDENTIFIER)}`;
+const GRAVATAR_PUBLIC_JSON_URL = `https://gravatar.com/${encodeURIComponent(GRAVATAR_IDENTIFIER)}.json`;
 
 const UPSTREAM_BASE = (process.env.UPSTREAM_SOURCE_URL || 'https://mrxshahin.ai.studio').replace(/\/$/, '');
 const UPSTREAM_RSS_URL = `${UPSTREAM_BASE}/rss.xml`;
@@ -571,20 +583,26 @@ function parseGravatarBioMarkdown(rawBio: string): {
     const line = rawLine.trim();
     if (!line) continue;
 
-    if (line.startsWith('###')) {
+    if (line.startsWith('###') && !line.startsWith('####')) {
       if (currentService && currentService.items.length > 0) {
         liveServices.push(currentService);
         currentService = null;
       }
       const lowerHeading = line.toLowerCase();
-      if (lowerHeading.includes('what i can do')) {
+      if (
+        lowerHeading.includes('what i can do') ||
+        lowerHeading.includes('services') ||
+        lowerHeading.includes('expertise')
+      ) {
         mode = 'services';
       } else if (lowerHeading.includes('why work with me')) {
         mode = 'why';
-      } else if (lowerHeading.includes('my background')) {
+      } else if (lowerHeading.includes('background')) {
         mode = 'background';
-      } else if (lowerHeading.includes('available')) {
+      } else if (lowerHeading.includes('available') || lowerHeading.includes('availability')) {
         mode = 'availability';
+      } else if (lowerHeading.includes('about') || lowerHeading.includes('overview')) {
+        mode = 'intro';
       } else {
         mode = 'other';
       }
@@ -592,7 +610,10 @@ function parseGravatarBioMarkdown(rawBio: string): {
     }
 
     if (mode === 'services') {
-      const catMatch = line.match(/^[✅🔹📌💼]\s*\*\*(.+?)\*\*/);
+      const catMatch =
+        line.match(/^[✅🔹📌💼⚡🛠️🔧]\s*\*\*(.+?)\*\*/) ||
+        line.match(/^####\s+(.+)/) ||
+        line.match(/^\*\*(.+?)\*\*$/);
       if (catMatch) {
         if (currentService && currentService.items.length > 0) {
           liveServices.push(currentService);
@@ -600,7 +621,7 @@ function parseGravatarBioMarkdown(rawBio: string): {
         currentService = { title: cleanMarkdownInline(catMatch[1]), items: [] };
         continue;
       }
-      if (currentService && line.startsWith('* ')) {
+      if (currentService && (line.startsWith('* ') || line.startsWith('- '))) {
         currentService.items.push(cleanMarkdownInline(line.slice(2)));
         continue;
       }
@@ -643,7 +664,7 @@ function parseGravatarBioMarkdown(rawBio: string): {
     liveServices.push(currentService);
   }
 
-  const combinedParagraphs = [...introParagraphs, ...whyParagraphs].slice(0, 5);
+  const combinedParagraphs = [...introParagraphs, ...whyParagraphs].slice(0, 8);
   return {
     tagline,
     bioParagraphs: combinedParagraphs,
@@ -720,11 +741,15 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
     typeof v3Profile?.display_name === 'string' && v3Profile.display_name.trim()
       ? decodeHtmlEntities(v3Profile.display_name).trim()
       : '';
+  const rawFullName = [v3Profile?.first_name, v3Profile?.last_name]
+    .filter((p) => typeof p === 'string' && p.trim())
+    .map((p) => decodeHtmlEntities(String(p)).trim())
+    .join(' ');
   const rawLegacyName =
     typeof legacyEntry?.displayName === 'string' && legacyEntry.displayName.trim()
       ? decodeHtmlEntities(legacyEntry.displayName).trim()
       : '';
-  const siteName = rawV3Name || rawLegacyName || prev.siteName;
+  const siteName = rawV3Name || rawFullName || rawLegacyName || prev.siteName;
 
   const rawLocation =
     (typeof v3Profile?.location === 'string' && v3Profile.location.trim()
@@ -940,58 +965,119 @@ function applyGravatarDirectPayload(v3Profile: any, legacyJson?: any) {
 }
 
 let lastGravatarSyncMs = 0;
+let lastV3SyncMs = 0;
+let lastLegacyModifiedHeader = '';
+let lastGravatarEditStamp = '';
 let gravatarSyncInFlight: Promise<boolean> | null = null;
+const gravatarRateState = {
+  limit: 100,
+  remaining: 100,
+  resetAtMs: 0,
+  backoffUntilMs: 0,
+};
+
+function computeNextGravatarPollMs(): number {
+  const now = Date.now();
+  if (gravatarRateState.backoffUntilMs > now) {
+    return Math.min(Math.max(gravatarRateState.backoffUntilMs - now, 10000), 120000);
+  }
+  if (gravatarRateState.limit >= 500 && gravatarRateState.remaining > 20) {
+    return 10 * 1000;
+  }
+  if (gravatarRateState.remaining <= 8 && gravatarRateState.resetAtMs > now) {
+    return Math.min(Math.max(gravatarRateState.resetAtMs - now + 2000, 30000), 180000);
+  }
+  return 15 * 1000;
+}
 
 async function syncGravatarProfileLive(force = false): Promise<boolean> {
-  if (!force && Date.now() - lastGravatarSyncMs < 4000) {
+  const now = Date.now();
+  if (!force && now - lastGravatarSyncMs < 2000) {
     return true;
   }
   if (gravatarSyncInFlight) return gravatarSyncInFlight;
 
   gravatarSyncInFlight = (async () => {
-    const gravatarHeaders: Record<string, string> = {
-      'User-Agent': 'MRS-Portfolio-Sync/1.0',
-      Accept: 'application/json',
-      'Cache-Control': 'no-cache',
-    };
-    if (GRAVATAR_API_KEY) {
-      gravatarHeaders.Authorization = `Bearer ${GRAVATAR_API_KEY}`;
-    }
+    const reqNow = Date.now();
+    const cacheBust = `?_t=${reqNow}`;
 
-    const cacheBust = `?_t=${Date.now()}`;
-    const [v3Res, legacyRes] = await Promise.allSettled([
-      fetch(`${GRAVATAR_V3_PROFILE_URL}${cacheBust}`, {
-        signal: AbortSignal.timeout(6000),
-        headers: gravatarHeaders,
-        cache: 'no-store',
-      }),
-      fetch(`${GRAVATAR_PUBLIC_JSON_URL}${cacheBust}`, {
+    // Always probe lightweight public JSON (supports Last-Modified + no hourly rate cap)
+    let legacyJson: any = null;
+    let legacyModifiedChanged = false;
+    try {
+      const legacyRes = await fetch(`${GRAVATAR_PUBLIC_JSON_URL}${cacheBust}`, {
         signal: AbortSignal.timeout(6000),
         headers: {
           'User-Agent': 'MRS-Portfolio-Sync/1.0',
           Accept: 'application/json',
-          'Cache-Control': 'no-cache',
+          'Cache-Control': 'no-cache, no-store, max-age=0',
+          Pragma: 'no-cache',
         },
         cache: 'no-store',
-      }),
-    ]);
-
-    let v3Json: any = null;
-    let legacyJson: any = null;
-
-    if (v3Res.status === 'fulfilled' && v3Res.value.ok) {
-      try {
-        v3Json = await v3Res.value.json();
-      } catch {
-        // Ignore parse error
+      });
+      if (legacyRes.ok) {
+        const modHeader = legacyRes.headers.get('last-modified') || '';
+        if (modHeader && modHeader !== lastLegacyModifiedHeader) {
+          legacyModifiedChanged = true;
+          lastLegacyModifiedHeader = modHeader;
+        }
+        legacyJson = await legacyRes.json();
       }
+    } catch {
+      // Transient legacy fetch issue handled below
     }
 
-    if (legacyRes.status === 'fulfilled' && legacyRes.value.ok) {
+    // Decide whether to fetch v3 REST API directly while respecting Gravatar hourly quota 24/7
+    const v3BackoffActive = gravatarRateState.backoffUntilMs > reqNow;
+    const lowQuotaWait =
+      !force &&
+      gravatarRateState.limit <= 100 &&
+      !legacyModifiedChanged &&
+      reqNow - lastV3SyncMs < 45 * 1000;
+    const reserveExhausted =
+      gravatarRateState.remaining <= (force ? 1 : 6) &&
+      gravatarRateState.resetAtMs > reqNow;
+
+    let v3Json: any = null;
+    if (!v3BackoffActive && !lowQuotaWait && !reserveExhausted) {
+      const gravatarHeaders: Record<string, string> = {
+        'User-Agent': 'MRS-Portfolio-Sync/1.0',
+        Accept: 'application/json',
+        'Cache-Control': 'no-cache, no-store, max-age=0',
+        Pragma: 'no-cache',
+      };
+      if (GRAVATAR_API_KEY) {
+        gravatarHeaders.Authorization = `Bearer ${GRAVATAR_API_KEY}`;
+      }
+
       try {
-        legacyJson = await legacyRes.value.json();
+        const v3Res = await fetch(`${GRAVATAR_V3_PROFILE_URL}${cacheBust}`, {
+          signal: AbortSignal.timeout(6000),
+          headers: gravatarHeaders,
+          cache: 'no-store',
+        });
+
+        const limitHeader = parseInt(v3Res.headers.get('x-ratelimit-limit') || '', 10);
+        const remHeader = parseInt(v3Res.headers.get('x-ratelimit-remaining') || '', 10);
+        const resetHeader = parseInt(v3Res.headers.get('x-ratelimit-reset') || '', 10);
+        if (!Number.isNaN(limitHeader) && limitHeader > 0) gravatarRateState.limit = limitHeader;
+        if (!Number.isNaN(remHeader) && remHeader >= 0) gravatarRateState.remaining = remHeader;
+        if (!Number.isNaN(resetHeader) && resetHeader > 0) gravatarRateState.resetAtMs = resetHeader * 1000;
+
+        if (v3Res.status === 429) {
+          gravatarRateState.remaining = 0;
+          gravatarRateState.backoffUntilMs =
+            gravatarRateState.resetAtMs > reqNow ? gravatarRateState.resetAtMs : reqNow + 60 * 1000;
+        } else if (v3Res.ok) {
+          lastV3SyncMs = Date.now();
+          gravatarRateState.backoffUntilMs = 0;
+          v3Json = await v3Res.json();
+          if (typeof v3Json?.last_profile_edit === 'string') {
+            lastGravatarEditStamp = v3Json.last_profile_edit;
+          }
+        }
       } catch {
-        // Ignore parse error
+        // Ignore transient network error; legacyJson or cached v3 state keeps service resilient 24/7
       }
     }
 
@@ -1013,7 +1099,7 @@ async function syncGravatarProfileLive(force = false): Promise<boolean> {
     websitesState.upstreamStatus = {
       ...websitesState.upstreamStatus,
       sourceUrl: '',
-      connected: false,
+      connected: Boolean(GRAVATAR_API_KEY || websitesState.adminProfile.siteName),
       healthStatus: 'standby',
       lastSyncedAt: syncedAt,
     };
@@ -1231,10 +1317,9 @@ async function syncAllWebsites(): Promise<WebsitesHubState> {
   return probeInFlight;
 }
 
-const GRAVATAR_REALTIME_INTERVAL_MS = 10 * 1000;
 const PROBE_INTERVAL_MS = 45 * 1000;
 const YEARLY_CHECK_INTERVAL_MS = 60 * 60 * 1000;
-const SSE_PING_INTERVAL_MS = 25 * 1000;
+const SSE_PING_INTERVAL_MS = 15 * 1000;
 
 // ================= API ROUTES =================
 
@@ -1248,10 +1333,10 @@ app.get(['/health', '/api/health'], (_req, res) => {
 });
 
 app.get('/api/websites', async (_req, res) => {
-  await syncGravatarProfileLive(true).catch(() => false);
+  await syncGravatarProfileLive(false).catch(() => false);
   const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
   websitesState.yearlySystem = computeYearlyData(activeSiteName);
-  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.json({
     success: true,
     data: websitesState,
@@ -1259,6 +1344,7 @@ app.get('/api/websites', async (_req, res) => {
 });
 
 app.get('/api/mrxshahin/status', (_req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
   res.json({
     success: true,
     siteName: websitesState.siteName,
@@ -1270,8 +1356,9 @@ app.get('/api/mrxshahin/status', (_req, res) => {
 
 app.get('/api/websites/stream', async (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Cache-Control', 'no-cache, no-store');
   res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
   res.flushHeaders();
 
   sseClients.add(res);
@@ -1279,7 +1366,7 @@ app.get('/api/websites/stream', async (req, res) => {
     sseClients.delete(res);
   });
 
-  await syncGravatarProfileLive(true).catch(() => false);
+  await syncGravatarProfileLive(false).catch(() => false);
   if (req.destroyed || !sseClients.has(res)) return;
 
   const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
@@ -1530,14 +1617,34 @@ async function startServer() {
     // Start immediate live profile & website sync after port 3000 is bound
     syncAllWebsites().catch(() => {});
 
-    setInterval(async () => {
-      const beforeSnapshot = JSON.stringify(websitesState.adminProfile);
-      const updated = await syncGravatarProfileLive(true).catch(() => false);
-      if (updated && JSON.stringify(websitesState.adminProfile) !== beforeSnapshot) {
-        saveWebsitesCache();
-        broadcastWebsitesUpdate('websites_update', websitesState);
-      }
-    }, GRAVATAR_REALTIME_INTERVAL_MS);
+    // 24/7 continuous adaptive Gravatar profile sync loop (self-pacing, zero rate-limit exhaustion)
+    const scheduleNextGravatarSync = () => {
+      const waitMs = computeNextGravatarPollMs();
+      setTimeout(async () => {
+        try {
+          const beforeSnapshot = JSON.stringify({
+            profile: websitesState.adminProfile,
+            editStamp: lastGravatarEditStamp,
+            modified: lastLegacyModifiedHeader,
+          });
+          const updated = await syncGravatarProfileLive(false).catch(() => false);
+          const afterSnapshot = JSON.stringify({
+            profile: websitesState.adminProfile,
+            editStamp: lastGravatarEditStamp,
+            modified: lastLegacyModifiedHeader,
+          });
+          if (updated && afterSnapshot !== beforeSnapshot) {
+            saveWebsitesCache();
+            broadcastWebsitesUpdate('websites_update', websitesState);
+          }
+        } catch (err) {
+          console.error('[24/7 Profile Sync Warning]', err);
+        } finally {
+          scheduleNextGravatarSync();
+        }
+      }, waitMs);
+    };
+    scheduleNextGravatarSync();
 
     setInterval(() => {
       syncAllWebsites().catch((err) => console.error('[Live Prober Error]', err));

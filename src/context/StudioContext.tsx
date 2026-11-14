@@ -408,13 +408,28 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     let eventSource: EventSource | null = null;
     let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
     let pollInterval: ReturnType<typeof setInterval> | null = null;
+    let reconnectDelayMs = 1500;
+    let sseStarted = false;
     let mounted = true;
 
     const connectSSE = () => {
+      if (!mounted) return;
+      if (eventSource) {
+        try {
+          eventSource.close();
+        } catch {
+          // Ignore close error
+        }
+      }
+      sseStarted = true;
       try {
         eventSource = new EventSource('./api/websites/stream');
         eventSource.onopen = () => {
-          if (mounted) setSseConnected(true);
+          reconnectDelayMs = 1500;
+          if (mounted) {
+            setSseConnected(true);
+            fetchWebsites().catch(() => {});
+          }
         };
         eventSource.onmessage = (event) => {
           try {
@@ -429,9 +444,16 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         };
         eventSource.onerror = () => {
           if (mounted) setSseConnected(false);
-          eventSource?.close();
+          try {
+            eventSource?.close();
+          } catch {
+            // Ignore
+          }
+          eventSource = null;
           if (mounted) {
-            reconnectTimer = setTimeout(connectSSE, 8000);
+            const delay = reconnectDelayMs;
+            reconnectDelayMs = Math.min(reconnectDelayMs * 2, 15000);
+            reconnectTimer = setTimeout(connectSSE, delay);
           }
         };
       } catch {
@@ -439,20 +461,54 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       }
     };
 
+    const refreshOrUpgrade = async () => {
+      const ok = await fetchWebsites();
+      if (!mounted) return;
+      if (ok && !sseStarted) {
+        connectSSE();
+        if (pollInterval) clearInterval(pollInterval);
+        pollInterval = setInterval(refreshOrUpgrade, 15000);
+      } else if (!ok && !sseStarted) {
+        await runClientSideSync();
+      }
+    };
+
+    const handleVisibilityOrFocus = () => {
+      if (!mounted) return;
+      if (document.visibilityState === 'visible') {
+        refreshOrUpgrade().catch(() => {});
+      }
+    };
+
+    const handleOnline = () => {
+      if (!mounted) return;
+      refreshOrUpgrade().catch(() => {});
+      if (!eventSource) {
+        connectSSE();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityOrFocus);
+    window.addEventListener('focus', handleVisibilityOrFocus);
+    window.addEventListener('online', handleOnline);
+
     (async () => {
       const hasBackend = await fetchWebsites();
       if (!mounted) return;
       if (hasBackend) {
         connectSSE();
-        pollInterval = setInterval(fetchWebsites, 15000);
+        pollInterval = setInterval(refreshOrUpgrade, 15000);
       } else {
         await runClientSideSync();
-        pollInterval = setInterval(runClientSideSync, 60000);
+        pollInterval = setInterval(refreshOrUpgrade, 10000);
       }
     })();
 
     return () => {
       mounted = false;
+      document.removeEventListener('visibilitychange', handleVisibilityOrFocus);
+      window.removeEventListener('focus', handleVisibilityOrFocus);
+      window.removeEventListener('online', handleOnline);
       if (pollInterval) clearInterval(pollInterval);
       if (reconnectTimer) clearTimeout(reconnectTimer);
       if (eventSource) eventSource.close();
