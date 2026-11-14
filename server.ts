@@ -4,6 +4,8 @@ import fs from 'fs';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import { MRS_SERVICES_CATALOG, SERVICES_PORTAL_URL } from './src/data/servicesCatalog';
+import type { CatalogServiceItem, ServicesPortalStatus } from './src/types';
 
 dotenv.config();
 
@@ -164,6 +166,8 @@ export interface WebsitesHubState {
   upstreamStatus: UpstreamConnectionStatus;
   adminProfile: AdminProfileData;
   websites: EcosystemWebsite[];
+  servicesCatalog: CatalogServiceItem[];
+  servicesPortalStatus: ServicesPortalStatus;
   lastUpdated: string;
   syncCycle: number;
   yearlySystem: YearlySystemData;
@@ -464,6 +468,12 @@ let websitesState: WebsitesHubState = {
   },
   adminProfile: BASE_ADMIN_PROFILE,
   websites: DEFAULT_WEBSITES,
+  servicesCatalog: MRS_SERVICES_CATALOG,
+  servicesPortalStatus: {
+    url: SERVICES_PORTAL_URL,
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+  },
   lastUpdated: new Date().toISOString(),
   syncCycle: 0,
   yearlySystem: computeYearlyData(),
@@ -1287,6 +1297,34 @@ async function probeSingleWebsite(site: EcosystemWebsite): Promise<EcosystemWebs
   };
 }
 
+async function probeServicesPortal(): Promise<ServicesPortalStatus> {
+  const start = Date.now();
+  try {
+    const res = await fetch(SERVICES_PORTAL_URL, {
+      signal: AbortSignal.timeout(4500),
+      headers: {
+        'User-Agent': 'MRS-Realtime-Bridge/1.0',
+        Accept: 'text/html,application/xhtml+xml',
+      },
+      cache: 'no-store',
+    });
+    const latencyMs = Date.now() - start;
+    return {
+      url: SERVICES_PORTAL_URL,
+      status: res.ok || (res.status >= 300 && res.status < 400) ? 'online' : 'standby',
+      httpCode: res.status,
+      latencyMs,
+      lastChecked: new Date().toISOString(),
+    };
+  } catch {
+    return {
+      url: SERVICES_PORTAL_URL,
+      status: 'standby',
+      lastChecked: new Date().toISOString(),
+    };
+  }
+}
+
 let probeInFlight: Promise<WebsitesHubState> | null = null;
 
 async function syncAllWebsites(): Promise<WebsitesHubState> {
@@ -1295,13 +1333,18 @@ async function syncAllWebsites(): Promise<WebsitesHubState> {
   probeInFlight = (async () => {
     try {
       await syncProfileAndFeeds();
-      const updatedSites = await Promise.all(websitesState.websites.map((s) => probeSingleWebsite(s)));
+      const [updatedSites, portalStatus] = await Promise.all([
+        Promise.all(websitesState.websites.map((s) => probeSingleWebsite(s))),
+        probeServicesPortal(),
+      ]);
       const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
       websitesState = {
         ...websitesState,
         siteName: activeSiteName,
         sourceUrl: '',
         websites: updatedSites,
+        servicesCatalog: MRS_SERVICES_CATALOG,
+        servicesPortalStatus: portalStatus,
         lastUpdated: new Date().toISOString(),
         syncCycle: websitesState.syncCycle + 1,
         yearlySystem: computeYearlyData(activeSiteName),
@@ -1329,6 +1372,34 @@ app.get(['/health', '/api/health'], (_req, res) => {
     siteName: websitesState.siteName,
     port: PORT,
     syncCycle: websitesState.syncCycle,
+  });
+});
+
+app.get('/api/services', (req, res) => {
+  const categoryFilter = String(req.query.category || '').trim().toLowerCase();
+  const searchQuery = String(req.query.q || '').trim().toLowerCase();
+
+  let list = websitesState.servicesCatalog || MRS_SERVICES_CATALOG;
+  if (categoryFilter && categoryFilter !== 'all') {
+    list = list.filter((svc) => svc.category.toLowerCase() === categoryFilter);
+  }
+  if (searchQuery) {
+    list = list.filter(
+      (svc) =>
+        svc.name.toLowerCase().includes(searchQuery) ||
+        svc.serviceId.toLowerCase().includes(searchQuery) ||
+        svc.shortDescription.toLowerCase().includes(searchQuery) ||
+        svc.inclusions.some((inc) => inc.toLowerCase().includes(searchQuery))
+    );
+  }
+
+  res.setHeader('Cache-Control', 'no-store');
+  res.json({
+    success: true,
+    sourceUrl: SERVICES_PORTAL_URL,
+    total: list.length,
+    portalStatus: websitesState.servicesPortalStatus,
+    services: list,
   });
 });
 
@@ -1561,6 +1632,7 @@ async function startServer() {
   // Canonical section & /dist path redirection for production hosting
   const sectionRedirects: Record<string, string> = {
     '/websites': '/#websites-section',
+    '/services': '/#services-section',
     '/credentials': '/#about-section',
     '/about': '/#about-section',
     '/skills': '/#skills-section',

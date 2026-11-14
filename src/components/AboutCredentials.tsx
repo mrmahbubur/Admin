@@ -16,7 +16,7 @@ export const AboutCredentials: React.FC = () => {
   return (
     <section
       id="about-section"
-      className="py-16 sm:py-20 bg-[#f4f7fb] dark:bg-[#070b14] border-b border-[#dbe3ee] dark:border-[#1c273b] transition-colors duration-200"
+      className="py-16 sm:py-20 bg-white dark:bg-[#0a101b] border-b border-[#dbe3ee] dark:border-[#1c273b] transition-colors duration-200"
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="mb-10 sm:mb-12 space-y-2">
@@ -160,7 +160,7 @@ export const AboutCredentials: React.FC = () => {
 
           {/* Right Column: Single Unified Technical Dossier Card (Hairline Divided) */}
           <div className="lg:col-span-5">
-            <div className="rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] divide-y divide-[#dbe3ee] dark:divide-[#1c273b] tech-surface">
+            <div className="rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] divide-y divide-[#dbe3ee] dark:divide-[#1c273b] tech-surface">
               {/* Courses & Certifications */}
               <div className="p-6 space-y-3.5">
                 <div className="flex items-center gap-2 font-semibold text-[15px] text-[#0f172a] dark:text-white">

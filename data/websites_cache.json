@@ -1,0 +1,1007 @@
+{
+  "siteName": "M R S",
+  "sourceUrl": "",
+  "upstreamStatus": {
+    "sourceUrl": "",
+    "connected": true,
+    "sseActive": true,
+    "healthStatus": "ok",
+    "lastSyncedAt": "2026-11-14T09:16:13.667Z",
+    "rssItems": [
+      {
+        "title": "Discover a Trusted Community — Now on a New Secure Domain!",
+        "link": "https://mrxshahin.wordpress.com/2025/10/01/discover-a-trusted-community-now-on-a-new-secure-domain/",
+        "description": "Discover a Trusted Community — Now on a New Secure Domain! I’ve recently come across an outstanding site dedicated to [insert niche/topic], and I highly recommend giving it a visit. They’ve just upgraded to a new, more secure v3 domain, which you can access he",
+        "category": "2025 at 04:11PM",
+        "pubDate": "Wed, 01 Oct 2025 10:11:41 +0000"
+      }
+    ],
+    "rssBuildDate": "Wed, 01 Oct 2025 10:11:41 +0000"
+  },
+  "adminProfile": {
+    "siteName": "M R S",
+    "roleTitle": "IT Support Professional | Remote Admin & Documentation Specialist | Web Manager",
+    "tagline": "Available for Remote IT Support, Virtual Assistance & Administrative Work",
+    "location": "Global / Remote",
+    "avatarUrl": "https://1.gravatar.com/avatar/79cb903b47ada0af52e9962551bab25e563cc0a515939789f348aaa0ca135946?s=512",
+    "certification": "360-Hour Certified Computer Specialist & MS Office Professional",
+    "availabilityNote": "Whether you need a remote IT support assistant, virtual assistant, website content manager, technical writer, online researcher, or general digital operations support, I am open to discussing how I can help. I am happy to consider both ongoing support arrangements and clearly defined, project-based tasks that match my skills.",
+    "bioParagraphs": [
+      "I help businesses, entrepreneurs, and individuals simplify their daily operations, solve technical problems, manage digital tasks, and stay productive — without the overhead of hiring a full-time employee.",
+      "With years of independent online work experience and a strong interest in technology, web solutions, and digital productivity, I can support a wide range of technical, administrative, and content-related tasks remotely.",
+      "I value accuracy, reliability, clear communication, and independent problem-solving. I am comfortable working remotely, handling asynchronous tasks, and organizing my workload around agreed deadlines.",
+      "I focus on understanding the desired outcome, finding a practical way to achieve it, and delivering organized work with minimal unnecessary back-and-forth.",
+      "I am particularly interested in opportunities where technology, administration, research, writing, and digital solutions come together."
+    ],
+    "backgroundHighlights": [
+      "Certified: 360-hour computer systems course",
+      "Technical writing: Writing technology guides and solutions since 2018",
+      "Remote work: Years of independent online work experience",
+      "Work style: Self-directed, detail-oriented, adaptable, and comfortable across time zones"
+    ],
+    "whatICanHelpWith": [
+      "IT Support & Technical Troubleshooting",
+      "Virtual Assistance & Administrative Support",
+      "Website Management & Digital Content",
+      "Technical Writing & Documentation",
+      "Online Research & Digital Problem-Solving"
+    ],
+    "liveServices": [
+      {
+        "title": "IT Support & Technical Troubleshooting",
+        "items": [
+          "Windows PC troubleshooting and basic system maintenance",
+          "Android device support and app-related troubleshooting",
+          "Browser, internet connectivity, Wi-Fi, and common software issues",
+          "Software installation, configuration, and basic technical guidance",
+          "Step-by-step technical documentation and user support"
+        ]
+      },
+      {
+        "title": "Virtual Assistance & Administrative Support",
+        "items": [
+          "Data entry, data organization, and document formatting",
+          "Microsoft Word, Excel, PowerPoint, and office productivity tasks",
+          "Email management, professional correspondence, and inbox organization",
+          "Online research, information collection, and data verification",
+          "Form filling, job application assistance, and document preparation",
+          "File organization, record keeping, and digital documentation",
+          "Task coordination and routine administrative assistance"
+        ]
+      },
+      {
+        "title": "Website Management & Digital Content",
+        "items": [
+          "Website content updates and basic website administration",
+          "Blog post publishing and content formatting",
+          "WordPress and Blogger content management",
+          "SEO-friendly article writing and on-page content optimization",
+          "Website testing, troubleshooting, and basic usability checks",
+          "Web research, content planning, and topic development",
+          "AI-assisted content creation, editing, and proofreading"
+        ]
+      },
+      {
+        "title": "Technical Writing & Documentation",
+        "items": [
+          "Writing technology guides, tutorials, and how-to articles",
+          "Creating step-by-step troubleshooting instructions",
+          "Explaining websites, apps, and digital tools in simple language",
+          "Preparing FAQs, user guides, and knowledge-base articles",
+          "Rewriting, proofreading, and improving existing content",
+          "Creating informative articles about software, websites, apps, and online services"
+        ]
+      },
+      {
+        "title": "Online Research & Digital Problem-Solving",
+        "items": [
+          "Finding and evaluating online resources",
+          "Researching websites, apps, and technology solutions",
+          "Comparing digital tools and identifying practical alternatives",
+          "Organizing research findings into clear, useful reports",
+          "Testing online services and documenting user experiences",
+          "Identifying workflow improvements and opportunities for automation"
+        ]
+      },
+      {
+        "title": "AI Tools & Productivity Assistance",
+        "items": [
+          "Using AI tools to support research, writing, and content development",
+          "Improving repetitive workflows with practical digital tools",
+          "Assisting with AI-generated content review and refinement",
+          "Developing detailed prompts for writing, research, and creative tasks",
+          "Exploring no-code and low-code solutions for everyday business needs"
+        ]
+      },
+      {
+        "title": "Social Media & Online Business Support",
+        "items": [
+          "Preparing social media posts, captions, and content descriptions",
+          "Managing content schedules and organizing publishing materials",
+          "Creating promotional copy for websites, apps, and digital services",
+          "Assisting with basic online brand and content management",
+          "Supporting digital projects through research, documentation, and coordination"
+        ]
+      }
+    ],
+    "workExperience": [
+      {
+        "role": "Independent IT Support Specialist & Web Manager",
+        "period": "2018 – Present",
+        "location": "Global / Remote",
+        "highlights": [
+          "Providing end-to-end remote IT administration, Windows & Android OS troubleshooting, hardware diagnostics, and WiFi network configuration for diverse clients.",
+          "Structuring, formatting, and proofreading high-stakes documentation, official correspondence, and job applications with precision and rapid turnaround.",
+          "Managing content, architecture, and live operations for web platforms, tech blogs, and streaming web services."
+        ]
+      }
+    ],
+    "skillsList": [
+      {
+        "category": "IT Support & Administration",
+        "skills": [
+          "System Troubleshooting",
+          "Microsoft 365 & Office Suite",
+          "Document Management",
+          "Professional Correspondence",
+          "User Hardware & Network Diagnostics"
+        ]
+      },
+      {
+        "category": "Web & Digital Management",
+        "skills": [
+          "WordPress & Web CMS",
+          "Web Architecture",
+          "Domain & DNS Management",
+          "SEO & Analytics",
+          "Content Strategy"
+        ]
+      },
+      {
+        "category": "Digital Operations & Interactive Systems",
+        "skills": [
+          "Digital Interactive Concierge Systems",
+          "Workflow Automation",
+          "Autonomous Systems Management",
+          "E-Commerce Operations",
+          "Remote Team Collaboration"
+        ]
+      },
+      {
+        "category": "Core Competencies & Digital Skills",
+        "skills": [
+          "Remote Work Autonomy",
+          "Data Organization",
+          "Technical Writing",
+          "Client Communication"
+        ]
+      }
+    ],
+    "coursesCertifications": [
+      "Basic Computer Course (360 Hrs)",
+      "Android Hardware Repair",
+      "IELTS — Band 5.5"
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Social Science",
+        "institution": "Sylhet Government College, Sylhet",
+        "period": "Jan 2021 – Present"
+      },
+      {
+        "degree": "Higher Secondary Certificate (HSC)",
+        "institution": "Tajpur Degree College, Sylhet",
+        "period": "Jan 2019 – Dec 2020",
+        "gpa": "GPA: 3.33"
+      },
+      {
+        "degree": "Secondary School Certificate (SSC)",
+        "institution": "Mongol Chondi Nishikanto High School, Sylhet",
+        "period": "Jan 2017 – Dec 2018",
+        "gpa": "GPA: 3.39"
+      }
+    ],
+    "languages": [
+      {
+        "name": "English",
+        "level": "Proficient"
+      }
+    ],
+    "interests": [
+      "Web Development",
+      "web3",
+      "ethical hacking",
+      "Social Sciences",
+      "Remote Working"
+    ],
+    "socials": {
+      "email": "mr216873@gmail.com",
+      "phone": "+8809611056361",
+      "gravatarUrl": "",
+      "githubUrl": "https://github.com/mrmahbubur",
+      "linkedinUrl": "https://www.linkedin.com/in/mrmahbubur",
+      "xUrl": "https://x.com/Mrshahinx",
+      "blueskyUrl": "https://bsky.app/profile/mrxshahin.bsky.social",
+      "wordpressUrl": "https://mrxshahin.wordpress.com",
+      "calendlyUrl": "https://calendly.com/mrxshahin",
+      "contactForm": "https://mrxshahin.wordpress.com",
+      "goodreadsUrl": "https://www.goodreads.com/mrxshahin"
+    },
+    "verifiedAccounts": [
+      {
+        "label": "All Services",
+        "handle": "mrs-services.ai.studio",
+        "url": "https://mrs-services.ai.studio/"
+      },
+      {
+        "label": "IPTV WEB",
+        "handle": "shahin-iptv.ai.studio",
+        "url": "https://shahin-iptv.ai.studio"
+      },
+      {
+        "label": "Apps Store",
+        "handle": "mrmahbubur.github.io/APPS-STORE",
+        "url": "https://mrmahbubur.github.io/APPS-STORE/"
+      },
+      {
+        "label": "Private C N",
+        "handle": "mrs-pcn.ai.studio",
+        "url": "https://mrs-pcn.ai.studio/"
+      },
+      {
+        "label": "Camellia Shop",
+        "handle": "mrmahbubur.github.io/Camellia-Shop",
+        "url": "https://mrmahbubur.github.io/Camellia-Shop/"
+      },
+      {
+        "label": "Charity Project",
+        "handle": "mrmahbubur.github.io/Charity-Foundation",
+        "url": "https://mrmahbubur.github.io/Charity-Foundation/"
+      },
+      {
+        "label": "Camellia Ai",
+        "handle": "mrmahbubur.github.io/Camellia-Ai",
+        "url": "https://mrmahbubur.github.io/Camellia-Ai/"
+      },
+      {
+        "label": "Cloud",
+        "handle": "mrmahbubur.github.io/Admin",
+        "url": "https://mrmahbubur.github.io/Admin/"
+      },
+      {
+        "label": "Ai Portfolio",
+        "handle": "mrxshahin.ai.studio",
+        "url": "https://mrxshahin.ai.studio/"
+      },
+      {
+        "label": "X",
+        "handle": "@Mrshahinx",
+        "url": "https://x.com/Mrshahinx"
+      },
+      {
+        "label": "GitHub",
+        "handle": "mrmahbubur",
+        "url": "https://github.com/mrmahbubur"
+      },
+      {
+        "label": "Bluesky",
+        "handle": "mrxshahin.bsky.social",
+        "url": "https://bsky.app/profile/mrxshahin.bsky.social"
+      },
+      {
+        "label": "LinkedIn",
+        "handle": "mrmahbubur",
+        "url": "https://www.linkedin.com/in/mrmahbubur"
+      },
+      {
+        "label": "WordPress",
+        "handle": "mrxshahin.wordpress.com",
+        "url": "https://mrxshahin.wordpress.com"
+      },
+      {
+        "label": "Goodreads",
+        "handle": "goodreads.com/mrxshahin",
+        "url": "https://www.goodreads.com/mrxshahin"
+      }
+    ]
+  },
+  "websites": [
+    {
+      "id": "proj-6-ai-assistant",
+      "name": "M R S Portfolio & AI Assistant",
+      "url": "https://mrxshahin.ai.studio/",
+      "domain": "mrxshahin.ai.studio",
+      "category": "Official Portfolio & AI Concierge",
+      "badge": "AI CONCIERGE",
+      "description": "Official portfolio of M R S featuring verified credentials, live projects, and an interactive multimodal AI concierge.",
+      "imageKey": "flagship",
+      "status": "online",
+      "lastChecked": "2026-11-14T09:16:13.866Z",
+      "isCore": true,
+      "latestPosts": [],
+      "httpCode": 200,
+      "latencyMs": 198,
+      "liveTitle": "M R S Portfolio · Certified IT Support Professional & Web Manager"
+    },
+    {
+      "id": "proj-3-iptv-web",
+      "name": "IPTV WEB",
+      "url": "https://shahin-iptv.ai.studio",
+      "domain": "shahin-iptv.ai.studio",
+      "category": "Live Streaming & Media Platform",
+      "badge": "LIVE WEB APP",
+      "description": "Web streaming platform delivering 10,000+ live international channels spanning Sports, Movies, Dramas, and News.",
+      "imageKey": "flagship",
+      "status": "online",
+      "lastChecked": "2026-11-14T09:16:13.867Z",
+      "isCore": true,
+      "latestPosts": [],
+      "httpCode": 200,
+      "latencyMs": 196,
+      "liveTitle": "M R S IPTV"
+    },
+    {
+      "id": "proj-4-iptv-apk",
+      "name": "Android TV Apk",
+      "url": "https://www.upload-apk.com/en/0Jr71hMVlsFwN9Y%20",
+      "domain": "upload-apk.com",
+      "category": "Android Package Download",
+      "badge": "DIRECT APK",
+      "description": "Direct Mrs IPTV APK package download supporting Android TVs, set-top boxes, and Android mobile devices.",
+      "imageKey": "tech",
+      "status": "online",
+      "lastChecked": "2026-11-14T09:16:14.402Z",
+      "isCore": true,
+      "latestPosts": [],
+      "httpCode": 200,
+      "latencyMs": 729,
+      "liveTitle": "Upload APK — Download — _Mrs__IPTV_.apk"
+    },
+    {
+      "id": "wordpress-hub",
+      "name": "WordPress Knowledge Portal",
+      "url": "https://mrxshahin.wordpress.com",
+      "domain": "mrxshahin.wordpress.com",
+      "category": "Verified Publication",
+      "badge": "WORDPRESS",
+      "description": "Discover a Trusted Community — Now on a New Secure Domain! I’ve recently come across an outstanding site dedicated to [insert niche/topic], and I highly recommend giving it a visit. They’ve just upgraded to a new, more secure v3 domain, which you can access he",
+      "imageKey": "admin",
+      "status": "online",
+      "lastChecked": "2026-11-14T09:16:13.889Z",
+      "isCore": true,
+      "feedUrl": "https://mrxshahin.wordpress.com/feed/",
+      "latestPosts": [
+        {
+          "title": "Discover a Trusted Community — Now on a New Secure Domain!",
+          "url": "https://mrxshahin.wordpress.com/2025/10/01/discover-a-trusted-community-now-on-a-new-secure-domain/",
+          "published": "2025-10-01"
+        }
+      ],
+      "httpCode": 200,
+      "latencyMs": 17,
+      "liveTitle": "Solutions crafted for you"
+    }
+  ],
+  "servicesCatalog": [
+    {
+      "id": "ai-digital-productivity",
+      "serviceId": "S-MRS-01",
+      "slug": "ai-digital-productivity",
+      "category": "M R S Services",
+      "name": "AI & Digital Productivity",
+      "shortDescription": "Custom prompt engineering, autonomous agent pipelines, workflow automation, and Gemini/OpenAI API integrations.",
+      "inclusions": [
+        "Tailored prompt architectures & multi-step agent chains",
+        "Zapier / Make / n8n workflow integrations",
+        "Custom API connectors and automated data extraction",
+        "Quality benchmarking, output verification, and live staff walkthrough"
+      ],
+      "typicalTurnaround": "24–48 hours",
+      "priceType": "quote",
+      "rateUSD": "$50 – $100 / hour",
+      "rateBDT": "5,000 – 10,000 TK / hour",
+      "depositPercent": 50,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Target workflow description and current manual process",
+        "Access to relevant tool API keys or test environment",
+        "Sample inputs and expected structured outputs"
+      ],
+      "notIncluded": [
+        "Third-party API subscription costs",
+        "Proprietary platform license fees"
+      ],
+      "faq": [
+        {
+          "question": "What tools can you automate?",
+          "answer": "We automate Google Workspace, Notion, Slack, Airtable, CRM pipelines, and custom Python/Node endpoints."
+        },
+        {
+          "question": "How is the final rate calculated?",
+          "answer": "Quotes are based on workflow complexity and API integration scope."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "technical-writing-proofreading",
+      "serviceId": "S-MRS-02",
+      "slug": "technical-writing-proofreading",
+      "category": "M R S Services",
+      "name": "Technical Writing & Proofreading",
+      "shortDescription": "Developer-grade tutorials, software user manuals, architectural walkthroughs, API reference docs, and meticulous proofreading.",
+      "inclusions": [
+        "Structured Markdown/DOCX technical guides",
+        "Annotated schematics and workflow diagrams",
+        "Grammar, precision terminology, and code snippet testing",
+        "Revision warranty until stakeholder sign-off"
+      ],
+      "typicalTurnaround": "2–4 business days",
+      "priceType": "quote",
+      "rateUSD": "$40 – $80 / hour",
+      "rateBDT": "4,000 – 8,000 TK / hour",
+      "depositPercent": 50,
+      "revisionsIncluded": 3,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Feature specs or codebase link",
+        "Target audience persona",
+        "Style guide or formatting requirements"
+      ],
+      "notIncluded": [
+        "Original software development"
+      ],
+      "samples": [
+        {
+          "id": "smp-tw-1",
+          "title": "Microservices REST API Comprehensive Developer Manual",
+          "description": "80-page interactive developer onboarding and OpenAPI 3.1 specification.",
+          "results": "Passed internal compliance review with zero developer blockers."
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can you document proprietary codebases?",
+          "answer": "Yes, with signed mutual non-disclosure and strict source code confidentiality."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "website-management",
+      "serviceId": "S-MRS-03",
+      "slug": "website-management",
+      "category": "M R S Services",
+      "name": "Website Management (WordPress & CMS)",
+      "shortDescription": "Full CMS administration, Core Web Vitals optimization, on-page SEO, speed hardening, and rapid bug troubleshooting.",
+      "inclusions": [
+        "CMS updates, plugin security audits, and automated backups",
+        "PageSpeed score optimization (<2.0s load)",
+        "Schema markup, canonicals, and image compression",
+        "Mobile viewport layout troubleshooting"
+      ],
+      "typicalTurnaround": "24–72 hours",
+      "priceType": "quote",
+      "rateUSD": "$30 – $60 / hour",
+      "rateBDT": "3,000 – 6,000 TK / hour",
+      "depositPercent": 50,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Temporary CMS Admin or hosting access",
+        "List of target speed or layout issues",
+        "Full backup authorization"
+      ],
+      "notIncluded": [
+        "Premium plugin purchase fees",
+        "External hosting migration server fees"
+      ],
+      "samples": [
+        {
+          "id": "smp-web-1",
+          "title": "WordPress Speed & Core Web Vitals Overhaul",
+          "description": "Reduced LCP from 5.4s to 1.1s on high-traffic content portal.",
+          "results": "Mobile PageSpeed score increased from 38 to 96."
+        }
+      ],
+      "faq": [
+        {
+          "question": "Which CMS platforms do you manage?",
+          "answer": "We manage WordPress themes/builders, headless CMS deployments, and custom static or full-stack web portals."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "it-support-troubleshooting",
+      "serviceId": "S-MRS-04",
+      "slug": "it-support-troubleshooting",
+      "category": "M R S Services",
+      "name": "IT Support & Troubleshooting",
+      "shortDescription": "Remote systems diagnostics, software configuration, peripheral connectivity, malware removal, and AnyDesk/RustDesk session support.",
+      "inclusions": [
+        "Encrypted remote session via AnyDesk or RustDesk",
+        "OS latency cleanup, registry repair, driver conflict resolution",
+        "Network router DNS, VPN, and firewall security audits",
+        "Post-session hardening notes and maintenance checklist"
+      ],
+      "typicalTurnaround": "Within 2–6 hours",
+      "priceType": "quote",
+      "rateUSD": "$25 – $50 / hour",
+      "rateBDT": "2,500 – 5,000 TK / hour",
+      "depositPercent": 100,
+      "revisionsIncluded": 1,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "AnyDesk or RustDesk session connection ID",
+        "Detailed description of error message or symptom"
+      ],
+      "notIncluded": [
+        "Hardware physical replacement"
+      ],
+      "faq": [
+        {
+          "question": "How is remote access secured?",
+          "answer": "You supervise the entire screen session live and can terminate the connection at any instant."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "app-store-publishing",
+      "serviceId": "S-MRS-05",
+      "slug": "app-store-publishing",
+      "category": "M R S Services",
+      "name": "App Store Publishing",
+      "shortDescription": "Submission management for Google Play Console and Apple App Store. Metadata compliance, policy verification, and signing.",
+      "inclusions": [
+        "AAB/IPA bundle validation and 64-bit architecture checks",
+        "Privacy policy URL linkage and Data Safety declaration",
+        "Target audience classification and content rating questionnaire",
+        "Rejection resolution guidance and resubmission review"
+      ],
+      "typicalTurnaround": "24–48 hours",
+      "priceType": "fixed",
+      "rateUSD": "$25 USD",
+      "rateBDT": "2,500 TK",
+      "depositPercent": 100,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Google Play / Apple developer account invited access",
+        "Signed release APK/AAB bundle",
+        "Store assets (icon, screenshots, short/long description)"
+      ],
+      "notIncluded": [
+        "Developer account enrollment fees ($25 Google / $99 Apple)"
+      ],
+      "faq": [
+        {
+          "question": "Can you guarantee 100% store approval?",
+          "answer": "We ensure technical and policy compliance; ultimate approval authority resides with Google and Apple review boards."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "ats-cv-resume",
+      "serviceId": "S-MRS-06",
+      "slug": "ats-cv-resume",
+      "category": "M R S Services",
+      "name": "Advanced ATS CV & Resume",
+      "shortDescription": "Executive resume rewrite engineered to clear modern Applicant Tracking Systems (Workday, Greenhouse, Taleo, Lever) with metrics-driven achievements.",
+      "inclusions": [
+        "Full architectural resume restructuring for target roles",
+        "Keyword density optimization and skills taxonomy alignment",
+        "High-impact bullet point phrasing with quantifiable outcomes",
+        "Dual deliverable: Print-ready vector PDF + editable Word/DOCX source"
+      ],
+      "typicalTurnaround": "24–48 hours",
+      "priceType": "fixed",
+      "rateUSD": "$15 USD",
+      "rateBDT": "1,500 TK",
+      "depositPercent": 50,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Current resume draft or career notes",
+        "Link or text of 1–3 target job postings"
+      ],
+      "notIncluded": [
+        "Cover letter (available as add-on quote)"
+      ],
+      "samples": [
+        {
+          "id": "smp-cv-1",
+          "title": "Senior DevOps / SRE ATS Resume Overhaul",
+          "description": "Complete restructure for US/EU tech roles with 98% ATS scan score.",
+          "results": "Client secured 4 remote interviews within 14 days of distribution."
+        }
+      ],
+      "faq": [
+        {
+          "question": "What formats do you deliver?",
+          "answer": "Both an ATS-clean printable vector PDF and an editable Microsoft Word (DOCX) source file."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "web-setup",
+      "serviceId": "S-MRS-07",
+      "slug": "web-setup",
+      "category": "M R S Services",
+      "name": "Web Setup Services",
+      "shortDescription": "Domain registration DNS routing, nameserver mapping, Cloudflare SSL configuration, business email setup, and hosting environment spin-up.",
+      "inclusions": [
+        "DNS records management (A, CNAME, MX, TXT, SPF, DKIM, DMARC)",
+        "Custom domain business email routing (Google Workspace / Zoho)",
+        "Cloudflare CDN, TLS/SSL certificate, and DDoS protection",
+        "Hosting cPanel / VPS / Netlify / Vercel initial provisioning"
+      ],
+      "typicalTurnaround": "12–24 hours",
+      "priceType": "hourly",
+      "rateUSD": "~$18 / hour",
+      "rateBDT": "~1,800 TK / hour",
+      "depositPercent": 50,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Registrar and hosting account credentials",
+        "Domain ownership verification access"
+      ],
+      "notIncluded": [
+        "Domain purchase or hosting subscription costs"
+      ],
+      "faq": [
+        {
+          "question": "How long does DNS propagation take?",
+          "answer": "With Cloudflare DNS, propagation typically completes in 5 to 30 minutes."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "tutoring",
+      "serviceId": "S-MRS-08",
+      "slug": "tutoring",
+      "category": "M R S Services",
+      "name": "Peer & Subject Tutoring",
+      "shortDescription": "Live 1-on-1 coaching in computer science, software engineering fundamentals, web development (React/Node), algorithms, and technical problem-solving.",
+      "inclusions": [
+        "Live interactive video & screen-share lesson",
+        "Hands-on code walkthrough and bug debugging guidance",
+        "Curated exercise problem sets and reference cheat-sheets",
+        "Session recording and notes repository access"
+      ],
+      "typicalTurnaround": "Scheduled by appointment",
+      "priceType": "hourly",
+      "rateUSD": "~$16 / hour",
+      "rateBDT": "~1,600 TK / hour",
+      "depositPercent": 100,
+      "revisionsIncluded": 1,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Syllabus, topics, or code problem statement in advance"
+      ],
+      "notIncluded": [
+        "Completing academic exam submissions on behalf of student"
+      ],
+      "faq": [
+        {
+          "question": "What platforms are used for tutoring?",
+          "answer": "Google Meet, Zoom, or Discord with interactive VS Code Live Share."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "graphics-design",
+      "serviceId": "S-MRS-09",
+      "slug": "graphics-design",
+      "category": "M R S Services",
+      "name": "Graphics Design",
+      "shortDescription": "Vector logos, branding assets, social media banners, marketing collateral, UI icons, and technical system diagrams.",
+      "inclusions": [
+        "Vector master files (SVG, EPS, AI) + Web exports (PNG, WebP)",
+        "Color palette specifications and typography pairings",
+        "Social media dimension presets (LinkedIn, X, YouTube)",
+        "Full commercial usage rights upon final payment"
+      ],
+      "typicalTurnaround": "24–48 hours",
+      "priceType": "hourly",
+      "rateUSD": "~$15 / hour",
+      "rateBDT": "~1,500 TK / hour",
+      "depositPercent": 50,
+      "revisionsIncluded": 3,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Brand guidelines, color preferences, copy text, or visual references"
+      ],
+      "notIncluded": [
+        "Print press production delivery fees"
+      ],
+      "samples": [
+        {
+          "id": "smp-gfx-1",
+          "title": "Minimalist Vector Wordmark & Brand Kit",
+          "description": "Complete brand identity kit with dark-mode optimized vector typography.",
+          "results": "High-res scalable vectors delivered across all web formats."
+        }
+      ],
+      "faq": [
+        {
+          "question": "Do I get the source files?",
+          "answer": "Yes, full vector source files (SVG/AI) are released upon verified payment."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "virtual-assistance",
+      "serviceId": "S-MRS-10",
+      "slug": "virtual-assistance",
+      "category": "M R S Services",
+      "name": "Virtual Assistance & Admin Support",
+      "shortDescription": "Executive administrative operations, email inbox management, calendar booking coordination, document formatting, and spreadsheet automation.",
+      "inclusions": [
+        "Inbox triage, spam filtering, and structured drafting",
+        "Calendar management and appointment scheduling",
+        "Customer correspondence and support ticket routing",
+        "Daily/weekly task completion summary logs"
+      ],
+      "typicalTurnaround": "Daily ongoing blocks",
+      "priceType": "quote",
+      "rateUSD": "$15 – $25 / hour",
+      "rateBDT": "1,500 – 2,500 TK / hour",
+      "depositPercent": 100,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Workflow SOPs, delegate email/tool permissions"
+      ],
+      "notIncluded": [
+        "Legal or financial fiduciary execution"
+      ],
+      "faq": [
+        {
+          "question": "How do we track hours?",
+          "answer": "We maintain a timestamped digital timesheet available live during delivery."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "data-entry",
+      "serviceId": "S-MRS-11",
+      "slug": "data-entry",
+      "category": "M R S Services",
+      "name": "Data Entry",
+      "shortDescription": "High-accuracy data transcription, deduplication, schema normalization, CSV/JSON spreadsheet cleanup, and database population.",
+      "inclusions": [
+        "Manual and script-assisted data normalization",
+        "Strict error checking, duplicate removal, and validation rules",
+        "Standardized CSV, Excel (.xlsx), or JSON export formatting",
+        "Confidentiality assurance with immediate post-delivery data wipe"
+      ],
+      "typicalTurnaround": "24–48 hours",
+      "priceType": "hourly",
+      "rateUSD": "~$10 / hour",
+      "rateBDT": "~1,000 TK / hour",
+      "depositPercent": 100,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Source spreadsheets, PDFs, or database format specs"
+      ],
+      "notIncluded": [
+        "Live external account scraping requiring login bypass"
+      ],
+      "faq": [
+        {
+          "question": "What is your error rate guarantee?",
+          "answer": "We ensure a 99.8%+ accuracy benchmark with programmatic schema validation."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "online-learning-resources",
+      "serviceId": "S-MRS-12",
+      "slug": "online-learning-resources",
+      "category": "M R S Services",
+      "name": "Online Learning Resources",
+      "shortDescription": "Custom curriculum design, interactive study blueprints, technical quiz authoring, and structured digital training materials.",
+      "inclusions": [
+        "Modular lesson syllabus and learning objective mapping",
+        "Code challenge problem sets with solution keys and rubrics",
+        "Cheat-sheet quick references and summary slide decks",
+        "LMS-compatible SCORM / Markdown export packages"
+      ],
+      "typicalTurnaround": "3–5 business days",
+      "priceType": "quote",
+      "rateUSD": "$20 – $40 / hour",
+      "rateBDT": "2,000 – 4,000 TK / hour",
+      "depositPercent": 50,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Target course topic, learner level, and module outline"
+      ],
+      "notIncluded": [
+        "Video hosting or third-party LMS licensing fees"
+      ],
+      "faq": [
+        {
+          "question": "Can these materials be used for commercial courses?",
+          "answer": "Yes, full commercial ownership rights transfer upon verified payment."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "identity-consultation",
+      "serviceId": "S-GRV-01",
+      "slug": "identity-consultation",
+      "category": "Identity & Profile",
+      "name": "Professional Identity Consultation",
+      "shortDescription": "Comprehensive global digital identity audit, cryptographic email avatar hash linkage, and cross-platform profile optimization.",
+      "inclusions": [
+        "Primary & secondary email hash mapping analysis",
+        "Cross-platform verification links (GitHub, LinkedIn, WordPress)",
+        "Cryptographic PGP / public key linkage guidance",
+        "Strategic identity report with verified bio recommendations"
+      ],
+      "typicalTurnaround": "24 hours",
+      "priceType": "fixed",
+      "rateUSD": "$25 USD",
+      "rateBDT": "2,500 TK",
+      "depositPercent": 100,
+      "revisionsIncluded": 1,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Target emails, professional links, and desired avatar portrait"
+      ],
+      "notIncluded": [
+        "Managing client private passwords"
+      ],
+      "samples": [
+        {
+          "id": "smp-grv-1",
+          "title": "Executive Founder Global Identity Audit",
+          "description": "Linked 6 company domains with verified SHA-256 avatar hashes.",
+          "results": "Instant verified presence across GitHub, Stack Overflow, and WordPress portals."
+        }
+      ],
+      "faq": [
+        {
+          "question": "Why does global identity linking matter?",
+          "answer": "Unified hash-based identity powers consistent developer avatars and verified ownership across WordPress, GitHub, and enterprise tools."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "profile-personalization",
+      "serviceId": "S-GRV-02",
+      "slug": "profile-personalization",
+      "category": "Identity & Profile",
+      "name": "Profile Personalization",
+      "shortDescription": "Custom executive bio crafting, branding color palette harmonization, contact card optimization, and social links architecture.",
+      "inclusions": [
+        "Search-optimized 160-character executive biography",
+        "Visual avatar color-toning and high-res asset formatting",
+        "Structured contact link hierarchy and verified accounts",
+        "Custom vanity URL slug verification"
+      ],
+      "typicalTurnaround": "24 hours",
+      "priceType": "quote",
+      "rateUSD": "$10 – $20 USD",
+      "rateBDT": "1,000 – 2,000 TK",
+      "depositPercent": 100,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Existing identity profile details or delegated invite"
+      ],
+      "notIncluded": [
+        "Third-party account verification disputes"
+      ],
+      "faq": [
+        {
+          "question": "Will my profile changes propagate quickly?",
+          "answer": "Connected profile updates reflect across synchronized platforms automatically within minutes."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "custom-domain-mapping",
+      "serviceId": "S-GRV-03",
+      "slug": "custom-domain-mapping",
+      "category": "Identity & Profile",
+      "name": "Custom Domain Mapping",
+      "shortDescription": "Technical DNS CNAME mapping and TLS/SSL verification to route your personal domain or subdomain directly to your unified web profile.",
+      "inclusions": [
+        "CNAME DNS record configuration and propagation verification",
+        "Automatic SSL/TLS certificate binding",
+        "Root domain redirection / subdomain routing (e.g. me.yourdomain.com)",
+        "Testing across global DNS resolvers"
+      ],
+      "typicalTurnaround": "12–24 hours",
+      "priceType": "quote",
+      "rateUSD": "$15 – $30 USD",
+      "rateBDT": "1,500 – 3,000 TK",
+      "depositPercent": 100,
+      "revisionsIncluded": 2,
+      "guarantee": "Work matches the agreed scope or we fix it free.",
+      "clientMustProvide": [
+        "Domain registrar DNS management access"
+      ],
+      "notIncluded": [
+        "Domain purchase fees"
+      ],
+      "faq": [
+        {
+          "question": "Can I use a subdomain like identity.myname.com?",
+          "answer": "Yes, both root domains and subdomains are fully supported."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    },
+    {
+      "id": "iptv-vip-pass",
+      "serviceId": "S-IPTV-01",
+      "slug": "iptv-vip-pass",
+      "category": "M R S IPTV",
+      "name": "M R S IPTV VIP Pass",
+      "shortDescription": "High-definition live channels, sports, news, and global entertainment with 99.9% uptime. Available in 1, 2, 6, or 12-month plans.",
+      "inclusions": [
+        "15,000+ HD/4K global channels (Live Sports, Cinema, News, Documentaries)",
+        "Fast anti-freeze server infrastructure with 99.9% uptime guarantee",
+        "Compatible with Smart TV, Firestick, Android, iOS, Windows, and MAG boxes",
+        "Instant private M3U playlist & Xtream Codes credentials delivery upon verification"
+      ],
+      "typicalTurnaround": "Verified in 15–30 minutes",
+      "priceType": "plan",
+      "rateUSD": "1, 2, 6, 12 Month Plans",
+      "rateBDT": "1, 2, 6, 12 Month Plans",
+      "depositPercent": 100,
+      "revisionsIncluded": 0,
+      "guarantee": "Service functions reliably or we troubleshoot and refund per policy.",
+      "clientMustProvide": [
+        "Target device type (Smart TV / Firestick / Phone) and preferred player app"
+      ],
+      "notIncluded": [
+        "Physical media streaming hardware"
+      ],
+      "faq": [
+        {
+          "question": "What devices are supported?",
+          "answer": "TiviMate, IPTV Smarters, VLC, Apple TV, Fire TV, Samsung/LG Smart TVs, and Android mobile."
+        },
+        {
+          "question": "How are credentials delivered?",
+          "answer": "Private M3U playlist and Xtream Codes credentials are delivered securely upon order verification."
+        }
+      ],
+      "portalUrl": "https://mrs-services.ai.studio/"
+    }
+  ],
+  "servicesPortalStatus": {
+    "url": "https://mrs-services.ai.studio/",
+    "status": "online",
+    "httpCode": 200,
+    "latencyMs": 209,
+    "lastChecked": "2026-11-14T09:16:13.879Z"
+  },
+  "lastUpdated": "2026-11-14T09:16:14.402Z",
+  "syncCycle": 2,
+  "yearlySystem": {
+    "currentYear": 2026,
+    "establishedYear": 2018,
+    "copyrightNotice": "© 2026 M R S. All rights reserved.",
+    "nextRolloverDate": "2027-01-01T00:00:00.000Z"
+  }
+}

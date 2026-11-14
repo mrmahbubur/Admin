@@ -1,10 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ADMIN_SITE_CONFIG, ESTABLISHED_YEAR, getCurrentYear, getCopyrightNotice } from '../data/contentData';
+import { MRS_SERVICES_CATALOG, SERVICES_PORTAL_URL } from '../data/servicesCatalog';
 import type {
   AdminProfileData,
+  CatalogServiceItem,
   EcosystemWebsite,
   LiveServiceCategory,
   RssFeedItem,
+  ServicesPortalStatus,
   UpstreamConnectionStatus,
   WebsitePostPreview,
   WebsitesHubState,
@@ -13,9 +16,11 @@ import type {
 
 export type {
   AdminProfileData,
+  CatalogServiceItem,
   EcosystemWebsite,
   LiveServiceCategory,
   RssFeedItem,
+  ServicesPortalStatus,
   UpstreamConnectionStatus,
   WebsitePostPreview,
   WebsitesHubState,
@@ -27,6 +32,8 @@ interface StudioContextType {
   upstreamStatus: UpstreamConnectionStatus;
   adminProfile: AdminProfileData;
   websites: EcosystemWebsite[];
+  servicesCatalog: CatalogServiceItem[];
+  servicesPortalStatus: ServicesPortalStatus;
   yearly: YearlySystemData;
   isSyncing: boolean;
   sseConnected: boolean;
@@ -318,6 +325,12 @@ const fallbackUpstreamStatus: UpstreamConnectionStatus = {
   rssItems: [],
 };
 
+const fallbackServicesPortalStatus: ServicesPortalStatus = {
+  url: SERVICES_PORTAL_URL,
+  status: 'online',
+  lastChecked: new Date().toISOString(),
+};
+
 const fallbackHubState: WebsitesHubState = {
   siteName: 'M R S',
   sourceUrl: '',
@@ -327,6 +340,8 @@ const fallbackHubState: WebsitesHubState = {
   syncCycle: 0,
   yearlySystem: initialYearly,
   websites: fallbackWebsites,
+  servicesCatalog: MRS_SERVICES_CATALOG,
+  servicesPortalStatus: fallbackServicesPortalStatus,
 };
 
 async function parseJsonIfAvailable(res: Response): Promise<any | null> {
@@ -346,6 +361,8 @@ const StudioContext = createContext<StudioContextType>({
   upstreamStatus: fallbackUpstreamStatus,
   adminProfile: defaultAdminProfile,
   websites: fallbackHubState.websites,
+  servicesCatalog: MRS_SERVICES_CATALOG,
+  servicesPortalStatus: fallbackServicesPortalStatus,
   yearly: initialYearly,
   isSyncing: false,
   sseConnected: false,
@@ -522,6 +539,8 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         upstreamStatus: hubState.upstreamStatus || fallbackUpstreamStatus,
         adminProfile: hubState.adminProfile || defaultAdminProfile,
         websites: hubState.websites,
+        servicesCatalog: hubState.servicesCatalog || MRS_SERVICES_CATALOG,
+        servicesPortalStatus: hubState.servicesPortalStatus || fallbackServicesPortalStatus,
         yearly: hubState.yearlySystem || initialYearly,
         isSyncing,
         sseConnected,

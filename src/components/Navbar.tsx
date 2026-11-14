@@ -4,6 +4,7 @@ import { useStudio } from '../context/StudioContext';
 
 const NAV_LINKS = [
   { id: 'websites-section', label: 'Websites' },
+  { id: 'services-section', label: 'Services' },
   { id: 'about-section', label: 'Credentials' },
   { id: 'skills-section', label: 'Skills' },
   { id: 'contact-section', label: 'Contact' },

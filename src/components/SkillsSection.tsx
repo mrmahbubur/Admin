@@ -18,7 +18,7 @@ export const SkillsSection: React.FC = () => {
   return (
     <section
       id="skills-section"
-      className="py-16 sm:py-20 border-b border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0a101b] transition-colors duration-200"
+      className="py-16 sm:py-20 border-b border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] transition-colors duration-200"
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 space-y-14">
         {/* Verified Competencies Matrix */}
@@ -39,7 +39,7 @@ export const SkillsSection: React.FC = () => {
             {adminProfile.skillsList.map((group, idx) => (
               <div
                 key={group.category}
-                className="p-6 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface flex flex-col justify-between gap-4"
+                className="p-6 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface flex flex-col justify-between gap-4"
               >
                 <div className="space-y-3">
                   <div className="text-[12px] font-mono tabular-nums text-[#2563eb] dark:text-[#38bdf8] font-semibold">
@@ -83,7 +83,7 @@ export const SkillsSection: React.FC = () => {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group p-5 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors flex flex-col justify-between gap-3"
+                  className="group p-5 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors flex flex-col justify-between gap-3"
                 >
                   <div className="space-y-1.5">
                     <div className="text-[12px] font-mono font-medium text-[#2563eb] dark:text-[#38bdf8] truncate">
@@ -126,7 +126,7 @@ export const SkillsSection: React.FC = () => {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group p-5 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors flex flex-col justify-between gap-3"
+                  className="group p-5 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors flex flex-col justify-between gap-3"
                 >
                   <div className="space-y-1.5">
                     <div className="text-[12px] font-mono text-[#2563eb] dark:text-[#38bdf8] truncate">

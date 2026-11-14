@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "inq-mwg6xcvl",
+    "name": "Verification Test",
+    "email": "verify@example.com",
+    "topic": "S-MRS-01: Technical Diagnostics & Troubleshooting",
+    "message": "Live smoke test verifying catalog inquiry submission.",
+    "receivedAt": "2026-11-14T09:15:37.713Z"
+  }
+]

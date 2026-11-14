@@ -3,9 +3,10 @@ import { Calendar, CheckCircle2, ExternalLink, Globe, Mail, Phone, Send } from '
 import { useStudio } from '../context/StudioContext';
 
 export const ContactSection: React.FC = () => {
-  const { adminProfile, selectedInquiryTopic, setSelectedInquiryTopic } = useStudio();
+  const { adminProfile, servicesCatalog, selectedInquiryTopic, setSelectedInquiryTopic } = useStudio();
   const topicOptions = Array.from(
     new Set([
+      ...(servicesCatalog || []).map((svc) => `${svc.serviceId}: ${svc.name}`),
       ...(adminProfile.liveServices || []).map((svc) => svc.title),
       ...adminProfile.whatICanHelpWith,
       'General Inquiry',
@@ -85,7 +86,7 @@ export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact-section"
-      className="py-16 sm:py-20 bg-[#f4f7fb] dark:bg-[#070b14] border-b border-[#dbe3ee] dark:border-[#1c273b] transition-colors duration-200"
+      className="py-16 sm:py-20 bg-white dark:bg-[#0a101b] border-b border-[#dbe3ee] dark:border-[#1c273b] transition-colors duration-200"
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="mb-10 space-y-2">
@@ -106,7 +107,7 @@ export const ContactSection: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <a
                 href={`mailto:${adminProfile.socials.email}`}
-                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
+                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
                 <Mail className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
                 <div className="min-w-0">
@@ -119,7 +120,7 @@ export const ContactSection: React.FC = () => {
 
               <a
                 href={`tel:${adminProfile.socials.phone}`}
-                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
+                className="flex items-center gap-3.5 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
                 <Phone className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
                 <div className="min-w-0">
@@ -134,7 +135,7 @@ export const ContactSection: React.FC = () => {
                 href={adminProfile.socials.calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
+                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
                 <div className="flex items-center gap-3.5 min-w-0">
                   <Calendar className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
@@ -152,7 +153,7 @@ export const ContactSection: React.FC = () => {
                 href={adminProfile.socials.wordpressUrl || 'https://mrxshahin.wordpress.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
+                className="flex items-center justify-between gap-3 p-4 rounded-xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors"
               >
                 <div className="flex items-center gap-3.5 min-w-0">
                   <Globe className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0" />
@@ -196,7 +197,7 @@ export const ContactSection: React.FC = () => {
           </div>
 
           {/* Right Column: Accessible Inquiry Form */}
-          <div className="lg:col-span-6 p-6 sm:p-8 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface">
+          <div className="lg:col-span-6 p-6 sm:p-8 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] tech-surface">
             <h3 className="font-display text-xl sm:text-2xl font-bold text-[#0f172a] dark:text-white mb-1">
               Send an Inquiry to {adminProfile.siteName}
             </h3>
@@ -241,7 +242,7 @@ export const ContactSection: React.FC = () => {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
+                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
                     />
                   </div>
 
@@ -259,7 +260,7 @@ export const ContactSection: React.FC = () => {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
+                      className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
                     />
                   </div>
                 </div>
@@ -278,7 +279,7 @@ export const ContactSection: React.FC = () => {
                       setTopic(e.target.value);
                       setSelectedInquiryTopic(e.target.value);
                     }}
-                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
+                    className="w-full px-3.5 py-2.5 min-h-[44px] rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8]"
                   >
                     {topicOptions.map((option) => (
                       <option key={option} value={option}>
@@ -302,7 +303,7 @@ export const ContactSection: React.FC = () => {
                     required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8] resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-lg border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#070b14] text-[#0f172a] dark:text-[#f1f5f9] text-[16px] sm:text-[13.5px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] dark:focus:ring-[#38bdf8] resize-none"
                   />
                 </div>
 

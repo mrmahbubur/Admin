@@ -109,12 +109,56 @@ export interface YearlySystemData {
   nextRolloverDate?: string;
 }
 
+export interface ServiceCatalogSample {
+  id: string;
+  title: string;
+  description: string;
+  results: string;
+}
+
+export interface ServiceCatalogFaq {
+  question: string;
+  answer: string;
+}
+
+export interface CatalogServiceItem {
+  id: string;
+  serviceId: string;
+  slug: string;
+  category: 'M R S Services' | 'Identity & Profile' | 'M R S IPTV';
+  name: string;
+  shortDescription: string;
+  inclusions: string[];
+  typicalTurnaround: string;
+  priceType: 'quote' | 'fixed' | 'hourly' | 'plan';
+  rateUSD: string;
+  rateBDT: string;
+  depositPercent: number;
+  revisionsIncluded: number;
+  guarantee: string;
+  clientMustProvide: string[];
+  notIncluded: string[];
+  samples?: ServiceCatalogSample[];
+  faq?: ServiceCatalogFaq[];
+  portalUrl: string;
+}
+
+export interface ServicesPortalStatus {
+  url: string;
+  status: 'online' | 'standby';
+  httpCode?: number;
+  latencyMs?: number;
+  lastChecked: string;
+}
+
 export interface WebsitesHubState {
   siteName: string;
   sourceUrl: string;
   upstreamStatus: UpstreamConnectionStatus;
   adminProfile: AdminProfileData;
   websites: EcosystemWebsite[];
+  servicesCatalog?: CatalogServiceItem[];
+  servicesPortalStatus?: ServicesPortalStatus;
   lastUpdated: string;
   syncCycle: number;
   yearlySystem: YearlySystemData;

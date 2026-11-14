@@ -55,6 +55,11 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, onToggleDarkMode }) =>
                 </a>
               </li>
               <li>
+                <a href="#services-section" className="hover:text-white transition-colors">
+                  Services Catalog
+                </a>
+              </li>
+              <li>
                 <a href="#about-section" className="hover:text-white transition-colors">
                   About &amp; Credentials
                 </a>
