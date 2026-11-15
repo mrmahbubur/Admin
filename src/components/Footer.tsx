@@ -70,6 +70,11 @@ export const Footer: React.FC<FooterProps> = ({ darkMode, onToggleDarkMode }) =>
                 </a>
               </li>
               <li>
+                <a href="#sponsors-section" className="hover:text-white transition-colors">
+                  Sponsored Partners
+                </a>
+              </li>
+              <li>
                 <a href="#contact-section" className="hover:text-white transition-colors">
                   Contact {adminProfile.siteName}
                 </a>

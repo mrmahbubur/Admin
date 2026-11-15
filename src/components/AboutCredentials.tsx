@@ -2,16 +2,34 @@ import React from 'react';
 import { ArrowRight, Award, Briefcase, Check, GraduationCap, Languages } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
 
-export const AboutCredentials: React.FC = () => {
-  const { adminProfile, setSelectedInquiryTopic } = useStudio();
+function resolveExactServiceRequestUrl(topicTitle: string): string {
+  const t = topicTitle.toLowerCase();
+  if (t.includes('it support') || t.includes('troubleshooting')) {
+    return 'https://mrs-services.ai.studio/request/it-support-troubleshooting';
+  }
+  if (t.includes('virtual assistance') || t.includes('administrative')) {
+    return 'https://mrs-services.ai.studio/request/virtual-assistance';
+  }
+  if (t.includes('website management') || t.includes('cms') || t.includes('digital content')) {
+    return 'https://mrs-services.ai.studio/request/website-management';
+  }
+  if (t.includes('technical writing') || t.includes('documentation')) {
+    return 'https://mrs-services.ai.studio/request/technical-writing-proofreading';
+  }
+  if (t.includes('ai tools') || t.includes('productivity')) {
+    return 'https://mrs-services.ai.studio/request/ai-digital-productivity';
+  }
+  if (t.includes('online research') || t.includes('problem-solving')) {
+    return 'https://mrs-services.ai.studio/request/online-learning-resources';
+  }
+  if (t.includes('social media') || t.includes('online business')) {
+    return 'https://mrs-services.ai.studio/request/graphics-design';
+  }
+  return 'https://mrs-services.ai.studio/request';
+}
 
-  const handleSelectServiceTopic = (topicTitle: string) => {
-    setSelectedInquiryTopic(topicTitle);
-    const contactEl = document.getElementById('contact-section');
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+export const AboutCredentials: React.FC = () => {
+  const { adminProfile } = useStudio();
 
   return (
     <section
@@ -101,14 +119,15 @@ export const AboutCredentials: React.FC = () => {
                           ))}
                         </ul>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => handleSelectServiceTopic(cat.title)}
-                        className="self-start inline-flex items-center gap-1.5 min-h-[36px] text-[12.5px] font-semibold text-[#2563eb] dark:text-[#38bdf8] hover:underline underline-offset-4 cursor-pointer"
+                      <a
+                        href={resolveExactServiceRequestUrl(cat.title)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="self-start inline-flex items-center gap-1.5 min-h-[36px] text-[12.5px] font-semibold text-[#2563eb] dark:text-[#38bdf8] hover:underline underline-offset-4"
                       >
                         <span>Request this service</span>
                         <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
+                      </a>
                     </div>
                   ))}
                 </div>
@@ -123,14 +142,15 @@ export const AboutCredentials: React.FC = () => {
                         <Check className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0 mt-1" />
                         <span>{item}</span>
                       </span>
-                      <button
-                        type="button"
-                        onClick={() => handleSelectServiceTopic(item)}
-                        className="shrink-0 inline-flex items-center gap-1 text-[12px] font-semibold text-[#2563eb] dark:text-[#38bdf8] hover:underline underline-offset-4 cursor-pointer"
+                      <a
+                        href={resolveExactServiceRequestUrl(item)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 inline-flex items-center gap-1 text-[12px] font-semibold text-[#2563eb] dark:text-[#38bdf8] hover:underline underline-offset-4"
                       >
-                        <span>Inquire</span>
+                        <span>Request</span>
                         <ArrowRight className="w-3 h-3" />
-                      </button>
+                      </a>
                     </li>
                   ))}
                 </ul>

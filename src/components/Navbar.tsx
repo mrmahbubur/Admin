@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { id: 'services-section', label: 'Services' },
   { id: 'about-section', label: 'Credentials' },
   { id: 'skills-section', label: 'Skills' },
+  { id: 'sponsors-section', label: 'Sponsors' },
   { id: 'contact-section', label: 'Contact' },
 ] as const;
 

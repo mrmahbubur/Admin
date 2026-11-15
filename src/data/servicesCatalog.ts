@@ -2,6 +2,9 @@ import type { CatalogServiceItem } from '../types';
 
 export const SERVICES_PORTAL_URL = 'https://mrs-services.ai.studio/';
 
+const buildServicePortalUrl = (slug: string) => `https://mrs-services.ai.studio/services/${slug}`;
+const buildServiceRequestUrl = (slug: string) => `https://mrs-services.ai.studio/request/${slug}`;
+
 export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
   {
     id: 'ai-digital-productivity',
@@ -40,7 +43,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'Quotes are based on workflow complexity and API integration scope.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('ai-digital-productivity'),
+    requestUrl: buildServiceRequestUrl('ai-digital-productivity'),
   },
   {
     id: 'technical-writing-proofreading',
@@ -83,7 +87,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'Yes, with signed mutual non-disclosure and strict source code confidentiality.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('technical-writing-proofreading'),
+    requestUrl: buildServiceRequestUrl('technical-writing-proofreading'),
   },
   {
     id: 'website-management',
@@ -126,7 +131,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'We manage modern CMS platforms, headless CMS deployments, and custom static or full-stack web portals.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('website-management'),
+    requestUrl: buildServiceRequestUrl('website-management'),
   },
   {
     id: 'it-support-troubleshooting',
@@ -160,7 +166,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'You supervise the entire screen session live and can terminate the connection at any instant.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('it-support-troubleshooting'),
+    requestUrl: buildServiceRequestUrl('it-support-troubleshooting'),
   },
   {
     id: 'app-store-publishing',
@@ -195,7 +202,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'We ensure technical and policy compliance; ultimate approval authority resides with Google and Apple review boards.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('app-store-publishing'),
+    requestUrl: buildServiceRequestUrl('app-store-publishing'),
   },
   {
     id: 'ats-cv-resume',
@@ -237,7 +245,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'Both an ATS-clean printable vector PDF and an editable Microsoft Word (DOCX) source file.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('ats-cv-resume'),
+    requestUrl: buildServiceRequestUrl('ats-cv-resume'),
   },
   {
     id: 'web-setup',
@@ -271,7 +280,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'With Cloudflare DNS, propagation typically completes in 5 to 30 minutes.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('web-setup'),
+    requestUrl: buildServiceRequestUrl('web-setup'),
   },
   {
     id: 'tutoring',
@@ -302,7 +312,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'Google Meet, Zoom, or Discord with interactive VS Code Live Share.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('tutoring'),
+    requestUrl: buildServiceRequestUrl('tutoring'),
   },
   {
     id: 'graphics-design',
@@ -316,7 +327,7 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
       'Vector master files (SVG, EPS, AI) + Web exports (PNG, WebP)',
       'Color palette specifications and typography pairings',
       'Social media dimension presets (LinkedIn, X, YouTube)',
-      'Full commercial usage rights upon final payment',
+      'Full commercial usage rights upon completion',
     ],
     typicalTurnaround: '24–48 hours',
     priceType: 'hourly',
@@ -338,10 +349,11 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
     faq: [
       {
         question: 'Do I get the source files?',
-        answer: 'Yes, full vector source files (SVG/AI) are released upon verified payment.',
+        answer: 'Yes, full vector source files (SVG/AI) are released upon project completion.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('graphics-design'),
+    requestUrl: buildServiceRequestUrl('graphics-design'),
   },
   {
     id: 'virtual-assistance',
@@ -372,7 +384,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'We maintain a timestamped digital timesheet available live during delivery.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('virtual-assistance'),
+    requestUrl: buildServiceRequestUrl('virtual-assistance'),
   },
   {
     id: 'data-entry',
@@ -403,7 +416,8 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
         answer: 'We ensure a 99.8%+ accuracy benchmark with programmatic schema validation.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('data-entry'),
+    requestUrl: buildServiceRequestUrl('data-entry'),
   },
   {
     id: 'online-learning-resources',
@@ -431,10 +445,11 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
     faq: [
       {
         question: 'Can these materials be used for commercial courses?',
-        answer: 'Yes, full commercial ownership rights transfer upon verified payment.',
+        answer: 'Yes, full commercial ownership rights transfer upon completion.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('online-learning-resources'),
+    requestUrl: buildServiceRequestUrl('online-learning-resources'),
   },
   {
     id: 'iptv-vip-pass',
@@ -448,7 +463,7 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
       '15,000+ HD/4K global channels (Live Sports, Cinema, News, Documentaries)',
       'Fast anti-freeze server infrastructure with 99.9% uptime guarantee',
       'Compatible with Smart TV, Firestick, Android, iOS, Windows, and MAG boxes',
-      'Instant private M3U playlist & Xtream Codes credentials delivery upon verification',
+      'Private M3U playlist & Xtream Codes credentials delivery upon verification',
     ],
     typicalTurnaround: 'Verified in 15–30 minutes',
     priceType: 'plan',
@@ -456,7 +471,7 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
     rateBDT: '1, 2, 6, 12 Month Plans',
     depositPercent: 100,
     revisionsIncluded: 0,
-    guarantee: 'Service functions reliably or we troubleshoot and refund per policy.',
+    guarantee: 'Service functions reliably with guided setup support.',
     clientMustProvide: ['Target device type (Smart TV / Firestick / Phone) and preferred player app'],
     notIncluded: ['Physical media streaming hardware'],
     faq: [
@@ -466,27 +481,10 @@ export const MRS_SERVICES_CATALOG: CatalogServiceItem[] = [
       },
       {
         question: 'How are credentials delivered?',
-        answer: 'Private M3U playlist and Xtream Codes credentials are delivered securely upon order verification.',
+        answer: 'Private M3U playlist and Xtream Codes credentials are delivered securely after request verification.',
       },
     ],
-    portalUrl: SERVICES_PORTAL_URL,
+    portalUrl: buildServicePortalUrl('iptv-vip-pass'),
+    requestUrl: buildServiceRequestUrl('iptv-vip-pass'),
   },
 ];
-
-export const SERVICE_PAYMENT_CHANNELS = [
-  {
-    label: 'Binance Pay (USD / USDT)',
-    detail: 'Internal Transfer · Zero network fees',
-    region: 'International',
-  },
-  {
-    label: 'Payoneer (USD)',
-    detail: 'Direct recipient payment',
-    region: 'International',
-  },
-  {
-    label: 'bKash & Nagad (BDT)',
-    detail: 'Direct Send Money · Instant local verification',
-    region: 'Local (BDT)',
-  },
-] as const;

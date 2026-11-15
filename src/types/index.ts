@@ -12,6 +12,10 @@ export interface EcosystemWebsite {
   category: string;
   badge?: string;
   description: string;
+  overview?: string;
+  features?: string[];
+  techHighlights?: string[];
+  audience?: string;
   liveTitle?: string;
   imageKey: 'flagship' | 'admin' | 'tech' | 'charity';
   status: 'online' | 'standby' | 'probing';
@@ -148,6 +152,17 @@ export interface CatalogServiceItem {
   samples?: ServiceCatalogSample[];
   faq?: ServiceCatalogFaq[];
   portalUrl: string;
+  requestUrl: string;
+}
+
+export interface SponsorAdLink {
+  id: string;
+  zoneId: string;
+  url: string;
+  category: 'Cloud & Streaming' | 'Media & Apps' | 'Privacy & Tech' | 'Productivity & Gear' | 'Community';
+  title: string;
+  description: string;
+  ctaLabel: string;
 }
 
 export interface ServicesPortalStatus {

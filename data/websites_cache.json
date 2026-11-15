@@ -6,10 +6,10 @@
     "connected": true,
     "sseActive": true,
     "healthStatus": "ok",
-    "lastSyncedAt": "2026-11-14T14:43:26.413Z",
+    "lastSyncedAt": "2026-11-15T08:33:04.261Z",
     "rssItems": [],
     "authenticated": true,
-    "rateLimitRemaining": 839
+    "rateLimitRemaining": 952
   },
   "adminProfile": {
     "siteName": "M R S",
@@ -22,7 +22,7 @@
     "avatarAltText": "M R S official profile portrait",
     "pronouns": "",
     "pronunciation": "",
-    "lastProfileEdit": "2026-11-13T18:37:10Z",
+    "lastProfileEdit": "2026-11-14T15:14:04Z",
     "certification": "360-hour computer systems course",
     "availabilityNote": "Whether you need a remote IT support assistant, virtual assistant, website content manager, technical writer, online researcher, or general digital operations support, I am open to discussing how I can help. I am happy to consider both ongoing support arrangements and clearly defined, project-based tasks that match my skills.",
     "bioParagraphs": [
@@ -295,13 +295,27 @@
       "category": "Automation & Digital Services Portal",
       "badge": "SERVICES",
       "description": "Automate. Deliver. Grow. Browse professional technical and digital solutions, request quotes, Client ID & PIN portal access, and verified payment processing.",
+      "overview": "Dedicated digital services storefront and client operations portal of M R S. Features 12 specialized technical, web management, writing, design, and administrative services (S-MRS-01 to S-MRS-12) plus IPTV VIP Pass subscriptions (S-IPTV-01), with dedicated direct request endpoints (/request/:id), structured scope definitions, and transparent USD and BDT rates.",
+      "features": [
+        "Direct per-service request intake pages (/request/:id) and catalog browsing",
+        "12 technical, CMS, AI, and admin services plus M R S IPTV VIP Pass plans",
+        "Client ID & PIN workspace portal with QA checklists and turnaround tracking",
+        "Transparent USD and BDT pricing with clear scope inclusions and revision terms"
+      ],
+      "techHighlights": [
+        "React + Router",
+        "Direct Request URLs",
+        "Client Workspace Portal",
+        "USD & BDT Catalog"
+      ],
+      "audience": "Businesses, founders, and individuals commissioning remote IT, web, AI, or administrative solutions.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.593Z",
+      "lastChecked": "2026-11-15T08:33:04.462Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 180,
+      "latencyMs": 200,
       "liveTitle": "M R S — Professional Automation & Digital Services"
     },
     {
@@ -312,13 +326,27 @@
       "category": "Live Streaming & Media Platform",
       "badge": "LIVE WEB APP",
       "description": "A premium Android-style live sports streaming application featuring Camellia Stream Doctor, real-time M3U playlist processing, direct m3u8 playback, and TV mode navigation.",
+      "overview": "Browser-based live TV and sports streaming platform engineered with an Android-style fullscreen interface. Processes live M3U playlists and direct HTTP Live Streaming (.m3u8) feeds on the fly, includes Camellia Stream Doctor automated diagnostics for broken stream recovery, supports Chromecast casting, and offers ad-supported 1-hour VIP viewing passes.",
+      "features": [
+        "Direct m3u8 adaptive HLS video playback and real-time M3U playlist parsing",
+        "Camellia Stream Doctor health checks and fallback stream recovery",
+        "Keyboard-friendly Smart TV mode navigation and Google Cast sender support",
+        "Personal favorites library and live sports, cinema, and global news categories"
+      ],
+      "techHighlights": [
+        "HLS / m3u8 Engine",
+        "Chromecast SDK",
+        "TV Mode Navigation",
+        "Camellia Stream Doctor"
+      ],
+      "audience": "Viewers streaming live sports, cinema, and international TV feeds directly from desktop, mobile, or Smart TV.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.594Z",
+      "lastChecked": "2026-11-15T08:33:04.470Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 178,
+      "latencyMs": 205,
       "liveTitle": "M R S IPTV"
     },
     {
@@ -326,18 +354,31 @@
       "name": "Apps Store",
       "url": "https://mrmahbubur.github.io/APPS-STORE/",
       "domain": "mrmahbubur.github.io",
-      "category": "Official IPTV & APK Store",
+      "category": "Official IPTV & Software Store",
       "badge": "APPS STORE",
-      "description": "Download verified M R S IPTV Android and M R S IPTV TV APKs directly with SHA-256 verification, real user reviews, and inbuilt developer app publishing.",
-      "hasProfileDescription": false,
+      "description": "Official MRS App Store owned by M R S — direct Android APK, Smart TV, and Windows (.exe, .msi, .msix, .zip) downloads with SHA-256 verification and real user reviews.",
+      "overview": "Official direct-download application distribution portal curated by M R S. Publishes signed M R S IPTV Android APKs, Android Smart TV builds, and Windows 10/11 desktop installers (.exe, .msi, .msix, .zip) without third-party store middlemen, backing every release with SHA-256 integrity hashes, QR code transfer links, and verified user reviews.",
+      "features": [
+        "Direct hosting for M R S IPTV Android (API 26+) and Smart TV APK packages",
+        "Verified Windows 10/11 desktop installer packages (.exe, .msi, .msix, .zip)",
+        "Cryptographic SHA-256 checksum validation on every distributed release",
+        "QR code scan-to-device download transfer and authentic user review logs"
+      ],
+      "techHighlights": [
+        "SHA-256 Checksums",
+        "Android & TV APKs",
+        "Windows Installers",
+        "QR Link Transfer"
+      ],
+      "audience": "Android phone, Smart TV, Firestick, and Windows desktop users downloading verified official software builds.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.457Z",
+      "lastChecked": "2026-11-15T08:33:04.385Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 39,
-      "liveTitle": "MRS App Store - Official IPTV Network"
+      "latencyMs": 120,
+      "liveTitle": "MRS App Store"
     },
     {
       "id": "site-profile-3bb884d2",
@@ -347,14 +388,28 @@
       "category": "Private Communication Network",
       "badge": "PRIVATE APP",
       "description": "Everything is Private And Safe",
-      "hasProfileDescription": true,
+      "overview": "Production-grade private communication network designed around client-side zero-exposure cryptography. Generates and stores ECDH P-256 keypairs and AES-256-GCM encryption keys strictly on the user’s device, supporting end-to-end encrypted text messaging, authenticated private file sharing, WebRTC audio/video calling, and Secret Code account recovery.",
+      "features": [
+        "Local ECDH P-256 key exchange and AES-256-GCM encrypted chat payloads",
+        "Encrypted peer-to-peer WebRTC voice and video calling inside the browser",
+        "Authenticated private file and document attachment transfers",
+        "Installable PWA with Unique Secret Code identity and device key protection"
+      ],
+      "techHighlights": [
+        "ECDH P-256",
+        "AES-256-GCM",
+        "WebRTC Audio/Video",
+        "Installable PWA"
+      ],
+      "audience": "Individuals and distributed teams needing confidential, device-key protected messaging and calls.",
       "imageKey": "tech",
+      "hasProfileDescription": true,
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.598Z",
+      "lastChecked": "2026-11-15T08:33:04.346Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 184,
+      "latencyMs": 80,
       "liveTitle": "M R S — Private Communication Network"
     },
     {
@@ -365,14 +420,28 @@
       "category": "Workspace Electronics & Hardware Store",
       "badge": "E-COMMERCE",
       "description": "Global E-commerce Site, For making life easier.",
-      "hasProfileDescription": true,
+      "overview": "Curated hardware and workspace electronics storefront operated by M R S. Simplifies sourcing tested computing gear, desk setups, studio audio equipment, and everyday tech accessories by organizing verified Amazon Prime and Shopz BD listings inside a fast, lightweight static storefront.",
+      "features": [
+        "Curated remote workstation electronics, keyboards, displays, and PC hardware",
+        "Audio gear, microphones, headsets, and creator productivity equipment",
+        "Direct verified fulfillment links to Amazon Prime and Shopz BD product pages",
+        "Fast dark/light adaptive storefront built for instant global browsing"
+      ],
+      "techHighlights": [
+        "Global Curated Catalog",
+        "Hardware & Audio Gear",
+        "Direct Fulfillment Links",
+        "Zero-Bloat Storefront"
+      ],
+      "audience": "Remote workers, developers, and shoppers looking for vetted electronics and workstation hardware.",
       "imageKey": "admin",
+      "hasProfileDescription": true,
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.457Z",
+      "lastChecked": "2026-11-15T08:33:04.396Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 42,
+      "latencyMs": 129,
       "liveTitle": "Camellia Shop | Workspace Electronics & Hardware Store"
     },
     {
@@ -383,14 +452,27 @@
       "category": "Humanitarian & Community Initiative",
       "badge": "CHARITY",
       "description": "M R S Charity Foundation - A Project of M R S. Transforming lives by offering healthcare, education, and essential necessities to individuals experiencing poverty.",
-      "hasProfileDescription": false,
+      "overview": "Humanitarian click-to-donate initiative by M R S (“Poverty Ends With Us”) enabling anyone worldwide to fund real community aid without spending money or entering payment details. Sponsor-supported ad clicks directly fund free child education, school classrooms, hot midday meals, healthcare camps, and emergency flood relief batches with live batch tracking.",
+      "features": [
+        "100% free click-to-donate humanitarian model requiring zero money from visitors",
+        "Free rural child education, school supplies, classrooms, and daily hot midday meals",
+        "Community healthcare access, clean drinking water, and flood crisis relief aid",
+        "Live daily community aid batch counters tracking clicks toward real milestones"
+      ],
+      "techHighlights": [
+        "100% Free Aid Model",
+        "Sponsor-Funded Giving",
+        "Education & Meals",
+        "Disaster Relief"
+      ],
+      "audience": "Global visitors contributing free clicks to fund education, nutrition, healthcare, and crisis relief.",
       "imageKey": "charity",
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.459Z",
+      "lastChecked": "2026-11-15T08:33:04.377Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 44,
+      "latencyMs": 109,
       "liveTitle": "M R S Charity Foundation | Poverty Ends With Us"
     },
     {
@@ -401,14 +483,27 @@
       "category": "Multi-Provider AI Assistant",
       "badge": "AI TOOL",
       "description": "Camellia AI, the interactive assistant of M R S — multi-provider SSE streaming across Gemini, Anthropic, and OpenRouter with live search grounding, math, code, and voice.",
-      "hasProfileDescription": false,
+      "overview": "Interactive multi-provider AI workspace built by M R S. Streams real-time SSE responses across Google Gemini, Anthropic Claude, and OpenRouter free & pro models with live Google Search grounding and source citations, multimodal file uploads (images, PDFs, and code up to 10MB), voice input/speech synthesis, and local browser-only chat persistence.",
+      "features": [
+        "Multi-provider SSE streaming across Gemini, Anthropic, and OpenRouter models",
+        "Live web search grounding with clickable inline citations and math/code formatting",
+        "Multimodal image, PDF document, and source-code attachment analysis (up to 10MB)",
+        "Browser-local conversation history, prompt editing, and voice interaction"
+      ],
+      "techHighlights": [
+        "Multi-Provider SSE",
+        "Search Grounding",
+        "Multimodal 10MB",
+        "Voice & Code Blocks"
+      ],
+      "audience": "Engineers, researchers, writers, and problem-solvers using grounded multi-model AI workflows.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.457Z",
+      "lastChecked": "2026-11-15T08:33:04.390Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 40,
+      "latencyMs": 120,
       "liveTitle": "Camellia AI — Assistant of M R S"
     },
     {
@@ -419,14 +514,27 @@
       "category": "Official Admin Hub Portal",
       "badge": "ADMIN HUB",
       "description": "Official M R S hub & live websites showcase. Available for Remote IT Support, Virtual Assistance & Administrative Work, Web Management, and Technical Documentation.",
-      "hasProfileDescription": false,
+      "overview": "Central command hub and portfolio ecosystem portal of M R S. Continuously synchronizes profile credentials, technical competencies, real-time HTTP availability & response latency across all connected web properties via Server-Sent Events, and provides a verified catalog linking directly to service intake endpoints.",
+      "features": [
+        "24/7 Server-Sent Events (SSE) synchronization with live ecosystem HTTP telemetry",
+        "Unified showcase of all verified M R S web portals, capabilities, and site dossiers",
+        "Full 13-service catalog wired directly to exact request URLs on mrs-services.ai.studio",
+        "Verified external social directory and direct technical inquiry dispatch form"
+      ],
+      "techHighlights": [
+        "24/7 SSE Sync",
+        "Live HTTP Probing",
+        "Service Catalog API",
+        "Zero Personal Exposure"
+      ],
+      "audience": "Clients, organizations, and partners exploring M R S credentials, live sites, and remote services.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.457Z",
+      "lastChecked": "2026-11-15T08:33:04.388Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 40,
+      "latencyMs": 117,
       "liveTitle": "M R S — Remote IT Support, Virtual Assistance & Digital Operations"
     },
     {
@@ -437,13 +545,27 @@
       "category": "Official Portfolio & AI Concierge",
       "badge": "AI CONCIERGE",
       "description": "Certified IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management. Interactive AI Concierge & Portfolio for M R S.",
+      "overview": "Interactive portfolio flagship and AI Voice Concierge of M R S. Features a multi-language spoken guided audio tour explaining each M R S platform in the visitor’s chosen language, interactive Camellia AI Q&A focused on IT support and credentials, verified network links, and official RSS & policy endpoints.",
+      "features": [
+        "Interactive multi-language spoken Audio Concierge guided tour across all platforms",
+        "Dedicated Camellia AI chat specialized in M R S credentials, IT support, and coding",
+        "Executive credentials overview covering systems maintenance, documentation, and CMS work",
+        "Official RSS feed (/rss.xml) and compliance policy endpoints (/api/policies/current)"
+      ],
+      "techHighlights": [
+        "AI Voice Concierge",
+        "Multi-Language Tour",
+        "RSS XML Feed",
+        "Interactive Portfolio"
+      ],
+      "audience": "Hiring managers, remote clients, and partners seeking an interactive narrated introduction to M R S.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-14T14:43:26.597Z",
+      "lastChecked": "2026-11-15T08:33:04.482Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 182,
+      "latencyMs": 212,
       "liveTitle": "M R S Portfolio · Certified IT Support Professional & Web Manager"
     }
   ],
@@ -487,7 +609,8 @@
           "answer": "Quotes are based on workflow complexity and API integration scope."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/ai-digital-productivity",
+      "requestUrl": "https://mrs-services.ai.studio/request/ai-digital-productivity"
     },
     {
       "id": "technical-writing-proofreading",
@@ -531,7 +654,8 @@
           "answer": "Yes, with signed mutual non-disclosure and strict source code confidentiality."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/technical-writing-proofreading",
+      "requestUrl": "https://mrs-services.ai.studio/request/technical-writing-proofreading"
     },
     {
       "id": "website-management",
@@ -576,7 +700,8 @@
           "answer": "We manage modern CMS platforms, headless CMS deployments, and custom static or full-stack web portals."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/website-management",
+      "requestUrl": "https://mrs-services.ai.studio/request/website-management"
     },
     {
       "id": "it-support-troubleshooting",
@@ -611,7 +736,8 @@
           "answer": "You supervise the entire screen session live and can terminate the connection at any instant."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/it-support-troubleshooting",
+      "requestUrl": "https://mrs-services.ai.studio/request/it-support-troubleshooting"
     },
     {
       "id": "app-store-publishing",
@@ -647,7 +773,8 @@
           "answer": "We ensure technical and policy compliance; ultimate approval authority resides with Google and Apple review boards."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/app-store-publishing",
+      "requestUrl": "https://mrs-services.ai.studio/request/app-store-publishing"
     },
     {
       "id": "ats-cv-resume",
@@ -690,7 +817,8 @@
           "answer": "Both an ATS-clean printable vector PDF and an editable Microsoft Word (DOCX) source file."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/ats-cv-resume",
+      "requestUrl": "https://mrs-services.ai.studio/request/ats-cv-resume"
     },
     {
       "id": "web-setup",
@@ -725,7 +853,8 @@
           "answer": "With Cloudflare DNS, propagation typically completes in 5 to 30 minutes."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/web-setup",
+      "requestUrl": "https://mrs-services.ai.studio/request/web-setup"
     },
     {
       "id": "tutoring",
@@ -759,7 +888,8 @@
           "answer": "Google Meet, Zoom, or Discord with interactive VS Code Live Share."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/tutoring",
+      "requestUrl": "https://mrs-services.ai.studio/request/tutoring"
     },
     {
       "id": "graphics-design",
@@ -772,7 +902,7 @@
         "Vector master files (SVG, EPS, AI) + Web exports (PNG, WebP)",
         "Color palette specifications and typography pairings",
         "Social media dimension presets (LinkedIn, X, YouTube)",
-        "Full commercial usage rights upon final payment"
+        "Full commercial usage rights upon completion"
       ],
       "typicalTurnaround": "24–48 hours",
       "priceType": "hourly",
@@ -798,10 +928,11 @@
       "faq": [
         {
           "question": "Do I get the source files?",
-          "answer": "Yes, full vector source files (SVG/AI) are released upon verified payment."
+          "answer": "Yes, full vector source files (SVG/AI) are released upon project completion."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/graphics-design",
+      "requestUrl": "https://mrs-services.ai.studio/request/graphics-design"
     },
     {
       "id": "virtual-assistance",
@@ -835,7 +966,8 @@
           "answer": "We maintain a timestamped digital timesheet available live during delivery."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/virtual-assistance",
+      "requestUrl": "https://mrs-services.ai.studio/request/virtual-assistance"
     },
     {
       "id": "data-entry",
@@ -869,7 +1001,8 @@
           "answer": "We ensure a 99.8%+ accuracy benchmark with programmatic schema validation."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/data-entry",
+      "requestUrl": "https://mrs-services.ai.studio/request/data-entry"
     },
     {
       "id": "online-learning-resources",
@@ -900,10 +1033,11 @@
       "faq": [
         {
           "question": "Can these materials be used for commercial courses?",
-          "answer": "Yes, full commercial ownership rights transfer upon verified payment."
+          "answer": "Yes, full commercial ownership rights transfer upon completion."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/online-learning-resources",
+      "requestUrl": "https://mrs-services.ai.studio/request/online-learning-resources"
     },
     {
       "id": "iptv-vip-pass",
@@ -916,7 +1050,7 @@
         "15,000+ HD/4K global channels (Live Sports, Cinema, News, Documentaries)",
         "Fast anti-freeze server infrastructure with 99.9% uptime guarantee",
         "Compatible with Smart TV, Firestick, Android, iOS, Windows, and MAG boxes",
-        "Instant private M3U playlist & Xtream Codes credentials delivery upon verification"
+        "Private M3U playlist & Xtream Codes credentials delivery upon verification"
       ],
       "typicalTurnaround": "Verified in 15–30 minutes",
       "priceType": "plan",
@@ -924,7 +1058,7 @@
       "rateBDT": "1, 2, 6, 12 Month Plans",
       "depositPercent": 100,
       "revisionsIncluded": 0,
-      "guarantee": "Service functions reliably or we troubleshoot and refund per policy.",
+      "guarantee": "Service functions reliably with guided setup support.",
       "clientMustProvide": [
         "Target device type (Smart TV / Firestick / Phone) and preferred player app"
       ],
@@ -938,20 +1072,21 @@
         },
         {
           "question": "How are credentials delivered?",
-          "answer": "Private M3U playlist and Xtream Codes credentials are delivered securely upon order verification."
+          "answer": "Private M3U playlist and Xtream Codes credentials are delivered securely after request verification."
         }
       ],
-      "portalUrl": "https://mrs-services.ai.studio/"
+      "portalUrl": "https://mrs-services.ai.studio/services/iptv-vip-pass",
+      "requestUrl": "https://mrs-services.ai.studio/request/iptv-vip-pass"
     }
   ],
   "servicesPortalStatus": {
     "url": "https://mrs-services.ai.studio/",
     "status": "online",
     "httpCode": 200,
-    "latencyMs": 196,
-    "lastChecked": "2026-11-14T14:43:26.611Z"
+    "latencyMs": 191,
+    "lastChecked": "2026-11-15T08:33:04.462Z"
   },
-  "lastUpdated": "2026-11-14T14:43:26.611Z",
+  "lastUpdated": "2026-11-15T08:33:04.482Z",
   "syncCycle": 2,
   "yearlySystem": {
     "currentYear": 2026,

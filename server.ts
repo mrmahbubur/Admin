@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { MRS_SERVICES_CATALOG, SERVICES_PORTAL_URL } from './src/data/servicesCatalog';
+import { CURATED_SITE_DETAILS } from './src/data/siteDetailsData';
 import type { CatalogServiceItem, ServicesPortalStatus } from './src/types';
 
 dotenv.config();
@@ -65,6 +66,10 @@ export interface EcosystemWebsite {
   category: string;
   badge?: string;
   description: string;
+  overview?: string;
+  features?: string[];
+  techHighlights?: string[];
+  audience?: string;
   liveTitle?: string;
   imageKey: 'flagship' | 'admin' | 'tech' | 'charity';
   status: 'online' | 'standby' | 'probing';
@@ -405,11 +410,7 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     name: 'All Services',
     url: 'https://mrs-services.ai.studio/',
     domain: 'mrs-services.ai.studio',
-    category: 'Automation & Digital Services Portal',
-    badge: 'SERVICES',
-    description:
-      'Automate. Deliver. Grow. Browse professional technical and digital solutions, request quotes, Client ID & PIN portal access, and verified payment processing.',
-    imageKey: 'admin',
+    ...CURATED_SITE_DETAILS['mrs-services.ai.studio'],
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
@@ -420,11 +421,75 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     name: 'IPTV WEB',
     url: 'https://shahin-iptv.ai.studio',
     domain: 'shahin-iptv.ai.studio',
-    category: 'Live Streaming & Media Platform',
-    badge: 'LIVE WEB APP',
-    description:
-      'Your World, One Screen — Stream 10,000+ channels of Sports, Movies, Dramas, and News from anywhere.',
-    imageKey: 'flagship',
+    ...CURATED_SITE_DETAILS['shahin-iptv.ai.studio'],
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+    isCore: true,
+    latestPosts: [],
+  },
+  {
+    id: 'site-profile-a7b60340',
+    name: 'Apps Store',
+    url: 'https://mrmahbubur.github.io/APPS-STORE/',
+    domain: 'mrmahbubur.github.io',
+    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/apps-store'],
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+    isCore: true,
+    latestPosts: [],
+  },
+  {
+    id: 'site-profile-3bb884d2',
+    name: 'Private C N',
+    url: 'https://mrs-pcn.ai.studio/',
+    domain: 'mrs-pcn.ai.studio',
+    ...CURATED_SITE_DETAILS['mrs-pcn.ai.studio'],
+    hasProfileDescription: true,
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+    isCore: true,
+    latestPosts: [],
+  },
+  {
+    id: 'site-profile-067f4942',
+    name: 'Camellia Shop',
+    url: 'https://mrmahbubur.github.io/Camellia-Shop/',
+    domain: 'mrmahbubur.github.io',
+    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/camellia-shop'],
+    hasProfileDescription: true,
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+    isCore: true,
+    latestPosts: [],
+  },
+  {
+    id: 'site-profile-f58418d3',
+    name: 'Charity Project',
+    url: 'https://mrmahbubur.github.io/Charity-Foundation/',
+    domain: 'mrmahbubur.github.io',
+    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/charity-foundation'],
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+    isCore: true,
+    latestPosts: [],
+  },
+  {
+    id: 'site-profile-11431945',
+    name: 'Camellia Ai',
+    url: 'https://mrmahbubur.github.io/Camellia-Ai/',
+    domain: 'mrmahbubur.github.io',
+    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/camellia-ai'],
+    status: 'standby',
+    lastChecked: new Date().toISOString(),
+    isCore: true,
+    latestPosts: [],
+  },
+  {
+    id: 'site-profile-d8f3fd0c',
+    name: 'Cloud',
+    url: 'https://mrmahbubur.github.io/Admin/',
+    domain: 'mrmahbubur.github.io',
+    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/admin'],
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
@@ -435,86 +500,13 @@ const DEFAULT_WEBSITES: EcosystemWebsite[] = [
     name: 'Ai Portfolio',
     url: 'https://mrxshahin.ai.studio/',
     domain: 'mrxshahin.ai.studio',
-    category: 'Official Portfolio & AI Concierge',
-    badge: 'AI CONCIERGE',
-    description:
-      'M R S Ai Assistant is standing by to introduce you, walk through verified credentials, and give you an interactive experience.',
-    imageKey: 'flagship',
+    ...CURATED_SITE_DETAILS['mrxshahin.ai.studio'],
     status: 'standby',
     lastChecked: new Date().toISOString(),
     isCore: true,
     latestPosts: [],
   },
 ];
-
-const CURATED_PROJECT_HINTS: Record<
-  string,
-  { category: string; badge: string; description: string; imageKey: EcosystemWebsite['imageKey'] }
-> = {
-  'mrxshahin.ai.studio': {
-    category: 'Official Portfolio & AI Concierge',
-    badge: 'AI CONCIERGE',
-    description:
-      'M R S Ai Assistant is standing by to introduce you, walk through verified credentials, and give you an interactive experience.',
-    imageKey: 'flagship',
-  },
-  'mrs-services.ai.studio': {
-    category: 'Automation & Digital Services Portal',
-    badge: 'SERVICES',
-    description:
-      'Automate. Deliver. Grow. Browse professional technical and digital solutions, request quotes, Client ID & PIN portal access, and verified payment processing.',
-    imageKey: 'admin',
-  },
-  'shahin-iptv.ai.studio': {
-    category: 'Live Streaming & Media Platform',
-    badge: 'LIVE WEB APP',
-    description:
-      'Live sports and media streaming web application featuring Camellia Stream Doctor, real-time M3U playlist processing, direct m3u8 playback, and TV mode navigation.',
-    imageKey: 'flagship',
-  },
-  'mrs-pcn.ai.studio': {
-    category: 'Private Communication Network',
-    badge: 'PRIVATE APP',
-    description:
-      'Private communication network featuring end-to-end encrypted messaging, authenticated private file attachments, and secure WebRTC audio and video calling.',
-    imageKey: 'tech',
-  },
-  'mrmahbubur.github.io/apps-store': {
-    category: 'Official IPTV & APK Store',
-    badge: 'APPS STORE',
-    description:
-      'Download verified M R S IPTV Android and TV APKs directly with SHA-256 checksum verification, user reviews, and developer app publishing.',
-    imageKey: 'tech',
-  },
-  'mrmahbubur.github.io/camellia-shop': {
-    category: 'Workspace Electronics & Hardware Store',
-    badge: 'E-COMMERCE',
-    description:
-      'Curated workspace electronics, computer hardware, audio gear, and direct Prime and hardware selections at Camellia Shop.',
-    imageKey: 'admin',
-  },
-  'mrmahbubur.github.io/charity-foundation': {
-    category: 'Humanitarian & Community Initiative',
-    badge: 'CHARITY',
-    description:
-      'M R S Charity Foundation — Poverty Ends With Us. Supporting healthcare, education, and essential necessities for underserved communities.',
-    imageKey: 'charity',
-  },
-  'mrmahbubur.github.io/camellia-ai': {
-    category: 'Multi-Provider AI Assistant',
-    badge: 'AI TOOL',
-    description:
-      'Camellia AI — interactive assistant of M R S featuring multi-provider SSE streaming with live search grounding, math, code, and voice.',
-    imageKey: 'tech',
-  },
-  'mrmahbubur.github.io/admin': {
-    category: 'Official Admin Hub Portal',
-    badge: 'ADMIN HUB',
-    description:
-      'Centralized M R S operations hub and live websites showcase for remote IT support, documentation workflows, and web management.',
-    imageKey: 'admin',
-  },
-};
 
 let websitesState: WebsitesHubState = {
   siteName: 'M R S',
@@ -604,14 +596,28 @@ try {
     }
 
     const restoredSites = Array.isArray(parsed?.websites)
-      ? parsed.websites.filter(
-          (s: EcosystemWebsite) =>
-            !String(s.domain || '').toLowerCase().includes('blogspot.') &&
-            !String(s.url || '').toLowerCase().includes('blogspot.') &&
-            !String(s.domain || '').toLowerCase().includes('wordpress.') &&
-            !String(s.url || '').toLowerCase().includes('wordpress.') &&
-            !String(s.domain || '').toLowerCase().includes('upload-apk.com')
-        )
+      ? parsed.websites
+          .filter(
+            (s: EcosystemWebsite) =>
+              !String(s.domain || '').toLowerCase().includes('blogspot.') &&
+              !String(s.url || '').toLowerCase().includes('blogspot.') &&
+              !String(s.domain || '').toLowerCase().includes('wordpress.') &&
+              !String(s.url || '').toLowerCase().includes('wordpress.') &&
+              !String(s.domain || '').toLowerCase().includes('upload-apk.com')
+          )
+          .map((s: EcosystemWebsite) => {
+            const k = normalizeVerifiedUrlKey(s.url);
+            const detail = CURATED_SITE_DETAILS[k];
+            return detail
+              ? {
+                  ...s,
+                  overview: s.overview || detail.overview,
+                  features: s.features?.length ? s.features : detail.features,
+                  techHighlights: s.techHighlights?.length ? s.techHighlights : detail.techHighlights,
+                  audience: s.audience || detail.audience,
+                }
+              : s;
+          })
       : DEFAULT_WEBSITES;
 
     websitesState = {
@@ -1291,7 +1297,7 @@ function applyGravatarDirectPayload(
     for (const proj of discoveredWebProjects) {
       includedKeys.add(proj.key);
       const existing = prevByKey.get(proj.key) || defaultByKey.get(proj.key);
-      const hint = CURATED_PROJECT_HINTS[proj.key];
+      const hint = CURATED_SITE_DETAILS[proj.key];
       let domain = proj.key.split('/')[0];
       try {
         domain = new URL(proj.url).hostname;
@@ -1303,9 +1309,16 @@ function applyGravatarDirectPayload(
       const hasProfileDesc = Boolean(proj.description);
       const resolvedDescription =
         proj.description ||
-        existing?.description ||
         hint?.description ||
+        existing?.description ||
         `${exactName} — verified property of ${siteName}.`;
+      const resolvedOverview =
+        hint?.overview ||
+        existing?.overview ||
+        `${exactName} is an official digital platform operated by ${siteName} on ${domain}.`;
+      const resolvedFeatures = hint?.features || existing?.features || [];
+      const resolvedTechHighlights = hint?.techHighlights || existing?.techHighlights || [];
+      const resolvedAudience = hint?.audience || existing?.audience;
 
       if (existing) {
         nextSites.push({
@@ -1314,6 +1327,10 @@ function applyGravatarDirectPayload(
           url: proj.url,
           domain,
           description: resolvedDescription,
+          overview: resolvedOverview,
+          features: resolvedFeatures,
+          techHighlights: resolvedTechHighlights,
+          audience: resolvedAudience,
           hasProfileDescription: hasProfileDesc || existing.hasProfileDescription,
         });
       } else {
@@ -1325,6 +1342,10 @@ function applyGravatarDirectPayload(
           category: hint?.category || 'Verified Web Property',
           badge: hint?.badge || 'VERIFIED LINK',
           description: resolvedDescription,
+          overview: resolvedOverview,
+          features: resolvedFeatures,
+          techHighlights: resolvedTechHighlights,
+          audience: resolvedAudience,
           hasProfileDescription: hasProfileDesc,
           imageKey: hint?.imageKey || inferProjectImageKey(proj.url, exactName),
           status: 'standby',

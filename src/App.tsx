@@ -5,6 +5,7 @@ import { WebsiteSlideshow } from './components/WebsiteSlideshow';
 import { ServicesCatalogSection } from './components/ServicesCatalogSection';
 import { AboutCredentials } from './components/AboutCredentials';
 import { SkillsSection } from './components/SkillsSection';
+import { SponsorsSection } from './components/SponsorsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { StudioProvider, useStudio } from './context/StudioContext';
@@ -127,6 +128,7 @@ function MainLayout() {
         <ServicesCatalogSection />
         <AboutCredentials />
         <SkillsSection />
+        <SponsorsSection />
         <ContactSection />
       </main>
 
