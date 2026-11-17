@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
 import { resolveWebsiteImage } from '../data/mediaAssets';
+import { SponsorAdSlot } from './SponsorAdSlot';
 
 export const WebsiteSlideshow: React.FC = () => {
   const { websites, hubState, upstreamStatus, isSyncing, sseConnected, syncWebsites } = useStudio();
@@ -257,6 +258,11 @@ export const WebsiteSlideshow: React.FC = () => {
             );
           })}
         </div>
+
+        <SponsorAdSlot
+          ids={['sponsor-11226634', 'sponsor-11242069']}
+          heading="Featured Streaming & Software Partners"
+        />
 
         {/* Complete Sites Information, Details & Explanations Directory */}
         <div className="pt-8 border-t border-[#dbe3ee] dark:border-[#1c273b] space-y-6">

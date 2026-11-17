@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Briefcase, Calendar, CheckCircle2, ExternalLink, Globe, MessageSquare, Send } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
+import { SponsorAdSlot } from './SponsorAdSlot';
 
 export const ContactSection: React.FC = () => {
   const { adminProfile, servicesCatalog, selectedInquiryTopic, setSelectedInquiryTopic } = useStudio();
@@ -333,6 +334,13 @@ export const ContactSection: React.FC = () => {
               </form>
             )}
           </div>
+        </div>
+
+        <div className="mt-10">
+          <SponsorAdSlot
+            ids={['sponsor-9912130', 'sponsor-11242742']}
+            heading="Community Aid & Infrastructure Partners"
+          />
         </div>
       </div>
     </section>

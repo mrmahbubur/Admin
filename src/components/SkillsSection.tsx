@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, ExternalLink } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
+import { SponsorAdSlot } from './SponsorAdSlot';
 
 export const SkillsSection: React.FC = () => {
   const { adminProfile, websites, upstreamStatus } = useStudio();
@@ -145,6 +146,11 @@ export const SkillsSection: React.FC = () => {
             </div>
           </div>
         )}
+
+        <SponsorAdSlot
+          ids={['sponsor-11683565', 'sponsor-11242745']}
+          heading="Global Delivery & Media Hub Partners"
+        />
       </div>
     </section>
   );

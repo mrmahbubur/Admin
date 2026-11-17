@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useStudio, type CatalogServiceItem } from '../context/StudioContext';
 import { SERVICES_PORTAL_URL } from '../data/servicesCatalog';
+import { SponsorAdSlot } from './SponsorAdSlot';
 
 type CategoryFilter = 'All' | CatalogServiceItem['category'];
 type CurrencyMode = 'USD' | 'BDT';
@@ -338,6 +339,11 @@ export const ServicesCatalogSection: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <SponsorAdSlot
+          ids={['sponsor-11683560', 'sponsor-11242067']}
+          heading="Recommended Productivity & Security Partners"
+        />
       </div>
 
       {/* Accessible Full Service Scope & FAQ Modal */}

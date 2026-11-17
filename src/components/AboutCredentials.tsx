@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Award, Briefcase, Check, GraduationCap, Languages } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
+import { SponsorAdSlot } from './SponsorAdSlot';
 
 function resolveExactServiceRequestUrl(topicTitle: string): string {
   const t = topicTitle.toLowerCase();
@@ -13,19 +14,25 @@ function resolveExactServiceRequestUrl(topicTitle: string): string {
   if (t.includes('website management') || t.includes('cms') || t.includes('digital content')) {
     return 'https://mrs-services.ai.studio/request/website-management';
   }
-  if (t.includes('technical writing') || t.includes('documentation')) {
+  if (t.includes('technical writing') || t.includes('documentation') || t.includes('proofreading')) {
     return 'https://mrs-services.ai.studio/request/technical-writing-proofreading';
   }
-  if (t.includes('ai tools') || t.includes('productivity')) {
+  if (t.includes('ai tools') || t.includes('productivity') || t.includes('digital')) {
     return 'https://mrs-services.ai.studio/request/ai-digital-productivity';
   }
-  if (t.includes('online research') || t.includes('problem-solving')) {
+  if (t.includes('online research') || t.includes('problem-solving') || t.includes('learning')) {
     return 'https://mrs-services.ai.studio/request/online-learning-resources';
   }
-  if (t.includes('social media') || t.includes('online business')) {
+  if (t.includes('social media') || t.includes('online business') || t.includes('design')) {
     return 'https://mrs-services.ai.studio/request/graphics-design';
   }
-  return 'https://mrs-services.ai.studio/request';
+  if (t.includes('data entry')) {
+    return 'https://mrs-services.ai.studio/request/data-entry';
+  }
+  if (t.includes('web setup')) {
+    return 'https://mrs-services.ai.studio/request/web-setup';
+  }
+  return 'https://mrs-services.ai.studio/request/it-support-troubleshooting';
 }
 
 export const AboutCredentials: React.FC = () => {
@@ -267,6 +274,13 @@ export const AboutCredentials: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-10">
+          <SponsorAdSlot
+            ids={['sponsor-11230440', 'sponsor-11242744']}
+            heading="Workstation Hardware & Learning Partners"
+          />
         </div>
       </div>
     </section>
