@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: mrs-hub
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: UPSTREAM_SOURCE_URL
+        value: https://mrxshahin.ai.studio
+      - key: DISABLE_HMR
+        value: "true"

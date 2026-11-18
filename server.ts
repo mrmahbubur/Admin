@@ -14,9 +14,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = parseInt(process.env.APP_PORT || process.env.DEFAULT_APP_PORT || '3000', 10);
+const PORT = parseInt(
+  (process.env.RENDER ? process.env.PORT : '') ||
+    process.env.APP_PORT ||
+    process.env.DEFAULT_APP_PORT ||
+    '3000',
+  10
+);
 const isProd = process.env.NODE_ENV === 'production';
-const APP_URL = (process.env.APP_URL || '').replace(/\/$/, '');
+const APP_URL = (process.env.APP_URL || process.env.RENDER_EXTERNAL_URL || '').replace(/\/$/, '');
 
 app.use(express.json());
 
@@ -2123,6 +2129,7 @@ async function startServer() {
     '/credentials': '/#about-section',
     '/about': '/#about-section',
     '/skills': '/#skills-section',
+    '/sponsors': '/#sponsors-section',
     '/contact': '/#contact-section',
   };
 
@@ -2159,13 +2166,17 @@ async function startServer() {
       }
     });
   } else {
-    const distDir = path.join(__dirname, 'dist');
-    app.use(express.static(distDir, { maxAge: '1h', index: 'index.html' }));
+    const distCandidate = path.join(__dirname, 'dist');
+    const docsCandidate = path.join(__dirname, 'docs');
+    const staticDir = fs.existsSync(path.join(distCandidate, 'index.html'))
+      ? distCandidate
+      : docsCandidate;
+    app.use(express.static(staticDir, { maxAge: '1h', index: 'index.html' }));
     app.get('*', (req, res) => {
       if (req.path !== '/' && req.path.endsWith('/')) {
         return res.redirect(301, req.path.slice(0, -1));
       }
-      res.sendFile(path.join(distDir, 'index.html'));
+      res.sendFile(path.join(staticDir, 'index.html'));
     });
   }
 
