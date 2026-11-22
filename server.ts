@@ -692,8 +692,6 @@ function parseGravatarBioMarkdown(rawBio: string): {
   };
 }
 
-// URL normalization uses shared normalizeSiteLookupKey from siteDetailsData.ts
-
 function formatAccountHandle(url: string): string {
   let handle = url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
   if (handle.includes('x.com/')) return `@${handle.split('x.com/')[1]}`;
