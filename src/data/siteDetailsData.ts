@@ -165,8 +165,16 @@ export const CURATED_SITE_DETAILS: Record<string, SiteDetailSpec> = {
   },
 };
 
-export function resolveCuratedSiteDetail(normalizedKey: string, label = ''): SiteDetailSpec | undefined {
-  const k = normalizedKey.trim().toLowerCase();
+export function normalizeSiteLookupKey(rawUrl: string): string {
+  return String(rawUrl || '')
+    .trim()
+    .replace(/^https?:\/\/(www\.)?/i, '')
+    .replace(/\/$/, '')
+    .toLowerCase();
+}
+
+export function resolveCuratedSiteDetail(normalizedKeyOrUrl: string, label = ''): SiteDetailSpec | undefined {
+  const k = normalizeSiteLookupKey(normalizedKeyOrUrl);
   if (CURATED_SITE_DETAILS[k]) return CURATED_SITE_DETAILS[k];
 
   const cleanLabel = label.trim().toLowerCase();
@@ -180,7 +188,12 @@ export function resolveCuratedSiteDetail(normalizedKey: string, label = ''): Sit
   if (hay.includes('apps-store') || hay.includes('apps store') || hay.includes('app store')) {
     return CURATED_SITE_DETAILS['mrmahbubur.github.io/apps-store'];
   }
-  if (hay.includes('mrs-pcn') || hay.includes('private-cn') || hay.includes('private c n') || hay.includes('private communication')) {
+  if (
+    hay.includes('mrs-pcn') ||
+    hay.includes('private-cn') ||
+    hay.includes('private c n') ||
+    hay.includes('private communication')
+  ) {
     return CURATED_SITE_DETAILS['mrs-pcn.ai.studio'];
   }
   if (hay.includes('camellia-shop') || hay.includes('camellia shop')) {
@@ -207,16 +220,8 @@ export function resolveCuratedSiteDetail(normalizedKey: string, label = ''): Sit
   return undefined;
 }
 
-export function normalizeSiteLookupKey(rawUrl: string): string {
-  return String(rawUrl || '')
-    .trim()
-    .replace(/^https?:\/\/(www\.)?/i, '')
-    .replace(/\/$/, '')
-    .toLowerCase();
-}
-
 export function enrichWebsiteWithCuratedDetails<T extends EcosystemWebsite>(site: T): T {
-  const curated = resolveCuratedSiteDetail(normalizeSiteLookupKey(site.url), site.name);
+  const curated = resolveCuratedSiteDetail(site.url, site.name);
   if (!curated) return site;
 
   return {
@@ -240,4 +245,46 @@ export function enrichWebsitesStateWithCuratedDetails<T extends { websites: Ecos
     ...state,
     websites: state.websites.map((site) => enrichWebsiteWithCuratedDetails(site)),
   };
+}
+
+interface CoreWebsiteSeed {
+  id: string;
+  name: string;
+  url: string;
+  domain: string;
+  hasProfileDescription?: boolean;
+}
+
+const CORE_WEBSITE_SEEDS: CoreWebsiteSeed[] = [
+  { id: 'proj-mrs-services', name: 'All Services', url: 'https://mrs-services.ai.studio/', domain: 'mrs-services.ai.studio' },
+  { id: 'proj-3-iptv-web', name: 'IPTV WEB', url: 'https://shahin-iptv.ai.studio', domain: 'shahin-iptv.ai.studio' },
+  { id: 'site-profile-a7b60340', name: 'Apps Store', url: 'https://mrmahbubur.github.io/APPS-STORE/', domain: 'mrmahbubur.github.io' },
+  { id: 'site-profile-3bb884d2', name: 'Private C N', url: 'https://mrs-pcn.ai.studio/', domain: 'mrs-pcn.ai.studio', hasProfileDescription: true },
+  { id: 'site-profile-067f4942', name: 'Camellia Shop', url: 'https://mrmahbubur.github.io/Camellia-Shop/', domain: 'mrmahbubur.github.io', hasProfileDescription: true },
+  { id: 'site-profile-f58418d3', name: 'Charity Project', url: 'https://mrmahbubur.github.io/Charity-Foundation/', domain: 'mrmahbubur.github.io' },
+  { id: 'site-profile-11431945', name: 'Camellia Ai', url: 'https://mrmahbubur.github.io/Camellia-Ai/', domain: 'mrmahbubur.github.io' },
+  { id: 'site-profile-d8f3fd0c', name: 'Cloud', url: 'https://mrmahbubur.github.io/Admin/', domain: 'mrmahbubur.github.io' },
+  { id: 'proj-6-ai-assistant', name: 'Ai Portfolio', url: 'https://mrxshahin.ai.studio/', domain: 'mrxshahin.ai.studio' },
+];
+
+export function createDefaultCoreWebsites(
+  initialStatus: EcosystemWebsite['status'] = 'standby'
+): EcosystemWebsite[] {
+  const checkedAt = new Date().toISOString();
+  return CORE_WEBSITE_SEEDS.map((seed) =>
+    enrichWebsiteWithCuratedDetails({
+      id: seed.id,
+      name: seed.name,
+      url: seed.url,
+      domain: seed.domain,
+      category: 'Verified Web Property',
+      description: '',
+      imageKey: 'flagship',
+      hasProfileDescription: seed.hasProfileDescription,
+      status: initialStatus,
+      lastChecked: checkedAt,
+      isCore: true,
+      latestPosts: [],
+    })
+  );
 }

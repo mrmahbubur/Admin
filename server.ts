@@ -6,9 +6,10 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { MRS_SERVICES_CATALOG, SERVICES_PORTAL_URL } from './src/data/servicesCatalog';
 import {
-  CURATED_SITE_DETAILS,
+  createDefaultCoreWebsites,
   enrichWebsiteWithCuratedDetails,
   enrichWebsitesStateWithCuratedDetails,
+  normalizeSiteLookupKey,
   resolveCuratedSiteDetail,
 } from './src/data/siteDetailsData';
 import type { CatalogServiceItem, ServicesPortalStatus } from './src/types';
@@ -415,109 +416,7 @@ const BASE_ADMIN_PROFILE: AdminProfileData = {
   ],
 };
 
-const DEFAULT_WEBSITES: EcosystemWebsite[] = [
-  {
-    id: 'proj-mrs-services',
-    name: 'All Services',
-    url: 'https://mrs-services.ai.studio/',
-    domain: 'mrs-services.ai.studio',
-    ...CURATED_SITE_DETAILS['mrs-services.ai.studio'],
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'proj-3-iptv-web',
-    name: 'IPTV WEB',
-    url: 'https://shahin-iptv.ai.studio',
-    domain: 'shahin-iptv.ai.studio',
-    ...CURATED_SITE_DETAILS['shahin-iptv.ai.studio'],
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'site-profile-a7b60340',
-    name: 'Apps Store',
-    url: 'https://mrmahbubur.github.io/APPS-STORE/',
-    domain: 'mrmahbubur.github.io',
-    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/apps-store'],
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'site-profile-3bb884d2',
-    name: 'Private C N',
-    url: 'https://mrs-pcn.ai.studio/',
-    domain: 'mrs-pcn.ai.studio',
-    ...CURATED_SITE_DETAILS['mrs-pcn.ai.studio'],
-    hasProfileDescription: true,
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'site-profile-067f4942',
-    name: 'Camellia Shop',
-    url: 'https://mrmahbubur.github.io/Camellia-Shop/',
-    domain: 'mrmahbubur.github.io',
-    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/camellia-shop'],
-    hasProfileDescription: true,
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'site-profile-f58418d3',
-    name: 'Charity Project',
-    url: 'https://mrmahbubur.github.io/Charity-Foundation/',
-    domain: 'mrmahbubur.github.io',
-    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/charity-foundation'],
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'site-profile-11431945',
-    name: 'Camellia Ai',
-    url: 'https://mrmahbubur.github.io/Camellia-Ai/',
-    domain: 'mrmahbubur.github.io',
-    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/camellia-ai'],
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'site-profile-d8f3fd0c',
-    name: 'Cloud',
-    url: 'https://mrmahbubur.github.io/Admin/',
-    domain: 'mrmahbubur.github.io',
-    ...CURATED_SITE_DETAILS['mrmahbubur.github.io/admin'],
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-  {
-    id: 'proj-6-ai-assistant',
-    name: 'Ai Portfolio',
-    url: 'https://mrxshahin.ai.studio/',
-    domain: 'mrxshahin.ai.studio',
-    ...CURATED_SITE_DETAILS['mrxshahin.ai.studio'],
-    status: 'standby',
-    lastChecked: new Date().toISOString(),
-    isCore: true,
-    latestPosts: [],
-  },
-];
+const DEFAULT_WEBSITES: EcosystemWebsite[] = createDefaultCoreWebsites('standby');
 
 let websitesState: WebsitesHubState = {
   siteName: 'M R S',
@@ -793,9 +692,7 @@ function parseGravatarBioMarkdown(rawBio: string): {
   };
 }
 
-function normalizeVerifiedUrlKey(rawUrl: string): string {
-  return rawUrl.trim().replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '').toLowerCase();
-}
+const normalizeVerifiedUrlKey = normalizeSiteLookupKey;
 
 function formatAccountHandle(url: string): string {
   let handle = url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
@@ -1306,56 +1203,42 @@ function applyGravatarDirectPayload(
       }
 
       const hasProfileDesc = Boolean(proj.description);
-      const resolvedDescription =
-        proj.description ||
-        hint?.description ||
-        existing?.description ||
-        `${exactName} — verified property of ${siteName}.`;
-      const resolvedOverview =
-        hint?.overview ||
-        existing?.overview ||
-        `${exactName} is an official digital platform operated by ${siteName} on ${domain}.`;
-      const resolvedFeatures = hint?.features || existing?.features || [];
-      const resolvedTechHighlights = hint?.techHighlights || existing?.techHighlights || [];
-      const resolvedAudience = hint?.audience || existing?.audience;
+      const draftSite: EcosystemWebsite = existing
+        ? {
+            ...existing,
+            name: exactName,
+            url: proj.url,
+            domain,
+            description:
+              proj.description ||
+              existing.description ||
+              `${exactName} — verified property of ${siteName}.`,
+            hasProfileDescription: hasProfileDesc || existing.hasProfileDescription,
+          }
+        : {
+            id: `site-profile-${crypto.createHash('sha1').update(proj.key).digest('hex').slice(0, 8)}`,
+            name: exactName,
+            url: proj.url,
+            domain,
+            category: 'Verified Web Property',
+            badge: 'VERIFIED LINK',
+            description: proj.description || '',
+            hasProfileDescription: hasProfileDesc,
+            imageKey: inferProjectImageKey(proj.url, exactName),
+            status: 'standby',
+            lastChecked: syncedAt,
+            isCore: Boolean(hint),
+            latestPosts: [],
+          };
 
-      if (existing) {
-        nextSites.push({
-          ...existing,
-          name: exactName,
-          url: proj.url,
-          domain,
-          category: hint?.category || existing.category,
-          badge: hint?.badge || existing.badge,
-          description: resolvedDescription,
-          overview: resolvedOverview,
-          features: resolvedFeatures,
-          techHighlights: resolvedTechHighlights,
-          audience: resolvedAudience,
-          imageKey: hint?.imageKey || existing.imageKey,
-          hasProfileDescription: hasProfileDesc || existing.hasProfileDescription,
-        });
-      } else {
-        nextSites.push({
-          id: `site-profile-${crypto.createHash('sha1').update(proj.key).digest('hex').slice(0, 8)}`,
-          name: exactName,
-          url: proj.url,
-          domain,
-          category: hint?.category || 'Verified Web Property',
-          badge: hint?.badge || 'VERIFIED LINK',
-          description: resolvedDescription,
-          overview: resolvedOverview,
-          features: resolvedFeatures,
-          techHighlights: resolvedTechHighlights,
-          audience: resolvedAudience,
-          hasProfileDescription: hasProfileDesc,
-          imageKey: hint?.imageKey || inferProjectImageKey(proj.url, exactName),
-          status: 'standby',
-          lastChecked: syncedAt,
-          isCore: Boolean(hint),
-          latestPosts: [],
-        });
+      const enrichedSite = enrichWebsiteWithCuratedDetails(draftSite);
+      if (!enrichedSite.description) {
+        enrichedSite.description = `${exactName} — verified property of ${siteName}.`;
       }
+      if (!enrichedSite.overview) {
+        enrichedSite.overview = `${exactName} is an official digital platform operated by ${siteName} on ${domain}.`;
+      }
+      nextSites.push(enrichedSite);
     }
 
     // Preserve user-added custom sites if not already included
@@ -1982,33 +1865,27 @@ app.post('/api/websites', async (req, res) => {
     const imageKeys: EcosystemWebsite['imageKey'][] = ['flagship', 'admin', 'tech', 'charity'];
     const nextImageKey = imageKeys[websitesState.websites.length % imageKeys.length];
     const draftName = String(name || domain).trim().slice(0, 80) || domain;
-    const curated = resolveCuratedSiteDetail(normalizeVerifiedUrlKey(cleanUrl), draftName);
+    const rawCategory = String(category || '').trim().slice(0, 40);
+    const rawDescription = String(description || '').trim().slice(0, 260);
 
-    const draftSite: EcosystemWebsite = {
+    const draftSite = enrichWebsiteWithCuratedDetails<EcosystemWebsite>({
       id: `site-${Date.now().toString(36)}`,
       name: draftName,
       url: cleanUrl,
       domain,
-      category:
-        String(category || '').trim().slice(0, 40) ||
-        curated?.category ||
-        'Connected Property',
-      badge: curated?.badge,
-      description:
-        String(description || '').trim().slice(0, 260) ||
-        curated?.description ||
-        'Web property synchronized in real time by M R S.',
-      overview: curated?.overview,
-      features: curated?.features,
-      techHighlights: curated?.techHighlights,
-      audience: curated?.audience,
-      imageKey: curated?.imageKey || nextImageKey,
+      category: rawCategory || 'Connected Property',
+      description: rawDescription,
+      imageKey: nextImageKey,
       status: 'probing',
       lastChecked: new Date().toISOString(),
       isCore: false,
       isCustom: true,
       latestPosts: [],
-    };
+    });
+    if (rawCategory) draftSite.category = rawCategory;
+    if (!draftSite.description) {
+      draftSite.description = 'Web property synchronized in real time by M R S.';
+    }
 
     const probedSite = await probeSingleWebsite(draftSite);
     const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
