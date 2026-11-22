@@ -6,10 +6,10 @@
     "connected": true,
     "sseActive": true,
     "healthStatus": "ok",
-    "lastSyncedAt": "2026-11-22T10:03:48.007Z",
+    "lastSyncedAt": "2026-11-22T10:10:06.233Z",
     "rssItems": [],
     "authenticated": true,
-    "rateLimitRemaining": 922
+    "rateLimitRemaining": 863
   },
   "adminProfile": {
     "siteName": "M R S",
@@ -311,11 +311,11 @@
       "audience": "Businesses, founders, and individuals commissioning remote IT, web, AI, or administrative solutions.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.253Z",
+      "lastChecked": "2026-11-22T10:10:06.419Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 243,
+      "latencyMs": 185,
       "liveTitle": "M R S — Professional Automation & Digital Services"
     },
     {
@@ -342,11 +342,11 @@
       "audience": "Viewers streaming live sports, cinema, and international TV feeds directly from desktop, mobile, or Smart TV.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.285Z",
+      "lastChecked": "2026-11-22T10:10:06.435Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 268,
+      "latencyMs": 199,
       "liveTitle": "M R S IPTV"
     },
     {
@@ -373,11 +373,11 @@
       "hasProfileDescription": true,
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.299Z",
+      "lastChecked": "2026-11-22T10:10:06.443Z",
       "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 271,
+      "latencyMs": 206,
       "liveTitle": "Camellia Shop | Workspace Tech, Hardware & Partner Catalog",
       "audience": "Remote workers, developers, and shoppers looking for vetted electronics and workstation hardware."
     },
@@ -406,11 +406,11 @@
       "imageKey": "admin",
       "hasProfileDescription": true,
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.401Z",
+      "lastChecked": "2026-11-22T10:10:06.538Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 381,
+      "latencyMs": 300,
       "liveTitle": "Camellia Shop | Workspace Tech, Hardware & Partner Catalog"
     },
     {
@@ -437,11 +437,11 @@
       "hasProfileDescription": false,
       "imageKey": "charity",
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.206Z",
+      "lastChecked": "2026-11-22T10:10:06.373Z",
       "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 185,
+      "latencyMs": 135,
       "liveTitle": "M R S Charity Foundation | Poverty Ends With Us",
       "audience": "Global visitors contributing free clicks to fund education, nutrition, healthcare, and crisis relief."
     },
@@ -469,11 +469,11 @@
       "hasProfileDescription": false,
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.225Z",
+      "lastChecked": "2026-11-22T10:10:06.340Z",
       "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 201,
+      "latencyMs": 101,
       "liveTitle": "MRS App Store",
       "audience": "Android phone, Smart TV, Firestick, and Windows desktop users downloading verified official software builds."
     },
@@ -501,11 +501,11 @@
       "hasProfileDescription": false,
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.385Z",
+      "lastChecked": "2026-11-22T10:10:06.518Z",
       "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 357,
+      "latencyMs": 278,
       "liveTitle": "Camellia AI — Assistant of M R S",
       "audience": "Engineers, researchers, writers, and problem-solvers using grounded multi-model AI workflows."
     },
@@ -533,11 +533,11 @@
       "hasProfileDescription": false,
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.348Z",
+      "lastChecked": "2026-11-22T10:10:06.475Z",
       "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 318,
+      "latencyMs": 234,
       "liveTitle": "M R S — Remote IT Support, Virtual Assistance & Digital Operations",
       "audience": "Clients, organizations, and partners exploring M R S credentials, live sites, and remote services."
     },
@@ -565,11 +565,11 @@
       "audience": "Hiring managers, remote clients, and partners seeking an interactive narrated introduction to M R S.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.293Z",
+      "lastChecked": "2026-11-22T10:10:06.431Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 258,
+      "latencyMs": 191,
       "liveTitle": "M R S Portfolio · IT Support Professional & Web Manager"
     },
     {
@@ -597,11 +597,11 @@
       "imageKey": "tech",
       "hasProfileDescription": true,
       "status": "online",
-      "lastChecked": "2026-11-22T10:03:48.314Z",
+      "lastChecked": "2026-11-22T10:10:06.433Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 277,
+      "latencyMs": 191,
       "liveTitle": "M R S — Private Communication Network"
     }
   ],
@@ -1119,11 +1119,11 @@
     "url": "https://mrs-services.ai.studio/",
     "status": "online",
     "httpCode": 200,
-    "latencyMs": 256,
-    "lastChecked": "2026-11-22T10:03:48.294Z"
+    "latencyMs": 190,
+    "lastChecked": "2026-11-22T10:10:06.432Z"
   },
-  "lastUpdated": "2026-11-22T10:03:48.401Z",
-  "syncCycle": 1,
+  "lastUpdated": "2026-11-22T10:10:06.538Z",
+  "syncCycle": 2,
   "yearlySystem": {
     "currentYear": 2026,
     "establishedYear": 2018,

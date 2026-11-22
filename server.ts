@@ -692,7 +692,7 @@ function parseGravatarBioMarkdown(rawBio: string): {
   };
 }
 
-const normalizeVerifiedUrlKey = normalizeSiteLookupKey;
+// URL normalization uses shared normalizeSiteLookupKey from siteDetailsData.ts
 
 function formatAccountHandle(url: string): string {
   let handle = url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
@@ -862,7 +862,7 @@ function parseGravatarHtmlProfile(html: string): {
     if (!linkMatch) continue;
     const url = decodeHtmlEntities(linkMatch[1]).trim();
     if (!url.startsWith('https://') || isRestrictedProfileUrl(url) || isSocialAccountOnlyUrl(url)) continue;
-    const key = normalizeVerifiedUrlKey(url);
+    const key = normalizeSiteLookupKey(url);
     if (seen.has(key)) continue;
     seen.add(key);
 
@@ -1019,7 +1019,7 @@ function applyGravatarDirectPayload(
     const u = String(rawUrl || '').trim();
     if (!u.startsWith('https://') || u.length >= 160 || /[\s<>]/.test(u)) return;
     if (isRestrictedProfileUrl(u)) return;
-    const key = normalizeVerifiedUrlKey(u);
+    const key = normalizeSiteLookupKey(u);
     const label = decodeHtmlEntities(String(rawLabel || 'Account').trim());
 
     if (!seenAccountKeys.has(key)) {
@@ -1041,7 +1041,7 @@ function applyGravatarDirectPayload(
   const htmlLinksByKey = new Map<string, { label: string; url: string; description: string }>();
   if (htmlProfile?.links) {
     for (const hl of htmlProfile.links) {
-      htmlLinksByKey.set(normalizeVerifiedUrlKey(hl.url), hl);
+      htmlLinksByKey.set(normalizeSiteLookupKey(hl.url), hl);
     }
   }
 
@@ -1050,7 +1050,7 @@ function applyGravatarDirectPayload(
     if (!u.startsWith('https://') || u.length >= 160 || /[\s<>]/.test(u)) return;
     if (isRestrictedProfileUrl(u)) return;
     if (isSocialAccountOnlyUrl(u)) return;
-    const key = normalizeVerifiedUrlKey(u);
+    const key = normalizeSiteLookupKey(u);
     const label = decodeHtmlEntities(String(rawLabel || 'Website').trim());
     const htmlMatch = htmlLinksByKey.get(key);
     const desc = cleanProfileDescription(rawDescription) || htmlMatch?.description || '';
@@ -1180,11 +1180,11 @@ function applyGravatarDirectPayload(
   if (discoveredWebProjects.length > 0) {
     const prevByKey = new Map<string, EcosystemWebsite>();
     for (const site of websitesState.websites) {
-      prevByKey.set(normalizeVerifiedUrlKey(site.url), site);
+      prevByKey.set(normalizeSiteLookupKey(site.url), site);
     }
     const defaultByKey = new Map<string, EcosystemWebsite>();
     for (const site of DEFAULT_WEBSITES) {
-      defaultByKey.set(normalizeVerifiedUrlKey(site.url), site);
+      defaultByKey.set(normalizeSiteLookupKey(site.url), site);
     }
 
     const nextSites: EcosystemWebsite[] = [];
@@ -1243,7 +1243,7 @@ function applyGravatarDirectPayload(
 
     // Preserve user-added custom sites if not already included
     for (const site of websitesState.websites) {
-      const k = normalizeVerifiedUrlKey(site.url);
+      const k = normalizeSiteLookupKey(site.url);
       if (includedKeys.has(k) || isRestrictedProfileUrl(site.url)) continue;
       if (site.isCustom) {
         includedKeys.add(k);
@@ -1518,7 +1518,7 @@ async function syncProfileAndFeeds(): Promise<void> {
       }
       for (const item of parsed.items) {
         if (/blogspot\.|wordpress\./i.test(item.link) || /blogspot|wordpress/i.test(item.title)) continue;
-        const norm = normalizeVerifiedUrlKey(item.link);
+        const norm = normalizeSiteLookupKey(item.link);
         if (seenRssLinks.has(norm)) continue;
         seenRssLinks.add(norm);
         combinedRssItems.push(item);
