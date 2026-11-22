@@ -6,10 +6,10 @@
     "connected": true,
     "sseActive": true,
     "healthStatus": "ok",
-    "lastSyncedAt": "2026-11-17T15:59:05.173Z",
+    "lastSyncedAt": "2026-11-19T17:54:45.088Z",
     "rssItems": [],
     "authenticated": true,
-    "rateLimitRemaining": 973
+    "rateLimitRemaining": 972
   },
   "adminProfile": {
     "siteName": "M R S",
@@ -22,7 +22,7 @@
     "avatarAltText": "M R S official profile portrait",
     "pronouns": "",
     "pronunciation": "",
-    "lastProfileEdit": "2026-11-14T15:14:04Z",
+    "lastProfileEdit": "2026-11-18T16:48:09Z",
     "certification": "360-hour computer systems course",
     "availabilityNote": "Whether you need a remote IT support assistant, virtual assistant, website content manager, technical writer, online researcher, or general digital operations support, I am open to discussing how I can help. I am happy to consider both ongoing support arrangements and clearly defined, project-based tasks that match my skills.",
     "bioParagraphs": [
@@ -311,11 +311,11 @@
       "audience": "Businesses, founders, and individuals commissioning remote IT, web, AI, or administrative solutions.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.408Z",
+      "lastChecked": "2026-11-19T17:54:45.328Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 231,
+      "latencyMs": 239,
       "liveTitle": "M R S — Professional Automation & Digital Services"
     },
     {
@@ -342,75 +342,44 @@
       "audience": "Viewers streaming live sports, cinema, and international TV feeds directly from desktop, mobile, or Smart TV.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.423Z",
+      "lastChecked": "2026-11-19T17:54:45.324Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 240,
+      "latencyMs": 231,
       "liveTitle": "M R S IPTV"
     },
     {
-      "id": "site-profile-a7b60340",
-      "name": "Apps Store",
-      "url": "https://mrmahbubur.github.io/APPS-STORE/",
-      "domain": "mrmahbubur.github.io",
-      "category": "Official IPTV & Software Store",
-      "badge": "APPS STORE",
-      "description": "Official MRS App Store owned by M R S — direct Android APK, Smart TV, and Windows (.exe, .msi, .msix, .zip) downloads with SHA-256 verification and real user reviews.",
-      "overview": "Official direct-download application distribution portal curated by M R S. Publishes signed M R S IPTV Android APKs, Android Smart TV builds, and Windows 10/11 desktop installers (.exe, .msi, .msix, .zip) without third-party store middlemen, backing every release with SHA-256 integrity hashes, QR code transfer links, and verified user reviews.",
+      "id": "site-profile-c9c8e936",
+      "name": "Camellia Shop",
+      "url": "https://camellia-shop.onrender.com",
+      "domain": "camellia-shop.onrender.com",
+      "category": "Workspace Electronics & Hardware Store",
+      "badge": "E-COMMERCE",
+      "description": "Global E-commerce Site.",
+      "overview": "Curated hardware and workspace electronics storefront operated by M R S. Simplifies sourcing tested computing gear, desk setups, studio audio equipment, and everyday tech accessories by organizing verified Amazon Prime and Shopz BD listings inside a fast, lightweight static storefront.",
       "features": [
-        "Direct hosting for M R S IPTV Android (API 26+) and Smart TV APK packages",
-        "Verified Windows 10/11 desktop installer packages (.exe, .msi, .msix, .zip)",
-        "Cryptographic SHA-256 checksum validation on every distributed release",
-        "QR code scan-to-device download transfer and authentic user review logs"
+        "Curated remote workstation electronics, keyboards, displays, and PC hardware",
+        "Audio gear, microphones, headsets, and creator productivity equipment",
+        "Direct verified fulfillment links to Amazon Prime and Shopz BD product pages",
+        "Fast dark/light adaptive storefront built for instant global browsing"
       ],
       "techHighlights": [
-        "SHA-256 Checksums",
-        "Android & TV APKs",
-        "Windows Installers",
-        "QR Link Transfer"
+        "Global Curated Catalog",
+        "Hardware & Audio Gear",
+        "Direct Fulfillment Links",
+        "Zero-Bloat Storefront"
       ],
-      "audience": "Android phone, Smart TV, Firestick, and Windows desktop users downloading verified official software builds.",
-      "imageKey": "tech",
-      "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.339Z",
-      "isCore": true,
-      "latestPosts": [],
-      "httpCode": 200,
-      "latencyMs": 155,
-      "liveTitle": "MRS App Store"
-    },
-    {
-      "id": "site-profile-3bb884d2",
-      "name": "Private C N",
-      "url": "https://mrs-pcn.ai.studio/",
-      "domain": "mrs-pcn.ai.studio",
-      "category": "Private Communication Network",
-      "badge": "PRIVATE APP",
-      "description": "Everything is Private And Safe",
-      "overview": "Production-grade private communication network designed around client-side zero-exposure cryptography. Generates and stores ECDH P-256 keypairs and AES-256-GCM encryption keys strictly on the user’s device, supporting end-to-end encrypted text messaging, authenticated private file sharing, WebRTC audio/video calling, and Secret Code account recovery.",
-      "features": [
-        "Local ECDH P-256 key exchange and AES-256-GCM encrypted chat payloads",
-        "Encrypted peer-to-peer WebRTC voice and video calling inside the browser",
-        "Authenticated private file and document attachment transfers",
-        "Installable PWA with Unique Secret Code identity and device key protection"
-      ],
-      "techHighlights": [
-        "ECDH P-256",
-        "AES-256-GCM",
-        "WebRTC Audio/Video",
-        "Installable PWA"
-      ],
-      "audience": "Individuals and distributed teams needing confidential, device-key protected messaging and calls.",
-      "imageKey": "tech",
       "hasProfileDescription": true,
+      "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.405Z",
-      "isCore": true,
+      "lastChecked": "2026-11-19T17:54:45.330Z",
+      "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 218,
-      "liveTitle": "M R S — Private Communication Network"
+      "latencyMs": 236,
+      "liveTitle": "Camellia Shop | Workspace Tech, Hardware & Partner Catalog",
+      "audience": "Remote workers, developers, and shoppers looking for vetted electronics and workstation hardware."
     },
     {
       "id": "site-profile-067f4942",
@@ -437,18 +406,18 @@
       "imageKey": "admin",
       "hasProfileDescription": true,
       "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.316Z",
+      "lastChecked": "2026-11-19T17:54:45.252Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 127,
-      "liveTitle": "Camellia Shop | Workspace Electronics & Hardware Store"
+      "latencyMs": 157,
+      "liveTitle": "Camellia Shop | Workspace Tech, Hardware & Partner Catalog"
     },
     {
-      "id": "site-profile-f58418d3",
+      "id": "site-profile-aec2fc55",
       "name": "Charity Project",
-      "url": "https://mrmahbubur.github.io/Charity-Foundation/",
-      "domain": "mrmahbubur.github.io",
+      "url": "https://charity-foundation-pyj9.onrender.com",
+      "domain": "charity-foundation-pyj9.onrender.com",
       "category": "Humanitarian & Community Initiative",
       "badge": "CHARITY",
       "description": "M R S Charity Foundation - A Project of M R S. Transforming lives by offering healthcare, education, and essential necessities to individuals experiencing poverty.",
@@ -465,21 +434,54 @@
         "Education & Meals",
         "Disaster Relief"
       ],
-      "audience": "Global visitors contributing free clicks to fund education, nutrition, healthcare, and crisis relief.",
+      "hasProfileDescription": false,
       "imageKey": "charity",
       "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.323Z",
-      "isCore": true,
+      "lastChecked": "2026-11-19T17:54:45.232Z",
+      "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 134,
-      "liveTitle": "M R S Charity Foundation | Poverty Ends With Us"
+      "latencyMs": 135,
+      "liveTitle": "M R S Charity Foundation | Poverty Ends With Us",
+      "audience": "Global visitors contributing free clicks to fund education, nutrition, healthcare, and crisis relief."
     },
     {
-      "id": "site-profile-11431945",
+      "id": "site-profile-b30bf75c",
+      "name": "Apps Store",
+      "url": "https://apps-store-idk3.onrender.com",
+      "domain": "apps-store-idk3.onrender.com",
+      "category": "Official IPTV & Software Store",
+      "badge": "APPS STORE",
+      "description": "Official MRS App Store owned by M R S — direct Android APK, Smart TV, and Windows (.exe, .msi, .msix, .zip) downloads with SHA-256 verification and real user reviews.",
+      "overview": "Official direct-download application distribution portal curated by M R S. Publishes signed M R S IPTV Android APKs, Android Smart TV builds, and Windows 10/11 desktop installers (.exe, .msi, .msix, .zip) without third-party store middlemen, backing every release with SHA-256 integrity hashes, QR code transfer links, and verified user reviews.",
+      "features": [
+        "Direct hosting for M R S IPTV Android (API 26+) and Smart TV APK packages",
+        "Verified Windows 10/11 desktop installer packages (.exe, .msi, .msix, .zip)",
+        "Cryptographic SHA-256 checksum validation on every distributed release",
+        "QR code scan-to-device download transfer and authentic user review logs"
+      ],
+      "techHighlights": [
+        "SHA-256 Checksums",
+        "Android & TV APKs",
+        "Windows Installers",
+        "QR Link Transfer"
+      ],
+      "hasProfileDescription": false,
+      "imageKey": "tech",
+      "status": "online",
+      "lastChecked": "2026-11-19T17:54:45.235Z",
+      "isCore": false,
+      "latestPosts": [],
+      "httpCode": 200,
+      "latencyMs": 136,
+      "liveTitle": "MRS App Store",
+      "audience": "Android phone, Smart TV, Firestick, and Windows desktop users downloading verified official software builds."
+    },
+    {
+      "id": "site-profile-632c674d",
       "name": "Camellia Ai",
-      "url": "https://mrmahbubur.github.io/Camellia-Ai/",
-      "domain": "mrmahbubur.github.io",
+      "url": "https://camellia-ai.onrender.com",
+      "domain": "camellia-ai.onrender.com",
       "category": "Multi-Provider AI Assistant",
       "badge": "AI TOOL",
       "description": "Camellia AI, the interactive assistant of M R S — multi-provider SSE streaming across Gemini, Anthropic, and OpenRouter with live search grounding, math, code, and voice.",
@@ -496,21 +498,22 @@
         "Multimodal 10MB",
         "Voice & Code Blocks"
       ],
-      "audience": "Engineers, researchers, writers, and problem-solvers using grounded multi-model AI workflows.",
+      "hasProfileDescription": false,
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.315Z",
-      "isCore": true,
+      "lastChecked": "2026-11-19T17:54:45.382Z",
+      "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 116,
-      "liveTitle": "Camellia AI — Assistant of M R S"
+      "latencyMs": 281,
+      "liveTitle": "Camellia AI — Assistant of M R S",
+      "audience": "Engineers, researchers, writers, and problem-solvers using grounded multi-model AI workflows."
     },
     {
-      "id": "site-profile-d8f3fd0c",
-      "name": "Cloud",
-      "url": "https://mrmahbubur.github.io/Admin/",
-      "domain": "mrmahbubur.github.io",
+      "id": "site-profile-a4d75caa",
+      "name": "Admin Cloud",
+      "url": "https://admin-maa0.onrender.com",
+      "domain": "admin-maa0.onrender.com",
       "category": "Official Admin Hub Portal",
       "badge": "ADMIN HUB",
       "description": "Official M R S hub & live websites showcase. Available for Remote IT Support, Virtual Assistance & Administrative Work, Web Management, and Technical Documentation.",
@@ -527,15 +530,16 @@
         "Service Catalog API",
         "Zero Personal Exposure"
       ],
-      "audience": "Clients, organizations, and partners exploring M R S credentials, live sites, and remote services.",
+      "hasProfileDescription": false,
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.325Z",
-      "isCore": true,
+      "lastChecked": "2026-11-19T17:54:45.364Z",
+      "isCore": false,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 130,
-      "liveTitle": "M R S — Remote IT Support, Virtual Assistance & Digital Operations"
+      "latencyMs": 260,
+      "liveTitle": "M R S — Remote IT Support, Virtual Assistance & Digital Operations",
+      "audience": "Clients, organizations, and partners exploring M R S credentials, live sites, and remote services."
     },
     {
       "id": "proj-6-ai-assistant",
@@ -544,7 +548,7 @@
       "domain": "mrxshahin.ai.studio",
       "category": "Official Portfolio & AI Concierge",
       "badge": "AI CONCIERGE",
-      "description": "Certified IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management. Interactive AI Concierge & Portfolio for M R S.",
+      "description": "IT Support, Remote System Administration, Microsoft Office document workflows, and Web Management. Interactive AI Concierge & Portfolio for M R S.",
       "overview": "Interactive portfolio flagship and AI Voice Concierge of M R S. Features a multi-language spoken guided audio tour explaining each M R S platform in the visitor’s chosen language, interactive Camellia AI Q&A focused on IT support and credentials, verified network links, and official RSS & policy endpoints.",
       "features": [
         "Interactive multi-language spoken Audio Concierge guided tour across all platforms",
@@ -561,12 +565,44 @@
       "audience": "Hiring managers, remote clients, and partners seeking an interactive narrated introduction to M R S.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-17T15:59:05.418Z",
+      "lastChecked": "2026-11-19T17:54:45.345Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 220,
-      "liveTitle": "M R S Portfolio · Certified IT Support Professional & Web Manager"
+      "latencyMs": 239,
+      "liveTitle": "M R S Portfolio · IT Support Professional & Web Manager"
+    },
+    {
+      "id": "site-profile-3bb884d2",
+      "name": "Private C N",
+      "url": "https://mrs-pcn.ai.studio/",
+      "domain": "mrs-pcn.ai.studio",
+      "category": "Private Communication Network",
+      "badge": "PRIVATE APP",
+      "description": "Everything is Private And Safe",
+      "overview": "Production-grade private communication network designed around client-side zero-exposure cryptography. Generates and stores ECDH P-256 keypairs and AES-256-GCM encryption keys strictly on the user’s device, supporting end-to-end encrypted text messaging, authenticated private file sharing, WebRTC audio/video calling, and Secret Code account recovery.",
+      "features": [
+        "Local ECDH P-256 key exchange and AES-256-GCM encrypted chat payloads",
+        "Encrypted peer-to-peer WebRTC voice and video calling inside the browser",
+        "Authenticated private file and document attachment transfers",
+        "Installable PWA with Unique Secret Code identity and device key protection"
+      ],
+      "techHighlights": [
+        "ECDH P-256",
+        "AES-256-GCM",
+        "WebRTC Audio/Video",
+        "Installable PWA"
+      ],
+      "audience": "Individuals and distributed teams needing confidential, device-key protected messaging and calls.",
+      "imageKey": "tech",
+      "hasProfileDescription": true,
+      "status": "online",
+      "lastChecked": "2026-11-19T17:54:45.209Z",
+      "isCore": true,
+      "latestPosts": [],
+      "httpCode": 200,
+      "latencyMs": 96,
+      "liveTitle": "M R S — Private Communication Network"
     }
   ],
   "servicesCatalog": [
@@ -1083,10 +1119,10 @@
     "url": "https://mrs-services.ai.studio/",
     "status": "online",
     "httpCode": 200,
-    "latencyMs": 211,
-    "lastChecked": "2026-11-17T15:59:05.407Z"
+    "latencyMs": 229,
+    "lastChecked": "2026-11-19T17:54:45.346Z"
   },
-  "lastUpdated": "2026-11-17T15:59:05.423Z",
+  "lastUpdated": "2026-11-19T17:54:45.382Z",
   "syncCycle": 1,
   "yearlySystem": {
     "currentYear": 2026,

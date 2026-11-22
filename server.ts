@@ -5,7 +5,7 @@ import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { MRS_SERVICES_CATALOG, SERVICES_PORTAL_URL } from './src/data/servicesCatalog';
-import { CURATED_SITE_DETAILS } from './src/data/siteDetailsData';
+import { CURATED_SITE_DETAILS, resolveCuratedSiteDetail } from './src/data/siteDetailsData';
 import type { CatalogServiceItem, ServicesPortalStatus } from './src/types';
 
 dotenv.config();
@@ -613,14 +613,17 @@ try {
           )
           .map((s: EcosystemWebsite) => {
             const k = normalizeVerifiedUrlKey(s.url);
-            const detail = CURATED_SITE_DETAILS[k];
+            const detail = resolveCuratedSiteDetail(k, s.name);
             return detail
               ? {
                   ...s,
-                  overview: s.overview || detail.overview,
+                  category: detail.category || s.category,
+                  badge: detail.badge || s.badge,
+                  overview: s.overview && s.features?.length ? s.overview : detail.overview,
                   features: s.features?.length ? s.features : detail.features,
                   techHighlights: s.techHighlights?.length ? s.techHighlights : detail.techHighlights,
                   audience: s.audience || detail.audience,
+                  imageKey: detail.imageKey || s.imageKey,
                 }
               : s;
           })
@@ -1303,7 +1306,8 @@ function applyGravatarDirectPayload(
     for (const proj of discoveredWebProjects) {
       includedKeys.add(proj.key);
       const existing = prevByKey.get(proj.key) || defaultByKey.get(proj.key);
-      const hint = CURATED_SITE_DETAILS[proj.key];
+      const exactName = proj.label || existing?.name || proj.key.split('/')[0];
+      const hint = resolveCuratedSiteDetail(proj.key, exactName);
       let domain = proj.key.split('/')[0];
       try {
         domain = new URL(proj.url).hostname;
@@ -1311,7 +1315,6 @@ function applyGravatarDirectPayload(
         // Fallback already set
       }
 
-      const exactName = proj.label || existing?.name || domain;
       const hasProfileDesc = Boolean(proj.description);
       const resolvedDescription =
         proj.description ||
@@ -1332,11 +1335,14 @@ function applyGravatarDirectPayload(
           name: exactName,
           url: proj.url,
           domain,
+          category: hint?.category || existing.category,
+          badge: hint?.badge || existing.badge,
           description: resolvedDescription,
           overview: resolvedOverview,
           features: resolvedFeatures,
           techHighlights: resolvedTechHighlights,
           audience: resolvedAudience,
+          imageKey: hint?.imageKey || existing.imageKey,
           hasProfileDescription: hasProfileDesc || existing.hasProfileDescription,
         });
       } else {
