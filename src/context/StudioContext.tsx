@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ADMIN_SITE_CONFIG, ESTABLISHED_YEAR, getCurrentYear, getCopyrightNotice } from '../data/contentData';
 import { MRS_SERVICES_CATALOG, SERVICES_PORTAL_URL } from '../data/servicesCatalog';
-import { CURATED_SITE_DETAILS } from '../data/siteDetailsData';
+import { CURATED_SITE_DETAILS, resolveCuratedSiteDetail } from '../data/siteDetailsData';
 import type {
   AdminProfileData,
   CatalogServiceItem,
@@ -399,6 +399,33 @@ const StudioContext = createContext<StudioContextType>({
   syncWebsites: async () => {},
 });
 
+function enrichHubStateWithCuratedDetails(state: WebsitesHubState): WebsitesHubState {
+  if (!Array.isArray(state?.websites)) return state;
+  return {
+    ...state,
+    websites: state.websites.map((site) => {
+      const normalizedKey = site.url
+        .trim()
+        .replace(/^https?:\/\/(www\.)?/i, '')
+        .replace(/\/$/, '')
+        .toLowerCase();
+      const curated = resolveCuratedSiteDetail(normalizedKey, site.name);
+      if (!curated) return site;
+      return {
+        ...site,
+        category: curated.category || site.category,
+        badge: curated.badge || site.badge,
+        imageKey: curated.imageKey || site.imageKey,
+        description: site.description || curated.description,
+        overview: site.overview && site.features?.length ? site.overview : curated.overview,
+        features: site.features?.length ? site.features : curated.features,
+        techHighlights: site.techHighlights?.length ? site.techHighlights : curated.techHighlights,
+        audience: site.audience || curated.audience,
+      };
+    }),
+  };
+}
+
 export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [hubState, setHubState] = useState<WebsitesHubState>(fallbackHubState);
   const [isSyncing, setIsSyncing] = useState(false);
@@ -406,16 +433,18 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [selectedInquiryTopic, setSelectedInquiryTopic] = useState('General Inquiry');
 
   const runClientSideSync = async () => {
-    setHubState((prev) => ({
-      ...prev,
-      siteName: prev.adminProfile.siteName || prev.siteName,
-      websites: prev.websites.map((site) => ({
-        ...site,
-        lastChecked: new Date().toISOString(),
-      })),
-      lastUpdated: new Date().toISOString(),
-      syncCycle: prev.syncCycle + 1,
-    }));
+    setHubState((prev) =>
+      enrichHubStateWithCuratedDetails({
+        ...prev,
+        siteName: prev.adminProfile.siteName || prev.siteName,
+        websites: prev.websites.map((site) => ({
+          ...site,
+          lastChecked: new Date().toISOString(),
+        })),
+        lastUpdated: new Date().toISOString(),
+        syncCycle: prev.syncCycle + 1,
+      })
+    );
   };
 
   const fetchWebsites = async (): Promise<boolean> => {
@@ -423,7 +452,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       const res = await fetch(`./api/websites?_t=${Date.now()}`, { cache: 'no-store' });
       const json = await parseJsonIfAvailable(res);
       if (json?.success && json?.data) {
-        setHubState(json.data);
+        setHubState(enrichHubStateWithCuratedDetails(json.data));
         return true;
       }
       return false;
@@ -438,7 +467,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       const res = await fetch('./api/websites/sync', { method: 'POST' });
       const json = await parseJsonIfAvailable(res);
       if (json?.success && json?.data) {
-        setHubState(json.data);
+        setHubState(enrichHubStateWithCuratedDetails(json.data));
         return;
       }
       await runClientSideSync();
@@ -480,7 +509,7 @@ export const StudioProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           try {
             const payload = JSON.parse(event.data);
             if (payload?.data && mounted) {
-              setHubState(payload.data);
+              setHubState(enrichHubStateWithCuratedDetails(payload.data));
               setSseConnected(true);
             }
           } catch {

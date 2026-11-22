@@ -166,20 +166,43 @@ export const CURATED_SITE_DETAILS: Record<string, SiteDetailSpec> = {
 };
 
 export function resolveCuratedSiteDetail(normalizedKey: string, label = ''): SiteDetailSpec | undefined {
-  const k = normalizedKey.toLowerCase();
+  const k = normalizedKey.trim().toLowerCase();
   if (CURATED_SITE_DETAILS[k]) return CURATED_SITE_DETAILS[k];
 
-  const hay = `${k} ${label.toLowerCase()}`;
-  if (hay.includes('mrs-services')) return CURATED_SITE_DETAILS['mrs-services.ai.studio'];
-  if (hay.includes('shahin-iptv') || hay.includes('iptv')) return CURATED_SITE_DETAILS['shahin-iptv.ai.studio'];
-  if (hay.includes('apps-store') || hay.includes('apps store')) return CURATED_SITE_DETAILS['mrmahbubur.github.io/apps-store'];
-  if (hay.includes('mrs-pcn') || hay.includes('private c n')) return CURATED_SITE_DETAILS['mrs-pcn.ai.studio'];
-  if (hay.includes('camellia-shop') || hay.includes('camellia shop')) return CURATED_SITE_DETAILS['mrmahbubur.github.io/camellia-shop'];
-  if (hay.includes('charity-foundation') || hay.includes('charity')) return CURATED_SITE_DETAILS['mrmahbubur.github.io/charity-foundation'];
-  if (hay.includes('camellia-ai') || hay.includes('camellia ai')) return CURATED_SITE_DETAILS['mrmahbubur.github.io/camellia-ai'];
-  if (hay.includes('admin-maa0') || hay.includes('mrmahbubur.github.io/admin') || hay.includes('admin cloud')) {
+  const cleanLabel = label.trim().toLowerCase();
+  const hay = `${k} ${cleanLabel}`;
+  if (hay.includes('mrs-services') || hay.includes('all services') || hay.includes('services portal')) {
+    return CURATED_SITE_DETAILS['mrs-services.ai.studio'];
+  }
+  if (hay.includes('shahin-iptv') || hay.includes('iptv')) {
+    return CURATED_SITE_DETAILS['shahin-iptv.ai.studio'];
+  }
+  if (hay.includes('apps-store') || hay.includes('apps store') || hay.includes('app store')) {
+    return CURATED_SITE_DETAILS['mrmahbubur.github.io/apps-store'];
+  }
+  if (hay.includes('mrs-pcn') || hay.includes('private-cn') || hay.includes('private c n') || hay.includes('private communication')) {
+    return CURATED_SITE_DETAILS['mrs-pcn.ai.studio'];
+  }
+  if (hay.includes('camellia-shop') || hay.includes('camellia shop')) {
+    return CURATED_SITE_DETAILS['mrmahbubur.github.io/camellia-shop'];
+  }
+  if (hay.includes('charity-foundation') || hay.includes('charity project') || hay.includes('charity')) {
+    return CURATED_SITE_DETAILS['mrmahbubur.github.io/charity-foundation'];
+  }
+  if (hay.includes('camellia-ai') || hay.includes('camellia ai')) {
+    return CURATED_SITE_DETAILS['mrmahbubur.github.io/camellia-ai'];
+  }
+  if (
+    hay.includes('admin-maa0') ||
+    hay.includes('mrmahbubur.github.io/admin') ||
+    hay.includes('admin cloud') ||
+    hay.includes('admin hub') ||
+    cleanLabel === 'cloud'
+  ) {
     return CURATED_SITE_DETAILS['mrmahbubur.github.io/admin'];
   }
-  if (hay.includes('mrxshahin.ai.studio') || hay.includes('ai portfolio')) return CURATED_SITE_DETAILS['mrxshahin.ai.studio'];
+  if (hay.includes('mrxshahin.ai.studio') || hay.includes('ai portfolio') || hay.includes('ai concierge')) {
+    return CURATED_SITE_DETAILS['mrxshahin.ai.studio'];
+  }
   return undefined;
 }

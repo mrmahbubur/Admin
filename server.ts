@@ -1988,17 +1988,28 @@ app.post('/api/websites', async (req, res) => {
 
     const imageKeys: EcosystemWebsite['imageKey'][] = ['flagship', 'admin', 'tech', 'charity'];
     const nextImageKey = imageKeys[websitesState.websites.length % imageKeys.length];
+    const draftName = String(name || domain).trim().slice(0, 80) || domain;
+    const curated = resolveCuratedSiteDetail(normalizeVerifiedUrlKey(cleanUrl), draftName);
 
     const draftSite: EcosystemWebsite = {
       id: `site-${Date.now().toString(36)}`,
-      name: String(name || domain).trim().slice(0, 80) || domain,
+      name: draftName,
       url: cleanUrl,
       domain,
-      category: String(category || 'Connected Property').trim().slice(0, 40) || 'Connected Property',
+      category:
+        String(category || '').trim().slice(0, 40) ||
+        curated?.category ||
+        'Connected Property',
+      badge: curated?.badge,
       description:
         String(description || '').trim().slice(0, 260) ||
+        curated?.description ||
         'Web property synchronized in real time by M R S.',
-      imageKey: nextImageKey,
+      overview: curated?.overview,
+      features: curated?.features,
+      techHighlights: curated?.techHighlights,
+      audience: curated?.audience,
+      imageKey: curated?.imageKey || nextImageKey,
       status: 'probing',
       lastChecked: new Date().toISOString(),
       isCore: false,
