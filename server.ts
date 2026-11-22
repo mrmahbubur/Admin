@@ -2069,7 +2069,7 @@ async function startServer() {
     const hostDisplay = APP_URL || `http://0.0.0.0:${PORT}`;
     console.log(`[Server] ${websitesState.siteName} backend running at ${hostDisplay} (port ${PORT})`);
 
-    // Start immediate live profile & website sync after port 3000 is bound
+    // Start immediate live profile & website sync after the HTTP port is bound
     syncAllWebsites().catch(() => {});
 
     // 24/7 continuous adaptive Gravatar profile sync loop (self-pacing, zero rate-limit exhaustion)
