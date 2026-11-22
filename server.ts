@@ -5,7 +5,12 @@ import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { MRS_SERVICES_CATALOG, SERVICES_PORTAL_URL } from './src/data/servicesCatalog';
-import { CURATED_SITE_DETAILS, resolveCuratedSiteDetail } from './src/data/siteDetailsData';
+import {
+  CURATED_SITE_DETAILS,
+  enrichWebsiteWithCuratedDetails,
+  enrichWebsitesStateWithCuratedDetails,
+  resolveCuratedSiteDetail,
+} from './src/data/siteDetailsData';
 import type { CatalogServiceItem, ServicesPortalStatus } from './src/types';
 
 dotenv.config();
@@ -611,31 +616,16 @@ try {
               !String(s.url || '').toLowerCase().includes('wordpress.') &&
               !String(s.domain || '').toLowerCase().includes('upload-apk.com')
           )
-          .map((s: EcosystemWebsite) => {
-            const k = normalizeVerifiedUrlKey(s.url);
-            const detail = resolveCuratedSiteDetail(k, s.name);
-            return detail
-              ? {
-                  ...s,
-                  category: detail.category || s.category,
-                  badge: detail.badge || s.badge,
-                  overview: s.overview && s.features?.length ? s.overview : detail.overview,
-                  features: s.features?.length ? s.features : detail.features,
-                  techHighlights: s.techHighlights?.length ? s.techHighlights : detail.techHighlights,
-                  audience: s.audience || detail.audience,
-                  imageKey: detail.imageKey || s.imageKey,
-                }
-              : s;
-          })
+          .map((s: EcosystemWebsite) => enrichWebsiteWithCuratedDetails(s))
       : DEFAULT_WEBSITES;
 
-    websitesState = {
+    websitesState = enrichWebsitesStateWithCuratedDetails({
       ...websitesState,
       siteName: restoredProfile.siteName || websitesState.siteName,
       adminProfile: restoredProfile,
       websites: restoredSites.length > 0 ? restoredSites : DEFAULT_WEBSITES,
       yearlySystem: computeYearlyData(restoredProfile.siteName || websitesState.siteName),
-    };
+    });
   }
 } catch {
   // Use defaults
@@ -1836,7 +1826,7 @@ async function syncAllWebsites(): Promise<WebsitesHubState> {
         probeServicesPortal(),
       ]);
       const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
-      websitesState = {
+      websitesState = enrichWebsitesStateWithCuratedDetails({
         ...websitesState,
         siteName: activeSiteName,
         sourceUrl: '',
@@ -1846,7 +1836,7 @@ async function syncAllWebsites(): Promise<WebsitesHubState> {
         lastUpdated: new Date().toISOString(),
         syncCycle: websitesState.syncCycle + 1,
         yearlySystem: computeYearlyData(activeSiteName),
-      };
+      });
       saveWebsitesCache();
       broadcastWebsitesUpdate('websites_update', websitesState);
     } finally {
@@ -1904,7 +1894,10 @@ app.get('/api/services', (req, res) => {
 app.get('/api/websites', async (_req, res) => {
   await syncGravatarProfileLive(false).catch(() => false);
   const activeSiteName = websitesState.adminProfile.siteName || websitesState.siteName;
-  websitesState.yearlySystem = computeYearlyData(activeSiteName);
+  websitesState = enrichWebsitesStateWithCuratedDetails({
+    ...websitesState,
+    yearlySystem: computeYearlyData(activeSiteName),
+  });
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.json({
     success: true,

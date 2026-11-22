@@ -206,3 +206,38 @@ export function resolveCuratedSiteDetail(normalizedKey: string, label = ''): Sit
   }
   return undefined;
 }
+
+export function normalizeSiteLookupKey(rawUrl: string): string {
+  return String(rawUrl || '')
+    .trim()
+    .replace(/^https?:\/\/(www\.)?/i, '')
+    .replace(/\/$/, '')
+    .toLowerCase();
+}
+
+export function enrichWebsiteWithCuratedDetails<T extends EcosystemWebsite>(site: T): T {
+  const curated = resolveCuratedSiteDetail(normalizeSiteLookupKey(site.url), site.name);
+  if (!curated) return site;
+
+  return {
+    ...site,
+    category: curated.category || site.category,
+    badge: curated.badge || site.badge,
+    imageKey: curated.imageKey || site.imageKey,
+    description: site.description || curated.description,
+    overview: site.overview && site.features?.length ? site.overview : curated.overview,
+    features: site.features?.length ? site.features : curated.features,
+    techHighlights: site.techHighlights?.length ? site.techHighlights : curated.techHighlights,
+    audience: site.audience || curated.audience,
+  };
+}
+
+export function enrichWebsitesStateWithCuratedDetails<T extends { websites: EcosystemWebsite[] }>(
+  state: T
+): T {
+  if (!state || !Array.isArray(state.websites)) return state;
+  return {
+    ...state,
+    websites: state.websites.map((site) => enrichWebsiteWithCuratedDetails(site)),
+  };
+}
