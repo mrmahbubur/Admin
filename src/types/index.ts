@@ -165,6 +165,20 @@ export interface SponsorAdLink {
   ctaLabel: string;
 }
 
+export interface DisplayBannerAd {
+  id: string;
+  advertiser: 'Alibaba WW' | 'AliExpress WW';
+  title: string;
+  tagline: string;
+  ctaLabel: string;
+  href: string;
+  imgSrc: string;
+  alt: string;
+  width: number;
+  height: number;
+  format: 'wide' | 'leaderboard' | 'rectangle' | 'square' | 'portrait';
+}
+
 export interface ServicesPortalStatus {
   url: string;
   status: 'online' | 'standby';

@@ -101,7 +101,7 @@ export const CURATED_SITE_DETAILS: Record<string, SiteDetailSpec> = {
     description:
       'M R S Charity Foundation — Poverty Ends With Us. Supporting rural child education, classroom meals, healthcare, clean water, and emergency relief through 100% free sponsor-backed giving.',
     overview:
-      'Humanitarian click-to-donate initiative by M R S (“Poverty Ends With Us”) enabling anyone worldwide to fund real community aid without spending money or entering payment details. Sponsor-supported ad clicks directly fund free child education, school classrooms, hot midday meals, healthcare camps, and emergency flood relief batches with live batch tracking.',
+      'Humanitarian click-to-donate initiative by M R S (“Poverty Ends With Us”) enabling anyone worldwide to fund real community aid without spending money or entering financial details. Sponsor-supported ad clicks directly fund free child education, school classrooms, hot midday meals, healthcare camps, and emergency flood relief batches with live batch tracking.',
     features: [
       '100% free click-to-donate humanitarian model requiring zero money from visitors',
       'Free rural child education, school supplies, classrooms, and daily hot midday meals',
@@ -163,6 +163,40 @@ export const CURATED_SITE_DETAILS: Record<string, SiteDetailSpec> = {
     audience: 'Hiring managers, remote clients, and partners seeking an interactive narrated introduction to M R S.',
     imageKey: 'flagship',
   },
+  'mrs-smart-finds.onrender.com': {
+    category: 'Curated Shopping & Buying Guides',
+    badge: 'CURATED SHOP',
+    description:
+      'Thoughtful shopping starts here — carefully curated products, multilingual buying guides, and transparent retailer recommendations.',
+    overview:
+      'Independent product-discovery and smart shopping guide platform curated by M R S. Helps shoppers make confident choices with hand-selected product collections, concise comparison notes, 5-language support (English, Bangla, Hindi, Spanish, and Arabic), clear affiliate disclosures, and direct verified retailer referral links.',
+    features: [
+      'Instant product search bar across hand-selected collections and featured finds',
+      'Multi-language interface supporting English, বাংলা, हिन्दी, Español, and العربية',
+      'Practical 3-step buying checks and structured sizing and fabric product guides',
+      'Transparent affiliate disclosure with direct verified retailer fulfillment links',
+    ],
+    techHighlights: ['Multi-Language UI', 'Product Search', 'Buying Guides', 'Transparent Disclosure'],
+    audience: 'Everyday shoppers comparing curated collections, apparel, and lifestyle finds with transparent retailer guidance.',
+    imageKey: 'admin',
+  },
+  'mrxshahin.onrender.com': {
+    category: 'Automated Tech & Releases Editorial',
+    badge: 'AUTO BLOG',
+    description:
+      'M R S Auto Blog — automated editorial publication monitoring ecosystem websites, releases, and technical dispatches with RSS syndication.',
+    overview:
+      'Automated editorial publication by M R S that continuously monitors connected web properties, GitHub commits, APK builds, and ecosystem launches. Generates grounded technical dispatches with bespoke 1280×720 article thumbnails and exposes a live RSS 2.0 XML feed (/rss.xml) for syndication.',
+    features: [
+      'Real-time monitoring of M R S websites, GitHub commits, and software releases',
+      'Automated editorial dispatches paired with custom 1280×720 article thumbnails',
+      'Standards-compliant RSS 2.0 and Media RSS feed (/rss.xml) for live syndication',
+      'Categorized ecosystem changelog covering Cloud, IPTV, Portfolio, and APK updates',
+    ],
+    techHighlights: ['Automated Monitoring', 'RSS 2.0 / MRSS Feed', 'Release Dispatches', 'Bespoke Thumbnails'],
+    audience: 'Developers, followers, and subscribers tracking live releases and updates across M R S properties.',
+    imageKey: 'tech',
+  },
 };
 
 export function normalizeSiteLookupKey(rawUrl: string): string {
@@ -179,7 +213,12 @@ export function resolveCuratedSiteDetail(normalizedKeyOrUrl: string, label = '')
 
   const cleanLabel = label.trim().toLowerCase();
   const hay = `${k} ${cleanLabel}`;
-  if (hay.includes('mrs-services') || hay.includes('all services') || hay.includes('services portal')) {
+  if (
+    hay.includes('mrs-services') ||
+    hay.includes('services-5jpe') ||
+    hay.includes('all services') ||
+    hay.includes('services portal')
+  ) {
     return CURATED_SITE_DETAILS['mrs-services.ai.studio'];
   }
   if (hay.includes('shahin-iptv') || hay.includes('iptv')) {
@@ -190,6 +229,7 @@ export function resolveCuratedSiteDetail(normalizedKeyOrUrl: string, label = '')
   }
   if (
     hay.includes('mrs-pcn') ||
+    hay.includes('p-c-n') ||
     hay.includes('private-cn') ||
     hay.includes('private c n') ||
     hay.includes('private communication')
@@ -217,6 +257,21 @@ export function resolveCuratedSiteDetail(normalizedKeyOrUrl: string, label = '')
   if (hay.includes('mrxshahin.ai.studio') || hay.includes('ai portfolio') || hay.includes('ai concierge')) {
     return CURATED_SITE_DETAILS['mrxshahin.ai.studio'];
   }
+  if (
+    hay.includes('mrs-smart-finds') ||
+    hay.includes('smart-finds') ||
+    hay.includes('smart finds')
+  ) {
+    return CURATED_SITE_DETAILS['mrs-smart-finds.onrender.com'];
+  }
+  if (
+    hay.includes('mrxshahin.onrender') ||
+    hay.includes('auto blog') ||
+    cleanLabel === 'blogs' ||
+    hay.includes('/blogs')
+  ) {
+    return CURATED_SITE_DETAILS['mrxshahin.onrender.com'];
+  }
   return undefined;
 }
 
@@ -229,11 +284,11 @@ export function enrichWebsiteWithCuratedDetails<T extends EcosystemWebsite>(site
     category: curated.category || site.category,
     badge: curated.badge || site.badge,
     imageKey: curated.imageKey || site.imageKey,
-    description: site.description || curated.description,
-    overview: site.overview && site.features?.length ? site.overview : curated.overview,
-    features: site.features?.length ? site.features : curated.features,
-    techHighlights: site.techHighlights?.length ? site.techHighlights : curated.techHighlights,
-    audience: site.audience || curated.audience,
+    description: curated.description || site.description,
+    overview: curated.overview || site.overview,
+    features: curated.features?.length ? curated.features : site.features,
+    techHighlights: curated.techHighlights?.length ? curated.techHighlights : site.techHighlights,
+    audience: curated.audience || site.audience,
   };
 }
 
@@ -265,6 +320,8 @@ const CORE_WEBSITE_SEEDS: CoreWebsiteSeed[] = [
   { id: 'site-profile-11431945', name: 'Camellia Ai', url: 'https://mrmahbubur.github.io/Camellia-Ai/', domain: 'mrmahbubur.github.io' },
   { id: 'site-profile-d8f3fd0c', name: 'Cloud', url: 'https://mrmahbubur.github.io/Admin/', domain: 'mrmahbubur.github.io' },
   { id: 'proj-6-ai-assistant', name: 'Ai Portfolio', url: 'https://mrxshahin.ai.studio/', domain: 'mrxshahin.ai.studio' },
+  { id: 'site-smart-finds', name: 'Smart Finds', url: 'https://mrs-smart-finds.onrender.com', domain: 'mrs-smart-finds.onrender.com' },
+  { id: 'site-auto-blog', name: 'Blogs', url: 'https://mrxshahin.onrender.com/', domain: 'mrxshahin.onrender.com' },
 ];
 
 export function createDefaultCoreWebsites(

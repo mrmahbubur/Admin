@@ -22,7 +22,7 @@ export const SponsorAdSlot: React.FC<SponsorAdSlotProps> = ({
       className="rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb]/80 dark:bg-[#0c121e] tech-surface overflow-hidden"
     >
       <div className="px-4 sm:px-5 py-2.5 border-b border-[#dbe3ee] dark:border-[#1c273b] flex items-center justify-between gap-2">
-        <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563eb] dark:text-[#38bdf8]">
+        <span className="text-[11.5px] font-mono font-semibold text-[#2563eb] dark:text-[#38bdf8]">
           {heading}
         </span>
         <a

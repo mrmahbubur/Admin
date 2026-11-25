@@ -736,8 +736,8 @@ function parseRssXml(xml: string): { buildDate?: string; items: RssFeedItem[] } 
     if (
       title &&
       link &&
-      !/blogspot\.|wordpress\./i.test(link) &&
-      !/blogspot|wordpress/i.test(title)
+      !/blogspot\.|blogger\.|wordpress\./i.test(link) &&
+      !/blogspot|blogger|wordpress/i.test(`${title} ${category}`)
     ) {
       items.push({ title, link, description, category, pubDate });
     }
@@ -797,7 +797,9 @@ function isPersonalLocationText(loc: string): boolean {
 function cleanProfileDescription(raw: any): string {
   if (typeof raw !== 'string') return '';
   const cleaned = cleanMarkdownInline(raw);
-  if (!cleaned || /blogspot\.|blogger\b|wordpress\.|\bwordpress\b/i.test(cleaned)) return '';
+  if (!cleaned || /blogspot\.|\bblogger\b|wordpress\.|\bwordpress\b|\bpayment\b/i.test(cleaned)) {
+    return '';
+  }
   return cleaned;
 }
 
@@ -1201,12 +1203,16 @@ function applyGravatarDirectPayload(
       }
 
       const hasProfileDesc = Boolean(proj.description);
+      const defaultFeedUrl = proj.key.includes('mrxshahin.onrender.com')
+        ? 'https://mrxshahin.onrender.com/rss.xml'
+        : undefined;
       const draftSite: EcosystemWebsite = existing
         ? {
             ...existing,
             name: exactName,
             url: proj.url,
             domain,
+            feedUrl: existing.feedUrl || defaultFeedUrl,
             description:
               proj.description ||
               existing.description ||
@@ -1218,6 +1224,7 @@ function applyGravatarDirectPayload(
             name: exactName,
             url: proj.url,
             domain,
+            feedUrl: defaultFeedUrl,
             category: 'Verified Web Property',
             badge: 'VERIFIED LINK',
             description: proj.description || '',
@@ -1515,7 +1522,7 @@ async function syncProfileAndFeeds(): Promise<void> {
         rssBuildDate = parsed.buildDate;
       }
       for (const item of parsed.items) {
-        if (/blogspot\.|wordpress\./i.test(item.link) || /blogspot|wordpress/i.test(item.title)) continue;
+        if (/blogspot\.|blogger\.|wordpress\./i.test(item.link) || /blogspot|blogger|wordpress/i.test(`${item.title} ${item.category || ''}`)) continue;
         const norm = normalizeSiteLookupKey(item.link);
         if (seenRssLinks.has(norm)) continue;
         seenRssLinks.add(norm);
@@ -1581,7 +1588,7 @@ async function syncProfileAndFeeds(): Promise<void> {
 }
 
 async function fetchRssPosts(feedUrl: string): Promise<WebsitePostPreview[]> {
-  if (/blogspot\.|wordpress\./i.test(feedUrl)) return [];
+  if (/blogspot\.|blogger\.|wordpress\./i.test(feedUrl)) return [];
   try {
     const res = await fetch(feedUrl, {
       signal: AbortSignal.timeout(5000),
@@ -1634,12 +1641,15 @@ async function probeSingleWebsite(site: EcosystemWebsite): Promise<EcosystemWebs
         if (meta.title && meta.title.length > 2) {
           liveTitle = meta.title;
         }
+        const curated = resolveCuratedSiteDetail(site.url, site.name);
+        const safeMetaDesc = cleanProfileDescription(meta.description);
         if (
           !site.hasProfileDescription &&
-          meta.description &&
-          meta.description.length > 35
+          !curated?.description &&
+          safeMetaDesc &&
+          safeMetaDesc.length > 35
         ) {
-          description = meta.description;
+          description = safeMetaDesc;
         }
       }
     }

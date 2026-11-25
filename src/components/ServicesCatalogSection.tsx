@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useStudio, type CatalogServiceItem } from '../context/StudioContext';
 import { SERVICES_PORTAL_URL } from '../data/servicesCatalog';
+import { DisplayAdBanner } from './DisplayAdBanner';
 import { SponsorAdSlot } from './SponsorAdSlot';
 
 type CategoryFilter = 'All' | CatalogServiceItem['category'];
@@ -339,6 +340,8 @@ export const ServicesCatalogSection: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <DisplayAdBanner adId="aliexpress-leaderboard-logo" variant="leaderboard" />
 
         <SponsorAdSlot
           ids={['sponsor-11683560', 'sponsor-11242067']}

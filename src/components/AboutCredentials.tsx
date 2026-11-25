@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Award, Briefcase, Check, GraduationCap, Languages } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
+import { DisplayAdBanner } from './DisplayAdBanner';
 import { SponsorAdSlot } from './SponsorAdSlot';
 
 function resolveExactServiceRequestUrl(topicTitle: string): string {
@@ -201,8 +202,8 @@ export const AboutCredentials: React.FC = () => {
             )}
           </div>
 
-          {/* Right Column: Single Unified Technical Dossier Card (Hairline Divided) */}
-          <div className="lg:col-span-5">
+          {/* Right Column: Unified Technical Dossier Card + Balanced 300x250 Display Partners */}
+          <div className="lg:col-span-5 space-y-6">
             <div className="rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-[#f4f7fb] dark:bg-[#0c121e] divide-y divide-[#dbe3ee] dark:divide-[#1c273b] tech-surface">
               {/* Courses & Certifications */}
               <div className="p-6 space-y-3.5">
@@ -273,6 +274,9 @@ export const AboutCredentials: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            <DisplayAdBanner adId="alibaba-rect-freeship" variant="sidebar-rectangle" />
+            <DisplayAdBanner adId="aliexpress-rect-seasonal" variant="sidebar-rectangle" />
           </div>
         </div>
 
