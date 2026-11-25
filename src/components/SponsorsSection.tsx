@@ -49,13 +49,33 @@ export const SponsorsSection: React.FC = () => {
         </div>
 
         {/* Visual Marketplace Showcase */}
-        <div className="space-y-5">
+        <div className="space-y-6">
           <DisplayAdBanner adId="alibaba-wide-20off" variant="feature-split" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <DisplayAdBanner adId="alibaba-square-freeship" variant="gallery-card" />
             <DisplayAdBanner adId="alibaba-portrait-weekly" variant="gallery-card" />
             <DisplayAdBanner adId="aliexpress-portrait-seasonal" variant="gallery-card" />
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between gap-2 text-[12px] font-mono text-[#64748b] dark:text-[#94a3b8]">
+              <span className="font-semibold text-[#0f172a] dark:text-white">Vertical Campaign Towers</span>
+              <span>Alibaba WW · AliExpress WW</span>
+            </div>
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 sm:pb-0 sm:grid sm:grid-cols-3 lg:grid-cols-5">
+              <DisplayAdBanner adId="alibaba-sky-weekly" variant="skyscraper-card" />
+              <DisplayAdBanner adId="alibaba-sky-homepage" variant="skyscraper-card" />
+              <DisplayAdBanner adId="aliexpress-sky-160" variant="skyscraper-card" />
+              <DisplayAdBanner adId="aliexpress-sky-120a" variant="skyscraper-card" />
+              <DisplayAdBanner adId="aliexpress-sky-120b" variant="skyscraper-card" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <DisplayAdBanner adId="aliexpress-badge-234" variant="badge-card" />
+            <DisplayAdBanner adId="aliexpress-badge-216" variant="badge-card" />
+            <DisplayAdBanner adId="aliexpress-badge-120" variant="badge-card" />
           </div>
         </div>
 

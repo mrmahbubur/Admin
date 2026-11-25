@@ -222,7 +222,7 @@ export const WebsiteSlideshow: React.FC = () => {
         </div>
 
         {/* Interactive Site Selector Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {websites.map((site, idx) => {
             const isActive = idx === safeIndex;
             return (

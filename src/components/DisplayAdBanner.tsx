@@ -4,7 +4,14 @@ import { getDisplayBannerAd } from '../data/displayAdsData';
 
 interface DisplayAdBannerProps {
   adId: string;
-  variant: 'feature-split' | 'leaderboard' | 'sidebar-rectangle' | 'gallery-card';
+  variant:
+    | 'feature-split'
+    | 'leaderboard'
+    | 'compact-banner'
+    | 'sidebar-rectangle'
+    | 'gallery-card'
+    | 'skyscraper-card'
+    | 'badge-card';
 }
 
 export const DisplayAdBanner: React.FC<DisplayAdBannerProps> = ({ adId, variant }) => {
@@ -84,7 +91,8 @@ export const DisplayAdBanner: React.FC<DisplayAdBannerProps> = ({ adId, variant 
     );
   }
 
-  if (variant === 'leaderboard') {
+  if (variant === 'leaderboard' || variant === 'compact-banner') {
+    const isCompact = variant === 'compact-banner';
     return (
       <aside
         aria-label={`${ad.advertiser} Sponsored Banner`}
@@ -110,7 +118,9 @@ export const DisplayAdBanner: React.FC<DisplayAdBannerProps> = ({ adId, variant 
               href={ad.href}
               target="_blank"
               rel="noopener noreferrer sponsored nofollow"
-              className="block w-full max-w-[468px] aspect-[468/90] rounded-xl overflow-hidden border border-[#dbe3ee] dark:border-[#1c273b] bg-white transition-transform hover:scale-[1.01]"
+              className={`block w-full ${
+                isCompact ? 'max-w-[320px] aspect-[320/100]' : 'max-w-[468px] aspect-[468/90]'
+              } rounded-xl overflow-hidden border border-[#dbe3ee] dark:border-[#1c273b] bg-white transition-transform hover:scale-[1.01]`}
               aria-label={`${ad.advertiser} — ${ad.title}`}
             >
               {imgFailed ? (
@@ -204,7 +214,100 @@ export const DisplayAdBanner: React.FC<DisplayAdBannerProps> = ({ adId, variant 
     );
   }
 
-  // variant === 'gallery-card' (uniform matted container for square & portrait banners)
+  if (variant === 'skyscraper-card') {
+    return (
+      <a
+        href={ad.href}
+        target="_blank"
+        rel="noopener noreferrer sponsored nofollow"
+        className="group min-w-[220px] sm:min-w-0 snap-start rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors overflow-hidden flex flex-col justify-between"
+      >
+        <div>
+          <div className="px-4 py-2.5 border-b border-[#dbe3ee] dark:border-[#1c273b] flex items-center justify-between gap-2 text-[11px] font-mono">
+            <span className="font-semibold text-[#2563eb] dark:text-[#38bdf8] truncate">{ad.advertiser}</span>
+            <span className="text-[#64748b] dark:text-[#94a3b8] shrink-0">Sponsored</span>
+          </div>
+
+          <div className="h-[380px] sm:h-[420px] p-3 bg-[#f8fafc] dark:bg-[#070b14] border-b border-[#dbe3ee] dark:border-[#1c273b] flex items-center justify-center overflow-hidden">
+            {imgFailed ? (
+              fallbackBox
+            ) : (
+              <img
+                src={ad.imgSrc}
+                alt={ad.alt}
+                width={ad.width}
+                height={ad.height}
+                loading="lazy"
+                referrerPolicy="no-referrer"
+                onError={() => setImgFailed(true)}
+                className="max-h-full max-w-full w-auto h-full rounded-md object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+              />
+            )}
+          </div>
+        </div>
+
+        <div className="p-4 flex items-center justify-between gap-2 text-[12px]">
+          <div className="min-w-0">
+            <div className="font-semibold text-[13px] text-[#0f172a] dark:text-white truncate group-hover:text-[#2563eb] dark:group-hover:text-[#38bdf8] transition-colors">
+              {ad.title}
+            </div>
+            <div className="font-mono text-[11px] text-[#64748b] dark:text-[#94a3b8] tabular-nums">
+              {ad.width}×{ad.height}
+            </div>
+          </div>
+          <ArrowUpRight className="w-4 h-4 text-[#2563eb] dark:text-[#38bdf8] shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+        </div>
+      </a>
+    );
+  }
+
+  if (variant === 'badge-card') {
+    return (
+      <a
+        href={ad.href}
+        target="_blank"
+        rel="noopener noreferrer sponsored nofollow"
+        className="group p-4 sm:p-5 rounded-2xl border border-[#dbe3ee] dark:border-[#1c273b] bg-white dark:bg-[#0c121e] tech-surface hover:border-[#2563eb] dark:hover:border-[#38bdf8] transition-colors flex flex-col justify-between gap-4"
+      >
+        <div className="flex items-center justify-between gap-2 text-[11px] font-mono">
+          <span className="font-semibold text-[#2563eb] dark:text-[#38bdf8]">{ad.advertiser}</span>
+          <span className="text-[#64748b] dark:text-[#94a3b8] tabular-nums">
+            {ad.width}×{ad.height} · Ad
+          </span>
+        </div>
+
+        <div className="h-[84px] rounded-xl bg-white border border-[#dbe3ee] dark:border-[#1c273b] px-4 flex items-center justify-center overflow-hidden">
+          {imgFailed ? (
+            <span className="font-display font-bold text-sm text-[#0f172a]">{ad.advertiser}</span>
+          ) : (
+            <img
+              src={ad.imgSrc}
+              alt={ad.alt}
+              width={ad.width}
+              height={ad.height}
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              onError={() => setImgFailed(true)}
+              style={{ maxWidth: `${ad.width}px`, maxHeight: `${ad.height}px` }}
+              className="w-auto h-auto object-contain transition-transform duration-200 group-hover:scale-[1.03]"
+            />
+          )}
+        </div>
+
+        <div className="flex items-center justify-between gap-2 text-[12.5px]">
+          <span className="font-semibold text-[#0f172a] dark:text-white truncate group-hover:text-[#2563eb] dark:group-hover:text-[#38bdf8] transition-colors">
+            {ad.title}
+          </span>
+          <span className="inline-flex items-center gap-1 font-semibold text-[#2563eb] dark:text-[#38bdf8] shrink-0">
+            <span>{ad.ctaLabel}</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </span>
+        </div>
+      </a>
+    );
+  }
+
+  // variant === 'gallery-card'
   return (
     <a
       href={ad.href}

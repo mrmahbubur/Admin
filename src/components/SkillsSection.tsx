@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, ExternalLink } from 'lucide-react';
 import { useStudio } from '../context/StudioContext';
+import { DisplayAdBanner } from './DisplayAdBanner';
 import { SponsorAdSlot } from './SponsorAdSlot';
 
 export const SkillsSection: React.FC = () => {
@@ -146,6 +147,8 @@ export const SkillsSection: React.FC = () => {
             </div>
           </div>
         )}
+
+        <DisplayAdBanner adId="aliexpress-compact-ofertas" variant="compact-banner" />
 
         <SponsorAdSlot
           ids={['sponsor-11683565', 'sponsor-11242745']}

@@ -176,7 +176,7 @@ export interface DisplayBannerAd {
   alt: string;
   width: number;
   height: number;
-  format: 'wide' | 'leaderboard' | 'rectangle' | 'square' | 'portrait';
+  format: 'wide' | 'leaderboard' | 'compact' | 'rectangle' | 'square' | 'portrait' | 'skyscraper' | 'badge';
 }
 
 export interface ServicesPortalStatus {
