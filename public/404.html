@@ -10,8 +10,10 @@
         var lower = path.toLowerCase();
         var section = '';
         if (lower.indexOf('websites') !== -1) section = '#websites-section';
+        else if (lower.indexOf('services') !== -1) section = '#services-section';
         else if (lower.indexOf('credentials') !== -1 || lower.indexOf('about') !== -1) section = '#about-section';
         else if (lower.indexOf('skills') !== -1) section = '#skills-section';
+        else if (lower.indexOf('sponsors') !== -1) section = '#sponsors-section';
         else if (lower.indexOf('contact') !== -1) section = '#contact-section';
 
         var segments = path.split('/').filter(Boolean);
