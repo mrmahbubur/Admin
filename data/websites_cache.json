@@ -6,10 +6,10 @@
     "connected": true,
     "sseActive": true,
     "healthStatus": "ok",
-    "lastSyncedAt": "2026-11-28T05:30:44.403Z",
+    "lastSyncedAt": "2026-11-28T05:34:37.763Z",
     "rssItems": [],
     "authenticated": true,
-    "rateLimitRemaining": 855
+    "rateLimitRemaining": 821
   },
   "adminProfile": {
     "siteName": "M R S",
@@ -296,7 +296,7 @@
       "description": "Automate. Deliver. Grow. Browse professional technical and digital solutions, request quotes, Client ID & PIN portal access, and SLA-backed delivery.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.477Z",
+      "lastChecked": "2026-11-28T05:34:37.834Z",
       "isCore": true,
       "latestPosts": [],
       "badge": "SERVICES",
@@ -315,7 +315,7 @@
       ],
       "audience": "Businesses, founders, and individuals commissioning remote IT, web, AI, or administrative solutions.",
       "httpCode": 200,
-      "latencyMs": 73,
+      "latencyMs": 70,
       "liveTitle": "M R S — Professional Automation & Digital Services"
     },
     {
@@ -342,11 +342,11 @@
       "audience": "Viewers streaming live sports, cinema, and international TV feeds directly from desktop, mobile, or Smart TV.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.487Z",
+      "lastChecked": "2026-11-28T05:34:37.953Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 79,
+      "latencyMs": 187,
       "liveTitle": "M R S IPTV"
     },
     {
@@ -374,11 +374,11 @@
       "imageKey": "admin",
       "hasProfileDescription": true,
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.687Z",
+      "lastChecked": "2026-11-28T05:34:38.083Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 280,
+      "latencyMs": 317,
       "liveTitle": "Camellia Shop | Workspace Tech, Hardware & Partner Catalog"
     },
     {
@@ -390,7 +390,7 @@
       "description": "M R S Charity Foundation — Poverty Ends With Us. Supporting rural child education, classroom meals, healthcare, clean water, and emergency relief through 100% free sponsor-backed giving.",
       "imageKey": "charity",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.712Z",
+      "lastChecked": "2026-11-28T05:34:38.060Z",
       "isCore": true,
       "latestPosts": [],
       "badge": "CHARITY",
@@ -409,7 +409,7 @@
       ],
       "audience": "Global visitors contributing free clicks to fund education, nutrition, healthcare, and crisis relief.",
       "httpCode": 200,
-      "latencyMs": 305,
+      "latencyMs": 293,
       "liveTitle": "M R S Charity Foundation – Poverty Ends With Us"
     },
     {
@@ -421,7 +421,7 @@
       "description": "Official MRS App Store owned by M R S — direct Android APK, Smart TV, and Windows (.exe, .msi, .msix, .zip) downloads with SHA-256 verification and real user reviews.",
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.701Z",
+      "lastChecked": "2026-11-28T05:34:37.999Z",
       "isCore": true,
       "latestPosts": [],
       "badge": "APPS STORE",
@@ -440,7 +440,7 @@
       ],
       "audience": "Android phone, Smart TV, Firestick, and Windows desktop users downloading verified official software builds.",
       "httpCode": 200,
-      "latencyMs": 293,
+      "latencyMs": 231,
       "liveTitle": "MRS App Store"
     },
     {
@@ -467,11 +467,11 @@
       "hasProfileDescription": false,
       "imageKey": "tech",
       "status": "standby",
-      "lastChecked": "2026-11-28T05:30:44.639Z",
+      "lastChecked": "2026-11-28T05:34:38.020Z",
       "isCore": false,
       "latestPosts": [],
       "httpCode": 503,
-      "latencyMs": 231,
+      "latencyMs": 254,
       "liveTitle": "Camellia AI — Assistant of M R S",
       "audience": "Engineers, researchers, writers, and problem-solvers using grounded multi-model AI workflows."
     },
@@ -484,7 +484,7 @@
       "description": "Official M R S hub & live websites showcase. Available for Remote IT Support, Virtual Assistance & Administrative Work, Web Management, and Technical Documentation.",
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.703Z",
+      "lastChecked": "2026-11-28T05:34:37.886Z",
       "isCore": true,
       "latestPosts": [],
       "badge": "ADMIN HUB",
@@ -503,7 +503,7 @@
       ],
       "audience": "Clients, organizations, and partners exploring M R S credentials, live sites, and remote services.",
       "httpCode": 200,
-      "latencyMs": 294,
+      "latencyMs": 117,
       "liveTitle": "M R S — Remote IT Support, Virtual Assistance & Digital Operations"
     },
     {
@@ -530,11 +530,11 @@
       "audience": "Hiring managers, remote clients, and partners seeking an interactive narrated introduction to M R S.",
       "imageKey": "flagship",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.470Z",
+      "lastChecked": "2026-11-28T05:34:37.841Z",
       "isCore": true,
       "latestPosts": [],
       "httpCode": 200,
-      "latencyMs": 61,
+      "latencyMs": 73,
       "liveTitle": "M R S Portfolio – IT Support & Web Concierge"
     },
     {
@@ -548,7 +548,7 @@
       "hasProfileDescription": true,
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.719Z",
+      "lastChecked": "2026-11-28T05:34:38.098Z",
       "isCore": true,
       "latestPosts": [],
       "overview": "Production-grade private communication network designed around client-side zero-exposure cryptography. Generates and stores ECDH P-256 keypairs and AES-256-GCM encryption keys strictly on the user’s device, supporting end-to-end encrypted text messaging, authenticated private file sharing, WebRTC audio/video calling, and Secret Code account recovery.",
@@ -566,7 +566,7 @@
       ],
       "audience": "Individuals and distributed teams needing confidential, device-key protected messaging and calls.",
       "httpCode": 200,
-      "latencyMs": 308,
+      "latencyMs": 329,
       "liveTitle": "M R S — Private Communication Network"
     },
     {
@@ -580,7 +580,7 @@
       "hasProfileDescription": true,
       "imageKey": "admin",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.703Z",
+      "lastChecked": "2026-11-28T05:34:38.076Z",
       "isCore": true,
       "latestPosts": [],
       "overview": "Independent product-discovery and smart shopping guide platform curated by M R S. Helps shoppers make confident choices with hand-selected product collections, concise comparison notes, 5-language support (English, Bangla, Hindi, Spanish, and Arabic), clear affiliate disclosures, and direct verified retailer referral links.",
@@ -598,7 +598,7 @@
       ],
       "audience": "Everyday shoppers comparing curated collections, apparel, and lifestyle finds with transparent retailer guidance.",
       "httpCode": 200,
-      "latencyMs": 289,
+      "latencyMs": 305,
       "liveTitle": "MRS Smart Finds | Thoughtful Finds, Clear Choices"
     },
     {
@@ -612,7 +612,7 @@
       "hasProfileDescription": false,
       "imageKey": "tech",
       "status": "online",
-      "lastChecked": "2026-11-28T05:30:44.714Z",
+      "lastChecked": "2026-11-28T05:34:38.069Z",
       "isCore": true,
       "latestPosts": [],
       "overview": "Automated editorial publication by M R S that continuously monitors connected web properties, GitHub commits, APK builds, and ecosystem launches. Generates grounded technical dispatches with bespoke 1280×720 article thumbnails and exposes a live RSS 2.0 XML feed (/rss.xml) for syndication.",
@@ -630,7 +630,7 @@
       ],
       "audience": "Developers, followers, and subscribers tracking live releases and updates across M R S properties.",
       "httpCode": 200,
-      "latencyMs": 303,
+      "latencyMs": 300,
       "liveTitle": "M R S Auto Blog – Automated Website Updates & Innovation Dispatches"
     }
   ],
@@ -1148,10 +1148,10 @@
     "url": "https://mrs-services.ai.studio/",
     "status": "online",
     "httpCode": 200,
-    "latencyMs": 76,
-    "lastChecked": "2026-11-28T05:30:44.488Z"
+    "latencyMs": 195,
+    "lastChecked": "2026-11-28T05:34:37.965Z"
   },
-  "lastUpdated": "2026-11-28T05:30:44.719Z",
+  "lastUpdated": "2026-11-28T05:34:38.098Z",
   "syncCycle": 2,
   "yearlySystem": {
     "currentYear": 2026,
